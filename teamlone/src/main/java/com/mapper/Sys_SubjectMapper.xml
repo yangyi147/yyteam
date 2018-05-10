@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.Sys_SubjectDao">
+<!-- List<Sys_Subject>getSubjectById(int id); -->
+<select id="getSubjectById" resultType="com.bean.Sys_Subject">
+select subject_id id,subject_name name,parent_id pId from sys_subject where subject_id=#{id}
+</select>
+<select id="getAllSubjict" resultType="com.bean.Sys_Subject">
+select subject_id id,subject_name name,PARENT_ID pId from sys_subject
+</select>  
+<select id="getAllSubjictByparent_Id" resultType="com.bean.Sys_Subject">
+SELECT subject_id id,subject_name name,parent_id pId from sys_subject
+</select>
+
+<insert id="insertSubject" parameterType="com.bean.Sys_Subject">
+INSERT INTO sys_subject VALUES(NULL,#{name},0,#{create_time},#{pId},#{sort})
+</insert>
+
+</mapper>

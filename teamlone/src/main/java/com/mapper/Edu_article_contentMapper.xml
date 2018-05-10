@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper  namespace="com.mapper.Edu_article_contentDao">
+<resultMap type="Edu_article_content" id="Edu_article_contentMap">
+		<result property="content" column="content" />
+		<association property="edu_article" column="article_id"
+			select="com.mapper.Edu_articleDao.getById" />
+</resultMap>
+<!-- <select id="getcomment" parameterType="int" resultType="Edu_comment"> -->
+<!-- select * from edu_comment where otherId = #{value } -->
+<!-- </select> -->
+<select id="getByid" parameterType="int" resultMap="Edu_article_contentMap">
+select * from edu_article_content where article_id = #{value }
+</select>
+<insert id="artcleAdd" parameterType="Edu_article">
+	<selectKey resultType="int" order="AFTER" keyProperty="article_id">
+			SELECT LAST_INSERT_ID()
+	</selectKey>
+     insert into 
+     edu_article(title,summary,article_type,author,source,image_url,click_num,create_time,publish_time,sort) 
+     values (#{title },#{summary },#{article_type },#{author },#{source },#{image_url },#{click_num },#{create_time },#{publish_time },#{sort })
+</insert>
+<insert id="addarticle" parameterType="Edu_article_content">
+insert into edu_article_content values(#{edu_article.article_id },#{content })
+</insert>
+
+<delete id="deleteArticleContent" parameterType="int">
+delete from edu_article_content where article_id = #{value }
+</delete>
+</mapper>

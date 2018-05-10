@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ImagesDao">
+<update id="upImg"  parameterType="Images">
+update  edu_website_images set image_url=#{image_url}, title=#{title}, type_id=#{t_id.type_id}, preview_url=#{preview_url}, color=#{color}, describes=#{describes} where image_id=#{image_id}
+</update>
+	<resultMap type="Images" id="ImgMap">
+		<result column="image_id" property="image_id" />
+		<result column="image_url" property="image_url" />
+		<result column="link_address" property="link_address" />
+		<result column="title" property="title" />
+		<result column="series_number" property="series_number" />
+		<result column="preview_url" property="preview_url" />
+		<result column="color" property="color" />
+		<result column="describes" property="describes" />
+		<association property="t_id" column="type_id"
+			select="com.mapper.Img_typeDao.getById"></association>
+	</resultMap>
+	<select id="getListAll" resultType="java.util.Map" resultMap="ImgMap">
+		select * from edu_website_images
+		<where>
+		<if test="title!=null and title!=''">
+		and title like '%${title}%'
+		</if>
+		<if test="desc!=null and desc!=''">
+		and describes like '%${desc}%'
+		</if>
+		<if test="id!=-1">
+		and type_id=#{id}
+		</if>
+		</where>
+	</select>
+	<select id="getById" parameterType="int" resultMap="ImgMap">
+		select * from edu_website_images where image_id=#{id}
+	</select>
+<insert  id="inImg" parameterType="Images"  >
+insert into  edu_website_images(image_url,title,type_id,preview_url,color,describes)values(#{image_url},#{title},#{t_id.type_id},#{preview_url},#{color},#{describes})
+</insert>
+<delete id="delImg" parameterType="int">
+delete from edu_website_images where image_id=#{id}
+
+</delete>
+</mapper>

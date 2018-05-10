@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<context:annotation-config />
+	<context:component-scan base-package="com" />
+	<context:property-placeholder location="classpath:project.properties"/>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql:///onlinelearn"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<bean id="sqlsession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="typeAliasesPackage" value="com.bean"></property>
+		<property name="mapperLocations" value="classpath:com/mapper/*.xml"></property>
+		<property name="plugins">  
+        <array>  
+            <bean class="com.github.pagehelper.PageHelper">  
+                <property name="properties">  
+                    <!--使用下面的方式配置参数，一行配置一个 -->  
+                    <value>  
+                       dialect=mysql
+                       reasonable=true
+                    </value>  
+                </property>  
+            </bean>  
+        </array>  
+    </property>  
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mapper"></property>
+	</bean>
+
+   	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	 <property name="cacheManager" ref="cacheManager"></property>
+	 <property name="realm" ref="jdbcRealm"></property>
+	</bean>
+   <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+   </bean>
+ 
+    <bean id="jdbcRealm" class="com.realm.UserRealm">
+    <property name="credentialsMatcher">
+     <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+      <property name="hashAlgorithmName" value="MD5"></property>
+      <property name="hashIterations" value="1024"></property>
+     </bean>
+    </property>
+   </bean>
+
+   
+     <!-- 可以自动调用配置在spring ioc容器中的shiro bean的生命周期方法    shiro生命周期处理器-->
+   <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+   
+    <!-- 启用ioc容器中shiro的注解 但必须配置了lifecycleBeanPostProcessor后才能使用 -->
+   <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>
+   <!-- id必须和web.xml文件中配置的filter标签中的name一致 -->
+   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <!-- 配置安全管理器 -->
+    <property name="securityManager" ref="securityManager"></property>
+    <property name="loginUrl" value="/tmp.jsp"></property>
+    <property name="successUrl" value="/index.jsp"></property>
+    <property name="unauthorizedUrl" value="/unauthorized.jsp"></property>
+    <!-- 配置那些页面需要受保护，以及访问这些页面需要的权限 -->
+    <!-- 
+    1.anon 可以被匿名访问
+    2.authc必须认证之后才可以被访问，即登陆
+     -->
+    <property name="filterChainDefinitions">
+      <value>
+       /tmp.jsp=anon
+       /admin/fuction/login=anon
+       /admin/login/login=anon
+       /comm/**=anon
+       /css/**=anon
+       /onlinelearn/**=anon
+       /v3.bootcss.com/**=anon
+       /images/**=anon
+       /inc/**=anon
+       /js/**=anon
+       /jsplug/**=anon
+       /skins/**=anon
+       /static/**=anon
+        /validation/login=anon
+       /shiro/logout=logout
+       /front/**=anon
+       /**=authc
+      </value>
+    </property>
+   </bean>
+</beans>

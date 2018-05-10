@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.controller" />
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/json/" mapping="/json/**" />
+	<mvc:resources location="/jsplug/" mapping="/jsplug/**" />
+	<mvc:resources location="/comm/" mapping="/comm/**" />
+	<bean id="htmlviewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		  <property name="contentType" value="text/html"/>  
+		<property name="prefix" value="/WEB-INF/layouts/" />
+		<property name="suffix" value=".jsp" />
+		<property name="viewNames" value="/web/header*"></property> 
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<bean name="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置默认编码 -->
+		<property name="defaultEncoding" value="utf-8"></property>
+		<!-- 上传图片最大大小5M -->
+		<property name="maxUploadSize" value="5242440"></property>
+	</bean>
+
+</beans>

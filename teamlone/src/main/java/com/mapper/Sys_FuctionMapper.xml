@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.mapper.Sys_FuctionDao"> 
+<!-- List<Sys_Fuction> getAllSys_Fuction(); -->
+<select id="getAllSys_Fuction" resultType="com.bean.Sys_Fuction">
+select FUNCTION_ID id,PARENT_ID pId,FUNCTION_NAME name from sys_function 
+</select>
+<!--void updateSys_Fuction(Sys_Fuction fuction);  -->
+<update id="updateSys_Fuction" parameterType="com.bean.Sys_Fuction">
+UPDATE sys_function SET FUNCTION_NAME=#{name} WHERE FUNCTION_ID=#{id}
+</update>
+<!-- List<Sys_Fuction> getAllFuctionByRoleId(int id); -->
+<select id="getAllFuctionByRoleId" resultType="com.bean.Sys_Fuction">
+SELECT FUNCTION_NAME name,FUNCTION_URl function_url from sys_function WHERE FUNCTION_ID in(SELECT FUNCTION_ID FROM sys_role_function WHERE ROLE_ID=#{id} ) and FUNCTION_TYPE =2
+</select>
+<!-- List<Sys_Fuction>getAllFuctionByUserID(int id); -->
+<select id="getAllFuctionByUserID" resultType="com.bean.Sys_Fuction">
+select FUNCTION_ID id,FUNCTION_NAME name,PARENT_ID pId,FUNCTION_URL from sys_function WHERE FUNCTION_ID in (select FUNCTION_ID from sys_role_function WHERE ROLE_ID =(select ROLE_ID FROM sys_user WHERE USER_ID=#{id}))
+</select>
+<!--  -->
+<insert id="insertSys_Function">
+INSERT INTO  sys_function VALUE (null,#{pId},#{name},#{function_url},#{function_type},#{create_time},#{sort})
+
+</insert>
+
+<select id="getSys_FunctionByPid" resultType="com.bean.Sys_Fuction">
+SELECT  FUNCTION_NAME `name` from sys_function WHERE PARENT_ID=#{id}
+</select>
+<delete id="daleteSys_Function">
+DELETE from sys_function WHERE FUNCTION_ID =#{id}
+</delete>
+</mapper>

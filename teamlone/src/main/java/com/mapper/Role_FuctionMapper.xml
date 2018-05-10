@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.Role_FuctionDao">
+<select id="getAllRole_FuctionByID" resultType="com.bean.Role_Fuction">
+select  ROLE_ID role_id,FUNCTION_ID function_id from sys_role_function WHERE  ROLE_ID=#{id}
+</select>
+<delete id="deleteRole_FunctionById">
+DELETE FROM sys_role_function WHERE  ROLE_ID=#{id}
+</delete>
+<select id="insertRole_function">
+INSERT INTO sys_role_function VALUES(#{id},#{fid})
+</select>
+</mapper>

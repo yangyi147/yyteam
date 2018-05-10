@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserDao">
+	<insert id="insave" parameterType="Users">
+		insert into edu_user
+		(mobile,email,password,user_name,show_name,sex,age,class_id,last_system_time,create_time)
+		values
+		(#{mobile},#{email},#{password},#{user_name},#{show_name},#{sex},#{age},#{id.id},#{last_system_time},#{create_time})
+	</insert>
+	<resultMap type="Users" id="UsersMap">
+		<result column="USER_ID" property="user_id" />
+		<result column="MOBILE" property="mobile" />
+		<result column="EMAIL" property="email" />
+		<result column="PASSWORD" property="password" />
+		<result column="USER_NAME" property="user_name" />
+		<result column="SHOW_NAME" property="show_name" />
+		<result column="SEX" property="sex" />
+		<result column="AGE" property="age" />
+		<result column="CREATE_TIME" property="create_time" />
+		<result column="IS_AVALIBLE" property="is_avalible" />
+		<result column="PIC_IMG" property="pic_img" />
+		<result column="BANNER_URL" property="banner_url" />
+		<result column="MSG_NUM" property="msg_num" />
+		<result column="SYS_MSG_NUM" property="sys_msg_num" />
+		<result column="LAST_SYSTEM_TIME" property="last_system_time" />
+		<association property="id" column="class_id"
+			select="com.mapper.Edu_ClassDao.getById"></association>
+	</resultMap>
+	<select id="getlistAll" resultMap="UsersMap" parameterType="java.util.Map">
+		select * from edu_user 
+
+      <where>
+		<if test="pname!=null">
+			and email like '%${pname}%' or mobile like '%${pname}%' or show_name
+			like '%${pname}%' or user_name like '%${pname}%'
+		</if>
+		<if test="class_id>=0">
+			and class_id like '%${class_id}%'
+		</if>
+		<if test="is_avalible>=0">
+			and is_avalible like '%${is_avalible}%'
+		</if>
+		<if test="start!=null">
+			and create_time &gt;#{start}
+		</if>
+		<if test="end!=null">
+			and create_time &lt;#{end}
+		</if>
+
+	</where>
+
+	</select>
+   <select id="getListAlls" resultMap="UsersMap">
+   select * from edu_user 
+   </select>
+	<update id="update" parameterType="Users">
+		update edu_user set
+		password=#{password}
+		where user_id=#{user_id}
+	</update>
+
+	<update id="updateid" parameterType="Users">
+		update edu_user
+		set
+		is_avalible=#{is_avalible}
+		where user_id=#{user_id}
+	</update>
+
+	<select id="getById" resultMap="UsersMap" parameterType="int">
+		select * from edu_user where user_id=#{value}
+	</select>
+     <select id="getCount" resultType="int"  parameterType="java.util.Map">
+   select count(*) from emp where 0=0 
+   <if test="start!=null and start!=''">
+    and statdate &gt;#{start}
+   </if>
+   <if test="end!=null and start!=''">
+    and statdate &lt;#{end}
+   </if>
+  </select>
+  
+  <select id="getPwd" resultType="Users" parameterType="String">
+		select * from edu_user WHERE email =#{value}
+	</select>
+	<insert id="addUser" parameterType="Users">
+		insert into edu_user (mobile,email,password) values (#{mobile},#{email},#{password}) 
+	</insert>
+</mapper>

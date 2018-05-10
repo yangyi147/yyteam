@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.Edu_CourseDao">
+<resultMap type="com.bean.Edu_Course" id="functionMap">
+<id column="course_id" property="course_id"/>
+<result column="course_name" property="course_name"/>
+<result column="is_avaliable" property="is_avaliable"/>
+<result column="add_time" property="add_time"/>
+<result column="SOURCE_PRICE" property="source_price"/>
+<result column="CURRENT_PRICE" property="current_price"/>
+<result column="title" property="title"/>
+<result column="context" property="context"/>
+<result column="lession_num" property="lession_num"/>
+<result column="logo" property="logo"/>
+<result column="update_time" property="update_time"/>
+<result column="page_buycount" property="page_buycount"/>
+<result column="PAGE_VIEWCOUNT" property="page_vlewcount"/>
+<result column="end_time" property="end_time"/>
+<result column="losetype" property="losetype"/>
+<result column="lose_time" property="lose_time"/>
+<result column="sequence" property="course_gross_income"/>
+<association property="subject" column="subject_id" select="com.mapper.Sys_SubjectDao.getSubjectById"></association>
+</resultMap>
+<insert id="insertCourse_Thacher">
+INSERT into edu_course_teacher VALUES(#{id},#{tid})
+</insert>
+<delete id="deleteTeacherByID">
+DELETE from edu_course_teacher WHERE  course_id=#{id}
+</delete>
+<!-- List<Edu_Course>getAllEnd_Course(Map map); 
+SELECT * from edu_course WHERE course_name LIKE '%学习%' AND is_avaliable =1 and update_time > '2015-04-27 00:00:00' and update_time< '2015-12-27 00:00:00'
+-->
+<select id="getAllEnd_Course" resultMap="functionMap" parameterType="com.bean.Edu_Course">
+SELECT * from edu_course 
+
+<where>
+ <if test="name!=null and name.trim().length>0">
+ and course_name like '%${name}%'
+ </if>
+ <if test="ztid!=null and ztid>0">
+ and IS_AVALIABLE =#{ztid}
+ </if>
+ <if test="zyid!=null and zyid>0">
+ and SUBJECT_ID =#{zyid}
+ </if>
+  <if test="stattim!=null">
+ and UPDATE_TIME > #{stattim}
+ </if>
+   <if test="endtime!=null">
+ and UPDATE_TIME &lt; #{endtime}
+ </if>
+</where>
+
+</select>
+<select id="getCourseByID" resultMap="functionMap">
+SELECT * FROM edu_course where course_id=#{id}
+</select>
+<select id="getCourseNameRepeat" resultType="com.bean.Edu_Course" parameterType="java.lang.String">
+SELECT * FROM edu_course WHERE course_name=#{courseName}
+</select>
+
+<insert id="insertCourse" parameterType="com.bean.Edu_Course" >
+<selectKey resultType="int" order="AFTER" keyProperty="course_id">
+ SELECT LAST_INSERT_ID()
+</selectKey>
+INSERT INTO edu_course VALUES(NULL,#{course_name},1,#{subject.id},0,#{add_time},#{source_price},#{current_price},#{title},#{context},#{lession_num},#{logo},#{update_time},0,0,#{end_time},#{losetype},#{lose_time},0,0)
+ <!--  trim prefix="(" suffix=")" suffixOverrides=",">  -->
+</insert>
+
+<update id="updateCourse" parameterType="com.bean.Edu_Course" >
+UPDATE edu_course 
+<set>
+<if test="is_avaliable!=null and is_avaliable>0">
+is_avaliable=#{is_avaliable},
+</if>
+<if test="source_price!= null and source_price>0">
+source_price=#{source_price},
+</if>
+<if test="current_price!=null and current_price>0">
+current_price=#{current_price},
+</if>
+<if test="losetype!=null and losetype>0">
+losetype=#{losetype},
+</if>
+<if test="losetype==1">
+lose_time=#{lose_time},
+</if>
+<if test="title!=null and title.trim().length>0">
+title=#{title},
+</if>
+<if test="logo!=null and logo.trim().length>0">
+logo=#{logo},
+</if>
+<if test="context!=null and context.trim().length>0">
+context=#{context},
+</if>
+<if test="losetype==2">
+end_time=#{end_times},
+</if>
+<if test="subject.id!=null and subject.id>0">
+subject_id=#{subject.id},
+</if>
+</set>
+WHERE course_id=#{course_id}
+</update>
+<select id="getTeaByID" resultMap="functionMap">
+SELECT * FROM edu_course WHERE course_id in( select course_id from edu_course_teacher where teacher_id=#{id})
+</select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper  namespace="com.mapper.Edu_articleDao">
+<select id="getlistAll" resultType="Edu_article">
+select * from edu_article
+</select>
+<select id="getById" parameterType="int" resultType="Edu_article">
+select * from edu_article where article_id = #{value }
+</select>
+
+<!-- <insert id="artcleAdd" parameterType="java.uitl.Map"  keyProperty="id"> -->
+<!-- <selectKey keyProperty='id' resultType='int' order='AFTER'  >   -->
+<!--         select LAST_INSERT_ID();   -->
+<!--     </selectKey>  -->
+<!-- </insert> -->
+
+
+<delete id="deleteArtcle" parameterType="int">
+delete from edu_article where article_id = #{value }
+</delete>
+</mapper>

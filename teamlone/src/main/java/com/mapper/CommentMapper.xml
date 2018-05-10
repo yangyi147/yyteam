@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CommentDao">
+	<resultMap type="Comment" id="CommentMap">
+		<result column="comment_id" property="comment_id" />
+		<result column="p_comment_id" property="p_comment_id" />
+		<result column="content" property="content" />
+		<result column="addtime" property="addtime" />
+		<result column="praise_count" property="praise_count" />
+		<result column="reply_count" property="reply_count" />
+		<result column="type" property="type" />
+		<association column="user_id" property="users_id"
+			select="com.mapper.UserDao.getById">
+		</association>
+		<association column="other_id" property="others_id"
+			select="com.mapper.Edu_CourseDao.getCourseByID">
+		</association>
+	</resultMap>
+	<select id="getListAll" parameterType="java.util.Map" resultMap="CommentMap">
+		select * from edu_comment
+		<where>
+			<if test="qemail!=null and qemail!=''">
+				and user_id in (select user_id from edu_user where email like
+				'%${qemail}%')
+			</if>
+			<if test="qname!=null  and qname!=''">
+				and content like '%${qname}%'
+			</if>
+			<if test="qtname>0">
+				and type =#{qtname}
+			</if>
+			<if test="startdate!=null and startdate!=''">
+				and addtime &gt;#{startdate}
+			</if>
+			<if test="stopdate!=null and stopdate!=''">
+				and addtime &lt;#{stopdate}
+			</if>
+		</where>
+	</select>
+	<!-- <select id="getById" parameterType="int" resultMap="CommentMap"> -->
+	<!-- select * from edu_comment where comment_id=#{id} -->
+	<!-- </select> -->
+	<delete id="delCo" parameterType="int">
+		delete from edu_comment where
+		comment_id=#{id}
+	</delete>
+	<insert id="inCom" parameterType="Comment">
+		insert into
+		edu_comment(p_comment_id,addtime,other_id,praise_count,reply_count,type)
+		values(#{p_comment_id},#{addtime},#{other_id},#{praise_count},#{reply_count},#{type})
+	</insert>
+</mapper>

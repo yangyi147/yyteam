@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.TeacherDao">
+<resultMap type="Teacher" id="TeacherMap">
+<result  column="id"  property="id"/>
+<result  column="name"  property="name"/>
+<result  column="th_name"  property="th_name"/>
+<result  column="th_pw"  property="th_pw"/>
+<result  column="education"  property="education"/>
+<result  column="career"  property="career"/>
+<result  column="is_star"  property="is_star"/>
+<result  column="pic_path"  property="pic_path"/>
+<result  column="status"  property="status"/>
+<result  column="create_time"  property="create_time"/>
+<result  column="update_time"  property="update_time"/>
+<result  column="sort"  property="sort"/>
+<association property="subject_id" column="subject_id"  select="com.mapper.Sys_SubjectDao.getSubjectById"></association>
+</resultMap>
+<select id="getListAll"  resultMap="TeacherMap" parameterType="java.util.Map">
+select * from edu_teacher  
+<where>
+<if test="qname!=null and qname!=''">
+and name like '%${qname}%'
+</if>
+<if test="qtype!=null and qtype!=''">
+and education like '%${qtype}%'
+</if>
+<if test="qtname!=null and qtname!=''">
+and th_name =#{qtname}
+</if>
+<if test="startdate!=null and startdate!=''">
+and create_time &gt;#{startdate}
+</if>
+<if test="stopdate!=null and stopdate!=''">
+and create_time &lt;#{stopdate}
+</if>
+</where>
+</select>
+
+<select id="getById"  parameterType="int" resultMap="TeacherMap">
+select * from edu_teacher where id=#{id}
+</select>
+<delete  id="delTe"  parameterType="int">
+delete from edu_teacher  where id=#{id}
+</delete>
+<insert  id="inTer" parameterType="Teacher"  >
+insert into edu_teacher(name,th_name,education,career,pic_path,sort,create_time,update_time,subject_id) values(#{name},#{th_name},#{education},#{career},#{pic_path},#{sort},#{create_time},#{update_time},#{subject_id.id})
+</insert>
+<update id="upTer"  parameterType="Teacher"  >
+update edu_teacher  set name=#{name},th_name=#{th_name},education=#{education},pic_path=#{pic_path},career=#{career},sort=#{sort},update_time=#{update_time}  where id=#{id}
+</update>
+</mapper>
