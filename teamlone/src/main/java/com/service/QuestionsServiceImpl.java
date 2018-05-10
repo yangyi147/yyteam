@@ -16,7 +16,7 @@ public class QuestionsServiceImpl implements QuestionsService{
 	private QuestionsMapper QuestionsMapper;
 
 	@Override
-	public void save(Questions questions) {
+	public void insert(Questions questions) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -28,7 +28,7 @@ public class QuestionsServiceImpl implements QuestionsService{
 	}
 
 	@Override
-	public List<Questions> listAll(Map map) {
+	public List<Questions> getlistAll(Map map) {
 		return QuestionsMapper.getlistAll(map);
 	}
 

@@ -13,5 +13,5 @@ public interface Questions_commentMapper {
 	public void delete(int id);
 	public Questions_comment getById(int id);
 	public List<Questions_comment> getById1(int id);
-	Questions_comment getById2(int id);
+	public Questions_comment getById2(int id);
 }

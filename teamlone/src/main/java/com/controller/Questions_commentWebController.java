@@ -30,7 +30,10 @@ public class Questions_commentWebController {
 	@RequestMapping("/Questionslist")
 	public ModelAndView listQuestionList(HttpServletRequest request){
 		Map map=initMap(request);
-		List<Questions_comment>  qc=questions_commentService.getlistAll(map);
+		List<Questions>  qc=questionsService.getlistAll(map);
+		for(Questions questions:qc){
+			System.out.println(questions.getId()+":"+"size:"+questions.getQc().size());
+		}
 		ModelAndView md=new ModelAndView();
 		List<Questions_tag> qt=questions_tagService.getlistAll();
 		md.addObject("questionsTagList", qt);

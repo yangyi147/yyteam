@@ -13,9 +13,9 @@
 		<association property="edu_user" column="cus_id"
 			select="com.mapper.UserDao.getById">
 		</association>
-		<association property="questions" column="question_id"
-			select="com.mapper.QuestionsMapper.getById">
-		</association>
+<!-- 		<association property="questions" column="question_id" -->
+<!-- 			select="com.mapper.QuestionsMapper.getById"> -->
+<!-- 		</association> -->
 		<association property="questions_tags" column="question_id"
 			select="com.mapper.Questions_tagMapper.getBylistId">
 		</association>

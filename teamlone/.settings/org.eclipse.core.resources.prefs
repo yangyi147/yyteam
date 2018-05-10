@@ -2,4 +2,6 @@ eclipse.preferences.version=1
 encoding//src/main/java/com/bean/EClass.java=UTF-8
 encoding//src/main/java/com/controller/EmailsendController.java=UTF-8
 encoding//src/main/java/com/controller/LoginController.java=UTF-8
+encoding//src/main/java/com/controller/QuestionsController.java=UTF-8
+encoding//src/main/java/com/service/QuestionsService.java=UTF-8
 encoding//src/test/java=UTF-8

@@ -7,7 +7,6 @@ public class Questions_comment {
 
 	private int id;
 	private Users edu_user;
-	private Questions questions;
 	private String content;
 	private int is_best;
 	private int reply_count;
@@ -48,12 +47,6 @@ public class Questions_comment {
 	public void setEdu_user(Users edu_user) {
 		this.edu_user = edu_user;
 	}
-	public Questions getQuestions() {
-		return questions;
-	}
-	public void setQuestions(Questions questions) {
-		this.questions = questions;
-	}
 	public String getContent() {
 		return content;
 	}
@@ -90,12 +83,5 @@ public class Questions_comment {
 	public void setComment_id(int comment_id) {
 		this.comment_id = comment_id;
 	}
-	@Override
-	public String toString() {
-		return "Questions_comment [id=" + id + ", edu_user=" + edu_user + ", questions=" + questions + ", content="
-				+ content + ", is_best=" + is_best + ", reply_count=" + reply_count + ", praise_count=" + praise_count
-				+ ", add_time=" + add_time + ", comment_id=" + comment_id + ", start=" + start + ", end=" + end
-				+ ", questions_tags=" + questions_tags + "]";
-	}
-	
+
 }
