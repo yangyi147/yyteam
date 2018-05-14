@@ -43,14 +43,6 @@
 								placeholder="标题/读者/来源" class="layui-input search_input"
 								type="text">
 						</div>
-						
-						<div class="layui-inline">
-							<select name="pscre" class="layui-select">
-								<option value="">请选择类型</option>
-								<option value="上架">上架</option>
-								<option value="下架">下架</option>
-							</select>
-						</div>
 						<td>创建时间： <input style="height: 36px" type="date" placeholder="开始创建时间" /> - <input style="height: 36px" type="date" placeholder="结束创建时间" /> </td>
 
 						
@@ -98,14 +90,40 @@
 									</c:if>
 									</th>
 									<th><fmt:formatDate value="${a.create_time}" pattern="yyyy/MM/dd HH:mm"/></th>
-									<th> <fmt:formatDate value="${a.publish_time}" pattern="yyyy/MM/dd HH:mm"/></th>
+									<th> 
+									<c:if test="${empty a.publish_time}">
+									未发布
+									</c:if>
+									<c:if test="${not empty a.publish_time}">
+									<fmt:formatDate value="${a.publish_time}" pattern="yyyy/MM/dd HH:mm"/>
+									</c:if>
+									</th>
 									<th>${a.click_num}</th>
-									<th><button class="layui-btn layui-btn-sm" type="button"
+							 	<th>
+							 	
+							 	
+							 	
+							 	<c:if test="${empty a.publish_time}">
+							 	
+							 	<a onclick="funupbl(${a.article_id})"
+										class="layui-btn layui-btn-danger"><i class="layui-icon">现在发布</i></a>
+									</c:if>
+									
+								<c:if test="${not empty a.publish_time}">
+								<a onclick="funnoupbl(${a.article_id})"
+										class="layui-btn layui-btn-danger"><i class="layui-icon">取消发布</i></a>
+									</c:if>
+							 	
+							 	<button class="layui-btn layui-btn-sm" type="button"
 										onclick="funct(${a.article_id})">
 						 					<i class="layui-icon">&#xe640;</i>
 										</button>
 										<a onclick="funcp(${a.article_id})"
-										class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe642;</i></a></th>
+										class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe642;</i></a>
+										
+										
+										
+										</th>
 								</tr>
 							</c:forEach>
 						</thead>
@@ -171,7 +189,13 @@
 		window.location.href = "/admin/artcleupdate/"+article_id;
 	}
 	
+	function funupbl(article_id){
+		window.location.href = "/admin/publish/"+article_id;
+	}
 	
+	function funnoupbl(article_id){
+		window.location.href = "/admin/nopublish/"+article_id;
+	}
 	
 	   layui.use(['jquery','layer','element','laypage'],function(){
 		      window.jQuery = window.$ = layui.jquery;

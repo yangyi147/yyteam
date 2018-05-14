@@ -29,6 +29,7 @@ public class Sys_LoginController {
 		Sys_User userByName = userService.getUserByName(user.getLogin_name());
 		session.setAttribute("userByName", userByName.getUser_id());
 		Subject subject=SecurityUtils.getSubject();
+		System.out.println("token.getUsername():"+token.getUsername()+",token.getPassword():"+token.getPassword());
 		if (!subject.isAuthenticated()) {
 			try {
 				subject.login(token);

@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,16 @@ public class Edu_commentServiceImpl implements Edu_commentService{
 	@Override
 	public List<Comment> getcomment(int otherId) {
 		return edu_comment.getcomment(otherId);
+	}
+
+	@Override
+	public void insertComment(Map map) {
+		edu_comment.insertComment(map);
+	}
+
+	@Override
+	public List<Comment> getcommentpcomm(Map map) {
+		return edu_comment.getcommentpcomm(map);
 	}
 
 }

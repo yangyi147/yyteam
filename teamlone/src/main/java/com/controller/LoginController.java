@@ -22,14 +22,14 @@ import com.util.Result;
 public class LoginController {
 	@Autowired
 	private UserServiceImpl userServiceImpl;
-	
+
 
 	private static final String getKopintHtml = "/web/course/videocode";
 	// 前台登录
 	@RequestMapping("/front/login")
 	@ResponseBody
 	public Result frontLogin(HttpServletRequest request,
-		HttpServletResponse response,HttpSession session) {
+			HttpServletResponse response,HttpSession session) {
 		String userName = request.getParameter("account");
 		String pwd = request.getParameter("password");
 		Result result = new Result();
@@ -41,41 +41,45 @@ public class LoginController {
 		pwd = MD5Utils.md5(pwd);
 		String ipForget = request.getParameter("ipForget");
 		Users edu_User = userServiceImpl.getPwd(userName);
-//		判断用户是否冻结状态   判断密码是否正确
-//	     if (edu_User.getIs_avalible()==1) {
-	    		if (edu_User.getPassword().equals(pwd)) {
-	    			result.setMessage("");
-	    			result.setSuccess(true);
-	    			session.setAttribute("login_success", edu_User);
-	    			return result;
-	    		}
-//		}
+		//		判断用户是否冻结状态   判断密码是否正确
+		if (edu_User.getPassword().equals(pwd)) {
+			if (edu_User.getIs_avalible()==0) {
+				return new Result(false, "此账号已被冻结", null);
+			}else {
+			result.setMessage("");
+			result.setSuccess(true);
+			session.setAttribute("login_success", edu_User);
+		
+			return new Result(true, null, null);
+			}
+		}
 		return result;
+	
 	}
 
-//	注册
+	//	注册
 	@RequestMapping("/front/uc/createuser")
 	@ResponseBody
 	public Result createUser(HttpServletRequest request) {
-		Users user = new Users();
+		Users user = new Users();		
 		String email = request.getParameter("user.email");
-		Users edu_User = userServiceImpl.getPwd(email);
-
-		if (edu_User.getEmail().equals(email)) {
-			return new Result(false, null, null);
-		} else {
+//		Users user=userServiceImpl.getPwd(email);
+//		if (user==null) {
 			user.setPic_img("/images/yangfan.jpg");
 			user.setUser_name("yangfan");
+			user.setIs_avalible(1);
 			user.setLast_system_time(new Date());
 			user.setEmail(email);
 			user.setPassword(MD5Utils.md5(request.getParameter("user.password")));
 			user.setMobile(request.getParameter("user.mobile"));
 			userServiceImpl.addUser(user);
-		}
-	
-		return new Result(true, null, null);
+			return new Result(true, null, null);
+//		}else {
+//			return new Result(false, null, null);
+//		}
+		
 	}
-//  验证是否登录
+	//  验证是否登录
 	@RequestMapping("/front/uc/getloginUser")
 	@ResponseBody
 	public Result getLogin(HttpSession session){
@@ -85,7 +89,7 @@ public class LoginController {
 		result.setEntity(user);
 		return result;
 	}
-//	学员退出登录
+	//	学员退出登录
 	@RequestMapping("/front/uc/exit")
 	@ResponseBody
 	public Result exit(HttpSession session){
