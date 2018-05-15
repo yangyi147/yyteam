@@ -37,10 +37,11 @@
 <body>
 	<section class="layui-larry-box">
 	<div class="larry-personal">
-		<header class="larry-personal-tit"> <span>修改文章</span> </header>
+		<header class="larry-personal-tit"> <span>添加文章</span> </header>
 		<!-- /header -->
 		<div class="larry-personal-body clearfix">
-			<form class="layui-form col-lg-5" action="/admin/articleadd" method="post"
+			<
+ class="layui-form col-lg-5" action="/admin/articleadd" method="post"
 	enctype="multipart/form-data">
 				<div class="layui-form-item">
 					<label class="layui-form-label">*标题:</label>
@@ -135,7 +136,7 @@
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<input type="submit" style="height: 35px; width: 120px;"
-		class="btn btn-danger" value="修改" />
+		class="btn btn-danger" value="添加" />
 	<button type="reset" style="height: 35px; width: 120px;"
 		class="btn btn-danger">重置</button>
 					</div>

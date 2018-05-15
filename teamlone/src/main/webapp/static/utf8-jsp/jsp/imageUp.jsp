@@ -2,7 +2,7 @@
              pageEncoding="utf-8"%>
         <%@ page import="com.baidu.ueditor.um.Uploader" %>
 
-            <%
+    <%
     request.setCharacterEncoding("utf-8");
 	response.setCharacterEncoding("utf-8");
     Uploader up = new Uploader(request);

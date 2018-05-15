@@ -13,10 +13,19 @@
 	<association column="other_id" property="others_id"
 			select="com.mapper.Edu_CourseDao.getCourseByID">
 		</association>
-<association  column="users_id"  property="users_id"  select="com.mapper.UserDao.getById" >
+<association  column="user_id"  property="users_id"  select="com.mapper.UserDao.getById" >
 </association>
 </resultMap>
 <select id="getcomment" parameterType="int" resultMap="CommentMap">
-select * from edu_comment where other_id = #{value }
+select * from edu_comment where other_id = #{value } and p_comment_id = 0 
+</select>
+
+<insert id="insertComment" parameterType="java.util.Map">
+insert into edu_comment(user_id,p_comment_id,content,addtime,other_id,type) values(#{user_id},#{p_comment_id },#{content },#{addtime },#{otherId },#{type })
+</insert>
+
+
+<select id="getcommentpcomm" parameterType="java.util.Map" resultMap="CommentMap">
+select * from edu_comment where other_id = #{otherId } and p_comment_id = #{pCommentId }
 </select>
 </mapper>

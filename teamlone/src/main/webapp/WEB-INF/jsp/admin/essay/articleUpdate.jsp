@@ -32,33 +32,13 @@
 <script type="text/javascript" charset="utf-8"
 	src="/static/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
 </head>
-<script type="text/javascript">
-//实例化编辑器
-//var ue = UE.getEditor('content');
-//function tijiao(){
-// $(document).ready(function() {
-// 	var cd = ${eacget.content };
-// 	alert(cd)
-// ue.ready(function() {
-	
-//     ue.setContent(cd);
-// });
-//	 UE.getEditor('editor').setContent("fshduf");
-//	 alert(cd);
-//	var ti = ${eacget.edu_article.title};
-//	$("#title").val(ti);
-// 	${ea.edu_article.title}
-// 	${ea.edu_article.summary}
-// 	${ea.edu_article.author}
-// 	${ea.edu_article.source});
-</script>
 <body>
 	<section class="layui-larry-box">
 	<div class="larry-personal">
-		<header class="larry-personal-tit"> <span>添加文章</span> </header>
+		<header class="larry-personal-tit"> <span>修改文章</span> </header>
 		<!-- /header -->
 		<div class="larry-personal-body clearfix">
-			<form class="layui-form col-lg-5" action="/admin/articleadd" method="post"
+			<form class="layui-form col-lg-5" action="/admin/updateadd" method="post"
 	enctype="multipart/form-data">
 	
 				<div class="layui-form-item">
@@ -66,6 +46,8 @@
 					<div class="layui-input-block">
 						<input type="text" name="title" id="title" class="form-control"
 							lay-verify="required" value="${eacget.edu_article.title}">
+							<input type="hidden" id="article_id" name="article_id"
+					value="${eacget.edu_article.article_id }">
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -103,32 +85,28 @@
 					<div class="layui-input-block">
 						<table>
 					<tr>
-						<td><image id="blah" src="${eacget.edu_article.image_url } " style="width:300px; height:150px;" /></td>
+						<td><image id="blah" src="${eacget.edu_article.image_url } " style="width:300px; height:150px;" />
+						<input type="hidden" name="hiddens"
+					value="${eacget.edu_article.image_url } ">
+						</td>
 						<td><input type="file" value="${eacget.edu_article.image_url }" name="file" id="imgInp"></td>
 					</tr>
 				</table>
 					</div>
 				</div>
-				
-				
-				
 				<div class="layui-form-item layui-form-text">
 					<label class="layui-form-label">内容:</label>
 					<div class="layui-input-block">
-					<div id="editor" name="content">
+					<div id="editor">
 					<script id="container" name="content" type="text/plain"  style="height: 360px; width: 600px;">
             ${eacget.content }
         </script>
-					
 					<script type="text/javascript" charset="utf-8">
 						<p>123</p>
 					</script>
 					</div>
 				</div> 
 				</div>
-				
-				
-				
 				<div class="layui-form-item">
 					<label class="layui-form-label">*排序值:</label>
 					<div class="layui-input-block">
@@ -140,7 +118,7 @@
 					<div class="layui-input-block">
 					
 						<input type="submit" style="height: 35px; width: 120px;"
-		class="btn btn-danger" value="添加" />
+		class="btn btn-danger" value="修改" />
 	<button type="reset" style="height: 35px; width: 120px;"
 		class="btn btn-danger">重置</button>
 					</div>
