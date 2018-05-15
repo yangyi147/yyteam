@@ -89,15 +89,14 @@
 																pattern="yyyy-MM-dd hh:mm:ss" /></span>
 											<section class="fl ml20 pt10">
 												<div class="taglist clearfix">
- 													<c:forEach items="${questions}" 
-														var="q">
-															<c:forEach items="${q.questions_tags}" var="t">
+ 													<c:forEach items="${qt.questions_tags}" 
+														var="t">
 														<a title="${t.questions_tag_name }" 
 															data-id="${t.questions_tag_id }" 
  															onclick="submitForm('${t.questions_tag_id }','questionsTagId')" 
  															class="list-tag" href="javascript:;">${t.questions_tag_name }</a> 
 													</c:forEach> 
-													</c:forEach> 
+													
 												</div>
 											</section>
 											<div class="clear"></div>
@@ -162,14 +161,12 @@
 	<script>
 	var questionsId="${qt.id}";
 	</script>
+	</script>
 	<script type="text/javascript"
 		src="${ctx}/static/inxweb/questions/questions_info.js">
 	</script>
 	<script type="text/javascript"
 		src="${ctx}/static/inxweb/questions/questions.js">
-	</script>
-	<script type="text/javascript">
-	
 	</script>
 </body>
 </html>

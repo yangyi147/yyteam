@@ -29,7 +29,8 @@ public class Questions_commentController {
 		Map map =initMap(request);
 		PageHelper.startPage(page, 5);
 		ModelAndView mv = new ModelAndView();
-		List<Questions_comment> comments = questions_commentService.getlistAll(map);
+		List<Questions_comment> comments = questions_commentService.listAll(map);
+		System.out.println(comments);
 		PageInfo<Questions_comment>  pageInfo = new PageInfo<Questions_comment>(comments);
 		mv.setViewName("/admin/question/commentsList");
 		mv.addObject("page", pageInfo);

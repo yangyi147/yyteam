@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.mapper.QcuidMapper">
+<select id="getById" resultType="Qcuid" parameterType="java.util.Map">
+   select * from q_c_uid 
+   <where>
+   <if test="qid!=null and qid!=''">
+   and qid=#{qid}
+   </if>
+    <if test="cid!=null and cid!=''">
+       and cid=#{cid}
+   </if>
+   </where>
+</select>
+  <insert id="inQcuid"  parameterType="Qcuid">
+  insert into q_c_uid(qid,cid,type,uid)values(#{qid},#{cid},#{type},#{uid})
+  </insert>
+</mapper>

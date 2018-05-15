@@ -62,6 +62,7 @@ var tagType = function() {
 
 /* 提交问答 */
 function addQuestions(){
+	alert("123456")
 	var type=$(".q-c-list .q-sort-wrap span.current").attr("name");
 	var title=$("input[name='questions.title']").val().trim();
 	if(title.trim()==""){
@@ -105,7 +106,7 @@ function addQuestions(){
 	
 	
 	$.ajax({
-		url:baselocation + "/questions/ajax/add",
+		url:baselocation + "/front/questions/ajax/add",
 		data:{
 			"questions.title":title,
 			"questions.content":questionsContent,
@@ -118,7 +119,7 @@ function addQuestions(){
 		async:true,
 		success:function(result){
 			if(result.success==true){
-				window.location.href="/questions/info/"+result.entity;
+				window.location.href="/front/questions/info/"+result.entity;
 			}else{
 				dialog('提示信息',result.message,1);
 			}

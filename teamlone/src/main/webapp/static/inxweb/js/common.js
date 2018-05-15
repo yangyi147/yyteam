@@ -242,9 +242,10 @@ function goPageAjax(pageNum){
  * obj 当前标签对象
  */
 function addPraise(targetId,type,obj){
+	
 	if(isLogin()){
 		$.ajax({
-			url:baselocation + "/praise/ajax/add",
+			url:baselocation + "/front/praise/ajax/add",
 			data:{
 				"praise.targetId":targetId,
 				"praise.type":type
@@ -284,7 +285,7 @@ function queryUnReadNum(){
 	$.ajax({
 		type : "POST",
 		dataType : "json",
-		url:baselocation+"/uc/ajax/queryUnReadLetter",
+		url:baselocation+"/front/uc/ajax/queryUnReadLetter",
 		cache : true,
 		async : true,
 		success : function(result) {
@@ -307,7 +308,7 @@ function queryUnReadNum(){
 		}
 	});
 }
-
+	
 /*
 * 快捷登录/注册
 * type 1 头部点击登陆 2 注册 选中
@@ -596,7 +597,7 @@ function getCourseLearnedUser(courseId){
 	$.ajax({
 		type : "POST",
 		dataType : "json",
-		url:baselocation+"/couserStudyHistory/ajax/courseLearnedUser/"+courseId,
+		url:baselocation+"/front/couserStudyHistory/ajax/courseLearnedUser/"+courseId,
 		cache : true,
 		async : false,
 		success : function(result) {

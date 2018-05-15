@@ -84,15 +84,24 @@
 															<!-- 没有回答时的内容 -->
 														</c:if>
 														<c:if test="${not empty question.qc }">
-															<c:if test="${qc.is_best==0 }">
-																		<c:out value="${qc.content }"></c:out>
+															<c:if test="${question.status==0 }">
+																<span class="fsize12 c-999 vam"> <tt class="c-ccc f-fM mr5">[最新回答]</tt> <c:forEach items="${question.qc }" var="questionsComment">
+																		<c:out value="${questionsComment.content }"></c:out>
+																	</c:forEach>
 																</span>
 																<!-- 有回答时显示最新一条的回答内容 -->
 															</c:if>
-															<c:if test="${qc.is_best==1 }">
+
+															<c:if test="${question.status==1 }">
+															
 																<span class="fsize12 c-999 vam"> <tt class="c-green f-fM mr5">[最佳回答]</tt> 
-																	<c:out value="${qc.content }"></c:out>
+																<c:forEach items="${question.qc }" var="questionsComment">
+																<c:if test="${questionsComment.is_best==1 }">
+																	<c:out value="${questionsComment.content }"></c:out>
+																	</c:if>
+																	</c:forEach>
 																</span>
+																
 																<!-- 采纳最佳显示最佳答案内容 -->
 															</c:if>
 														</c:if>
@@ -102,9 +111,9 @@
 												pattern="yyyy/MM/dd HH:mm" /></span>
 														<section class="fl ml20 pt10">
 															<div class="taglist clearfix">
-															<c:if test="${not empty question.qc }">
-																<c:forEach items="${qc.questions_tags }" var="questionsTag">
-																	<a title="${question.questionsTag.questions_tag_name }" data-id="${questionsTag.questions_tag_id }" onclick="submitForm('${questionsTag.questions_tag_id }','questionsTagId')" class="list-tag" href="javascript:;">${questionsTag.questions_tag_name }</a>
+															<c:if test="${not empty question.questions_tags }">
+																<c:forEach items="${question.questions_tags }" var="questionsTag">
+																	<a title="${questionsTag.questions_tag_name }" data-id="${questionsTag.questions_tag_id }" onclick="submitForm('${questionsTag.questions_tag_id }','questionsTagId')" class="list-tag" href="javascript:;">${questionsTag.questions_tag_name }</a>
 																</c:forEach>
 																</c:if>
 															</div>
@@ -117,7 +126,6 @@
 									</ul>
 								</section>
 							</c:if>
-							<!-- 公共分页 开始 -->
 							<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
 							<!-- 公共分页 结束 -->
 							<form action="${ctx}/front/Questionslist" id="searchForm" method="post">

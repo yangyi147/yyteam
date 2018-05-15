@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mapper.QuestionsMapper">
-	<resultMap type="com.bean.Questions" id="QuestionsMap">
+<mapper namespace="com.mapper.QuestionsWebMapper">
+	<resultMap type="com.bean.QuestionsWeb" id="QuestionsMap">
 		<result column="id" property="id" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
@@ -15,8 +15,14 @@
 		<association property="edu_user" column="cus_id"
 			select="com.mapper.UserDao.getById">
 		</association>
+		<association property="qc" column="id"
+			select="com.mapper.Questions_WebcommentMapper.getById1">
+			</association>
+				<association property="questions_tags" column="id"
+			select="com.mapper.Questions_WebtagMapper.getBylistId">
+		</association>
 	</resultMap>
-	<select id="listAll" resultMap="QuestionsMap" parameterType="java.util.Map">
+	<select id="getlistAll" resultMap="QuestionsMap" parameterType="java.util.Map">
 		select * from edu_questions
 		<where>
 			<if test="title!=null">
@@ -51,8 +57,19 @@
 	<select id="getById" resultMap="QuestionsMap" parameterType="int">
 		select * from edu_questions where id=#{id}
 	</select>
-	<delete id="delete" parameterType="int">
-		delete from edu_questions
-		where id=#{id}
-	</delete>
+	<select id="getByIdtwo" resultType="QuestionsWeb" parameterType="int">
+		select * from edu_questions where id=#{id}
+	</select>
+	<update id="addCount"  parameterType="java.util.Map">
+	update edu_questions  set praise_count=praise_count+1  where id=#{id}
+	</update>
+	<insert id="inQuestion" parameterType="QuestionsWeb"   >
+	insert into edu_questions(cus_id,title,type,add_time) values(#{edu_user.user_id},#{title},#{type},#{add_time})
+	</insert>
+	<select id="getselID" resultType="int">
+	select id from edu_questions  GROUP BY id DESC LIMIT 0,1
+	</select>
+	<update id="upRcount"  parameterType="java.util.Map">
+	update edu_questions  set reply_count=reply_count+1  where id=#{id}
+	</update>
 </mapper>

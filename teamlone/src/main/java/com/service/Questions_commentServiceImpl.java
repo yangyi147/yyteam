@@ -26,8 +26,8 @@ public class Questions_commentServiceImpl implements Questions_commentService{
 	}
 
 	@Override
-	public List<Questions_comment> getlistAll(Map map) {
-		return Questions_commentMapper.getlistAll(map);
+	public List<Questions_comment> listAll(Map map) {
+		return Questions_commentMapper.listAll(map);
 	}
 
 	@Override
@@ -43,11 +43,5 @@ public class Questions_commentServiceImpl implements Questions_commentService{
 	@Override
 	public List<Questions_comment> getById1(int id) {
 		return Questions_commentMapper.getById1(id);
-	}
-
-	@Override
-	public Questions_comment getById2(int id) {
-		Questions_commentMapper.getById2(id);
-		return Questions_commentMapper.getById2(id);
 	}
 }

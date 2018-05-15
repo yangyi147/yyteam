@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.Questions_WebtagMapper">
+    <select id="getlistAll" resultType="Questions_Webtag">
+    select * from edu_questions_tag where status=0
+    </select>
+    <select id="getBylistId" resultType="Questions_Webtag" parameterType="int">
+    select * from edu_questions_tag where questions_tag_id in (select questions_tag_id from edu_questions_tag_relation where questions_id=#{id})
+    </select>
+    <select id="getById" parameterType="int" resultType="Questions_Webtag">
+     select * from edu_questions_tag where questions_tag_id=#{id}
+    </select>
+    <insert id="inTag"  parameterType="java.util.Map">
+    insert into edu_questions_tag_relation(questions_id,questions_tag_id) values(#{qid},#{tid})
+    </insert>
+</mapper>

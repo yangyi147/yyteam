@@ -28,6 +28,7 @@ function queryCommentReply(pCommentId) {
 }
 
 function addCommentReply(commentId) {
+	
 	// 点击时清空错误提示
 	$(".commentReplyMsg" + commentId).val("").hide();
 
@@ -72,6 +73,7 @@ function addCommentReply(commentId) {
 }
 // 添加评论
 function addComment() {
+	alert("123");
 	// 点击时清空错误提示
 	$(".commentContentmeg").val("").hide();
 

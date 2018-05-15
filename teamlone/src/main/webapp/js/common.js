@@ -245,7 +245,7 @@ function addPraise(targetId,type,obj){
 	alert(isLogin());
 	if(isLogin()){
 		$.ajax({
-			url:baselocation + "/praise/ajax/add",
+			url:baselocation + "/front/praise/ajax/add",
 			data:{
 				"praise.targetId":targetId,
 				"praise.type":type

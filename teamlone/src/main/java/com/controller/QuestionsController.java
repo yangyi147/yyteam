@@ -32,7 +32,7 @@ public class QuestionsController {
 		ModelAndView mv = new ModelAndView();
 		Map map = new HashMap();
 		map = initMap(request, map);
-		List<Questions> questions = questionsService.getlistAll(map);
+		List<Questions> questions = questionsService.listAll(map);
 		PageInfo<Questions>  pageInfo = new PageInfo<Questions>(questions);
 		mv.setViewName("/admin/question/questionsList");
 		mv.addObject("page", pageInfo);

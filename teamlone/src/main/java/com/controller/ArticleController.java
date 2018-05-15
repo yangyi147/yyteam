@@ -2,7 +2,9 @@ package com.controller;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,9 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bean.Comment;
 import com.bean.Edu_article;
 import com.bean.Edu_article_content;
+import com.bean.Users;
 import com.service.Edu_articleService;
 import com.service.Edu_article_contentService;
 import com.service.Edu_commentService;
+import com.util.Result;
 
 @Controller
 @RequestMapping("/front")
@@ -68,12 +72,36 @@ public class ArticleController {
 	
 	
 	@RequestMapping("/web/comment/ajax/addcomment")
-	public String addcomment(int pCommentId,String content,int type,int otherId){
-		return "";
+	public Result addcomment(HttpServletRequest request){
+	Result result= new Result();
+//		if (type==1) {
+//			Users user=(Users)session.getAttribute("login_success");
+//			int user_id = user.getUser_id();
+//			Date addtime = new Date();
+//			Map map = new HashMap<>();
+//			map.put("content", content);
+//			map.put("addtime", addtime);
+//			map.put("type", type);
+//			map.put("otherId", otherId);
+//			map.put("p_comment_id", pCommentId);
+//			map.put("user_id", user_id);
+//			ecs.insertComment(map);
+//			return "redirect:/articleinfo/"+otherId;
+//		}
+	 String content=request.getParameter("content");
+		System.out.println("========================"+content);
+		result.setSuccess(true);
+		return result;
 	}
 	
 	@RequestMapping("/web/comment/ajax/commentreplypage")
 	public String commentreplypage(int otherId,int pCommentId){
 		return "";
+	}
+	
+	@RequestMapping("/uc/ajax/queryUnReadLetter")
+	public Result queryUnReadLetter(){
+		Result result =new Result();
+		return result;
 	}
 }

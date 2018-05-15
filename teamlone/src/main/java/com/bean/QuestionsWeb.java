@@ -1,21 +1,30 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.List;
 
-public class Questions {
+public class QuestionsWeb {
 
-	private int id;//主键
+	private int id;
 	private Users edu_user;
-	private String title;//问答标题
-	private String content;//问答内容
-	private int type;//分类 1课程问答 2 学习分享
-	private int status;//状态 0可回复1不可回复（采纳最佳答案后改为1 ）
-    private int reply_count;//问答回复数量
-    private int browse_count;//问答浏览次数
-    private int praise_count;//问答点赞数量
-    private Date add_time;//添加时间
+	private String title;
+	private String content;
+	private int type;
+	private int status;
+    private int reply_count;
+    private int browse_count;
+    private int praise_count;
+    private Date add_time;
     private String start;
     private String end;
+    private List<Questions_Webcomment> qc;
+    private List<Questions_Webtag> questions_tags;
+	public List<Questions_Webcomment> getQc() {
+		return qc;
+	}
+	public void setQc(List<Questions_Webcomment> qc) {
+		this.qc = qc;
+	}
 	public String getStart() {
 		return start;
 	}
@@ -34,7 +43,7 @@ public class Questions {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public Users getEdu_user() {
 		return edu_user;
 	}
@@ -89,5 +98,18 @@ public class Questions {
 	public void setAdd_time(Date add_time) {
 		this.add_time = add_time;
 	}
-    
+	public List<Questions_Webtag> getQuestions_tags() {
+		return questions_tags;
+	}
+	public void setQuestions_tags(List<Questions_Webtag> questions_tags) {
+		this.questions_tags = questions_tags;
+	}
+	@Override
+	public String toString() {
+		return "Questions [id=" + id + ", edu_user=" + edu_user + ", title=" + title + ", content=" + content
+				+ ", type=" + type + ", status=" + status + ", reply_count=" + reply_count + ", browse_count="
+				+ browse_count + ", praise_count=" + praise_count + ", add_time=" + add_time + ", start=" + start
+				+ ", end=" + end + ", qc=" + qc + "]";
+	}
+	
 }

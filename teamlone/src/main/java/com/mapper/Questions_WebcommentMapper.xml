@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.Questions_WebcommentMapper">
+	<resultMap type="Questions_Webcomment" id="Questions_commentMap">
+		<result column="id" property="id" />
+			<result column="question_id" property="question_id" />
+		<result column="content" property="content" />
+		<result column="is_best" property="is_best" />
+		<result column="reply_count" property="reply_count" />
+		<result column="praise_count" property="praise_count" />
+		<result column="add_time" property="add_time" />
+		<result column="comment_id" property="comment_id" />
+		<association property="edu_user" column="cus_id"
+			select="com.mapper.UserDao.getById">
+		</association>
+</resultMap>
+	<select id="getlistAll" resultMap="Questions_commentMap"
+		parameterType="java.util.Map">
+		select * from edu_questions_comment
+		<where>
+			<if test="is_best!=null and is_best!=''">
+				and is_best=#{is_best}
+			</if>
+			<if test="name!=null">
+				and question_id in (select id from edu_questions where title like
+				'%${name}%')
+			</if>
+			<if test="start!=null">
+				and question_id in(select id from edu_questions where add_time &gt;
+				#{start})
+			</if>
+			<if test="end !=null">
+				and question_id in(select id from edu_questions where add_time &lt;
+				#{end})
+			</if>
+			<if test="orderFalg =='addTime'">
+				and question_id in(select id from edu_questions group by ADD_TIME DESC
+				)
+			</if>
+			<if test="orderFalg=='replycount'">
+				and question_id in(select id from edu_questions group by reply_count
+				DESC )
+			</if>
+		</where>
+	</select>
+	<select id="getById" resultType="Questions_Webcomment"
+		parameterType="int">
+		select * from edu_questions_comment where id = #{id}
+	</select>
+	<select id="getById1" resultMap="Questions_commentMap"
+		parameterType="int">
+		select * from edu_questions_comment where question_id = #{id}
+	</select>
+	<select id="getById2" resultMap="Questions_commentMap"
+		parameterType="int">
+		select * from edu_questions_comment where question_id = #{id}
+	</select>
+		<select id="getCommentId" resultMap="Questions_commentMap" parameterType="int">
+	     select * from edu_questions_comment where comment_id = #{id}
+	</select>
+	<insert id="insQc"  parameterType="Questions_Webcomment">
+	insert into edu_questions_comment(cus_id,question_id,content,add_time,is_best,comment_id)values(#{edu_user.user_id},#{question_id},#{content},#{add_time},0,#{comment_id})
+	</insert>
+	<select id="selQid" parameterType="int" resultType="int">
+	select question_id from edu_questions_comment where id=#{id}
+	</select>
+	<update id="addCount"  parameterType="java.util.Map">
+	update edu_questions_comment  set praise_count=praise_count+1  where id=#{id}
+	</update>
+	<update id="upRcount"  parameterType="java.util.Map">
+	update edu_questions_comment  set reply_count=reply_count+1  where id=#{id}
+	</update>
+</mapper>

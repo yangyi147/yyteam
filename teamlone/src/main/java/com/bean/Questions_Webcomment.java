@@ -2,49 +2,27 @@ package com.bean;
 
 import java.util.Date;
 
-public class Questions_comment {
-
-	private int id;//主键id
+public class Questions_Webcomment {
+	private int id;
 	private Users edu_user;
-	private Questions questions;
-	private String content;//评论内容
-	private int is_best;//是否最佳答案 0否1是
-	private int reply_count;//回复数量
-	private int praise_count;//点赞数
-	private Date add_time;//回复时间
-	private int comment_id;//父级评论id
-	private String start;
-    private String end;
-	public String getStart() {
-		return start;
-	}
-	public void setStart(String start) {
-		this.start = start;
-	}
-	public String getEnd() {
-		return end;
-	}
-	public void setEnd(String end) {
-		this.end = end;
-	}
+	private String content;
+	private int is_best;
+	private int reply_count;
+	private int praise_count;
+	private Date add_time;
+	private int comment_id;
+	private int question_id;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public Users getEdu_user() {
 		return edu_user;
 	}
 	public void setEdu_user(Users edu_user) {
 		this.edu_user = edu_user;
-	}
-	public Questions getQuestions() {
-		return questions;
-	}
-	public void setQuestions(Questions questions) {
-		this.questions = questions;
 	}
 	public String getContent() {
 		return content;
@@ -82,5 +60,17 @@ public class Questions_comment {
 	public void setComment_id(int comment_id) {
 		this.comment_id = comment_id;
 	}
-	
+	public int getQuestion_id() {
+		return question_id;
+	}
+	public void setQuestion_id(int question_id) {
+		this.question_id = question_id;
+	}
+	@Override
+	public String toString() {
+		return "Questions_Webcomment [id=" + id + ", edu_user=" + edu_user + ", content=" + content + ", is_best="
+				+ is_best + ", reply_count=" + reply_count + ", praise_count=" + praise_count + ", add_time=" + add_time
+				+ ", comment_id=" + comment_id + ", question_id=" + question_id + "]";
+	}
+
 }

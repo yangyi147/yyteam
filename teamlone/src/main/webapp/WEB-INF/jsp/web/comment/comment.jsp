@@ -76,7 +76,7 @@
 							<div class="n-reply">
 								<section class="n-reply-wrap">
 									<fieldset>
-										<textarea name="" class="commentReplyMsgContent${ac.comment_id}"></textarea>
+										<textarea name="questionsComment.content" class="commentReplyMsgContent${ac.comment_id}"></textarea>
 									</fieldset>
 									<p class="of mt5 tar pl10 pr10">
 										<span class="fl"><tt class="c-red commentReplyMsg${ac.comment_id}"></tt></span>
@@ -112,8 +112,6 @@
 			title = "精彩评论"
 			$(".replyhtml").hide();
 		}
-		
 	}
-	
 	$(".commentTitle").html(title);
 </script>

@@ -37,6 +37,7 @@ function addComment(obj){
 			dataType:"json",
 			async:true,
 			success:function(result){
+				alert(result.success)
 				if(result.success==true){
 					$("textarea[name='questionsComment.content']").val("");
 					ajaxPage("/front/questionscomment/ajax/list","&questionsComment.questionId="+questionsId,1,commentCallBack);//ajax获得评论
@@ -118,8 +119,8 @@ function acceptComment(commentId){
 }
 
 /**
-*根据问答回复id  获取子评论 
-*/
+ *根据问答回复id  获取子评论 
+ */
 function getCommentById(obj,commentId){
 	$.ajax({
 		url:baselocation + "/front/questionscomment/ajax/getCommentById/"+commentId,
@@ -128,12 +129,11 @@ function getCommentById(obj,commentId){
 		type:"post",
 		dataType:"text",
 		async:true,
-		success:function(result){
+		success:function(result){ 
 			$(obj).parent().parent().next().find("dl.n-reply-list").html(result);
 		}
 	});
 }
-
 /**
  * 根据问答回复id  获取所有子评论  分页弹出
  */

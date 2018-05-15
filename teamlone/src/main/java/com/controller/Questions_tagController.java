@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bean.Questions_comment;
 import com.bean.Questions_tag;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,7 +35,7 @@ public class Questions_tagController {
 		PageHelper.startPage(page, 5);
 		ModelAndView mv=new ModelAndView();
 		Map map =new HashMap<>();
-		List<Questions_tag> tags = Questions_tagService.getlistAll();
+		List<Questions_tag> tags = Questions_tagService.listAll();
 		PageInfo<Questions_tag>  pageInfo = new PageInfo<Questions_tag>(tags);
 		mv.setViewName("/admin/question/tagList");
 		mv.addObject("page", pageInfo);

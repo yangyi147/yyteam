@@ -59,11 +59,10 @@ public class LoginController {
 	public Result createUser(HttpServletRequest request) {
 		Users user = new Users();
 		String email = request.getParameter("user.email");
-		Users edu_User = userServiceImpl.getPwd(email);
-
-		if (edu_User.getEmail().equals(email)) {
-			return new Result(false, null, null);
-		} else {
+//		Users edu_User = userServiceImpl.getPwd(email);
+//		if (edu_User.getEmail().equals(email)) {
+//			return new Result(false, null, null);
+//		} else {
 			user.setPic_img("/images/yangfan.jpg");
 			user.setUser_name("yangfan");
 			user.setLast_system_time(new Date());
@@ -71,7 +70,7 @@ public class LoginController {
 			user.setPassword(MD5Utils.md5(request.getParameter("user.password")));
 			user.setMobile(request.getParameter("user.mobile"));
 			userServiceImpl.addUser(user);
-		}
+//		}
 	
 		return new Result(true, null, null);
 	}

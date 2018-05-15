@@ -13,17 +13,14 @@
 		<association property="edu_user" column="cus_id"
 			select="com.mapper.UserDao.getById">
 		</association>
-<!-- 		<association property="questions" column="question_id" -->
-<!-- 			select="com.mapper.QuestionsMapper.getById"> -->
-<!-- 		</association> -->
-		<association property="questions_tags" column="question_id"
-			select="com.mapper.Questions_tagMapper.getBylistId">
+		<association property="questions" column="question_id"
+			select="com.mapper.QuestionsMapper.getById">
 		</association>
 	</resultMap>
-	<select id="getlistAll" resultMap="Questions_commentMap" parameterType="java.util.Map">
+	<select id="listAll" resultMap="Questions_commentMap" parameterType="java.util.Map">
 		select * from edu_questions_comment
 		<where>
-           <if test="is_best!=null and is_best!=''">
+           <if test="is_best!=null">
            and is_best=#{is_best}
            </if>
            <if test="name!=null">
@@ -34,12 +31,6 @@
 			</if>
 			<if test="end !=null">
 			and question_id in(select id from edu_questions where add_time &lt; #{end})
-			</if>
-			<if test="orderFalg =='addTime'">
-			and question_id in(select id from edu_questions group by ADD_TIME DESC )
-			</if>
-			<if test="orderFalg=='replycount'">
-            and question_id in(select id from edu_questions group by reply_count DESC )
 			</if>
 		</where>
 	</select>
@@ -53,9 +44,6 @@
 	     update edu_questions_comment set is_best=1 where id = #{id}
 	</update>
 	<select id="getById1" resultMap="Questions_commentMap" parameterType="int">
-	     select * from edu_questions_comment where question_id = #{id}
-	</select>
-	<select id="getById2" resultMap="Questions_commentMap" parameterType="int">
 	     select * from edu_questions_comment where question_id = #{id}
 	</select>
 </mapper>

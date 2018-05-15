@@ -14,12 +14,12 @@ public class Questions_tagServiceImpl implements Questions_tagService{
 	@Autowired
 	private Questions_tagMapper Questions_tagMapper;
 	@Override
-	public List<Questions_tag> getlistAll() {
-		return Questions_tagMapper.getlistAll();
+	public List<Questions_tag> listAll() {
+		return Questions_tagMapper.listAll();
 	}
 	@Override
 	public void save(Questions_tag tag) {
-		Questions_tagMapper.insert(tag);
+		Questions_tagMapper.save(tag);
 		
 	}
 	@Override
