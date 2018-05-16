@@ -92,6 +92,75 @@
 		var zNodes =${su};
 		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 	});
+	
+		function fun(a, b) {
+			var v = a.value;
+			var t;
+			if(b == 1) {
+				var reg =/^[0-9]*$/;
+				t = document.getElementById("d1");
+				if(v.trim().length == 0) {
+					t.innerText = "姓名不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(v.trim().length <2) {
+					t.innerText = "姓名不能小于两个字!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(reg.test(v)){
+					t.innerText = "姓名不能为纯数字";
+					t.style.color = "red";
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+
+			} else if(b == 2) {
+				var reg =/^[0-9]*$/;
+				t = document.getElementById("d2");
+				if(v.trim().length == 0) {
+					t.innerText = "资历不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(v.trim().length <5) {
+					t.innerText = "资历不能小于五个字!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				} else if(reg.test(v)){
+					t.innerText = "资历不能为纯数字";
+					t.style.color = "red";
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+			} else if(b == 3) {
+				t = document.getElementById("d3");
+				if(v.trim().length == 0) {
+					t.innerText = "专业不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(v.trim().length <2) {
+					t.innerText = "专业不能小于两个字!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+		}else if(b == 4) {
+			var reg =/^[0-9]*$/;
+			t = document.getElementById("d4");
+			if(v.trim().length == 0) {
+				t.innerText = "讲师不能为空!";
+				t.style.color = "red";
+				$("#btn").attr({ disabled: "disabled" });
+			}  else{
+				t.innerText = "";
+				$("#btn").removeAttr("disabled");
+			}
+	}
+		
+		}
 </script>
 <body>
 	<section class="layui-larry-box">
@@ -103,8 +172,8 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">姓名</label>
 					<div class="layui-input-block">
-						<input type="text" name="name" class="layui-input  "
-							lay-verify="required" value="${te.name }">
+						<input type="text" name="name" class="layui-input  " onblur="fun(this,1)"
+							lay-verify="required" value="${te.name }"><span id="d1"></span>
 					</div>
 				</div>
 				 <input type="hidden" name="pic_path" id="filename" hidden="hidden"  value="${te.pic_path}"/>
@@ -112,7 +181,8 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">资历</label>
 					<div class="layui-input-block">
-						<input type="text" name="education" class="layui-input " value="${te.education }" lay-verify="required">
+						<input type="text" name="education" class="layui-input " onblur="fun(this,2)"
+							value="${te.education }" lay-verify="required"><span id="d2"></span>
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -120,13 +190,13 @@
 					<div class="layui-input-block">
 					<input type="text" name="sd" id="subjectid"
 							class="layui-input" value="${te.subject_id.id}"  hidden="hidden" >
-						<input type="text"  id="citySel"
+						<input type="text"  id="citySel" onblur="fun(this,3)"
 							class="layui-input" readonly="readonly" value="${te.subject_id.name}" >
 						<div id="menuContent" class="menuContent" style="display: none; position: absolute;">
 							<ul id="treeDemo" class="ztree"
 								style="margin-top: -154px; width: 160px;margin-left: -58px;"></ul>
 						</div>
-						<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
+						<a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a><span id="d3"></span>
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -143,8 +213,8 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">讲师排序</label>
 					<div class="layui-input-block">
-						<input type="text" name="sort" class="layui-input"
-							placeholder="请输入"  value="${te.sort }">
+						<input type="text" name="sort" class="layui-input" onblur="fun(this,4)"
+							placeholder="请输入"  value="${te.sort }"> <span id="d4"></span>
 					</div>
 				</div>
 				<div class="layui-form-item">

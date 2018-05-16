@@ -94,12 +94,14 @@ function down(){
 		
 			<tr>
 				<td>上传</td>
-				<td><input type="file" name="file"/>
-					</td>
+				<td>
+				<input type="file" name="file"/>
+			    </td>
 		</tr>
 			<tr>
 		
-				<td colspan="2" style="padding: 0px 240px"><input type="submit" value="提交" class="layui-btn"/>
+				<td colspan="2" style="padding: 0px 240px">
+				<input type="submit" value="提交" class="layui-btn"/>
 				<a href="/admin/users/list" class="layui-btn layui-btn-primary">返回</a>
 					</td>
 		</tr>
