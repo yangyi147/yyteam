@@ -100,7 +100,10 @@
 						</div>
 					</c:if>
 					<!-- 公共分页 开始 -->
+
 					<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
+
+
 					<!-- 公共分页 结束 -->
 					<form action="${ctx}/uc/myFavorites" method="post" id="searchForm">
 						<input type="hidden" name="page.currentPage" value="1" id="pageCurrentPage" />

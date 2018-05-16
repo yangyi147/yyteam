@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>选课中心</title>
+<title>个人中心</title>
 </head>
 <body>
 <article class="col-7 fl">
@@ -61,8 +61,7 @@
 							</ul>
 						</article>
 						<!-- 公共分页 开始 -->
-						<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
-						<!-- 公共分页 结束 -->
+					<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
 						<form method="post" id="searchForm" action="${ctx}/uc/freeCourseList">
 							<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
 						</form>

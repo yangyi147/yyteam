@@ -69,6 +69,7 @@ function delULetter(id){//删除站内信
 				</c:if>
 				<!-- 公共分页 开始 -->
 				<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
+
 				<!-- 公共分页 结束 -->
 				<form action="${ctx}/uc/letter"name="searchForm" id="searchForm" method="post">
 			 		<input id="pageCurrentPage" type="hidden" name="page.currentPage" value="${page.currentPage}"/>

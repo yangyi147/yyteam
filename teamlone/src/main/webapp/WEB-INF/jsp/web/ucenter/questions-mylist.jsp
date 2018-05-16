@@ -109,8 +109,10 @@
 						</div>
 					</c:if>
 					<!-- 公共分页 开始 -->
+
 					<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
-					<!-- 公共分页 结束 -->
+
+
 					<form action="${ctx}/uc/myquestions/list" id="searchForm" method="post">
 						<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
 					</form>
