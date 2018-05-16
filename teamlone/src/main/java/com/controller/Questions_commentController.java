@@ -24,6 +24,13 @@ import com.service.Questions_commentService;
 public class Questions_commentController {
 	@Autowired
 	private Questions_commentService questions_commentService;
+	
+	/**
+	 * 查询所有问答评论
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/listAll")
 	public ModelAndView listAll(@RequestParam(required=true,defaultValue="1") Integer page,HttpServletRequest request,Model md) {
 		Map map =initMap(request);
@@ -36,6 +43,13 @@ public class Questions_commentController {
 		mv.addObject("page", pageInfo);
 		return mv;
 	}
+	
+	/**
+	 * map封装所需要的值
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	private Map initMap(HttpServletRequest request) {
 		Map map=new HashMap<>();
 		String question_id = request.getParameter("question_id");
@@ -67,6 +81,14 @@ public class Questions_commentController {
 		}
 		return map;
 	}
+	
+	
+	/**
+	 * 删除问答
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/delete/{id}")
 	public String delete(@PathVariable("id")int id) {
 		questions_commentService.delete(id);

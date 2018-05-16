@@ -33,6 +33,12 @@ public class ImgController {
 	@Autowired
 	private Img_typeService img_typeService;
 
+	/**
+	 * 查询所有图片
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/imglist")
 	public ModelAndView article(HttpServletRequest request,@RequestParam(name="page",defaultValue="0")int page){
 		List<Imges_type> ty=img_typeService.getlistAll();
@@ -44,6 +50,14 @@ public class ImgController {
 		md.setViewName("/admin/imgpsrsc/imglist");
 		return md;
 	}
+	
+	
+	/**
+	 * 通过id查询单个图片内容
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/getImg/{id}")
 	public ModelAndView getImg(@PathVariable("id")int id){
 		List<Imges_type> ty=img_typeService.getlistAll();
@@ -55,12 +69,17 @@ public class ImgController {
 		md.setViewName("/admin/imgpsrsc/upimg");
 		return md;
 	}
+	/**
+	 * 添加图片
+	 * @param request
+	 * @param page
+	 * @return
+	 */
+	
 	@RequestMapping(value="/inImg")
 	public String  inImg(Images images,@RequestParam("type_id")int type_id,@RequestParam("filename")String filename){
 		Imges_type imges_type=new Imges_type();
 		imges_type.setType_id(type_id);
-		System.out.println("tid:"+type_id);
-		System.out.println(filename);
 		images.setT_id(imges_type);
 		images.setImage_url(filename);
 		images.setPreview_url(filename);
@@ -68,22 +87,23 @@ public class ImgController {
 		return "redirect:/admin/imglist";
 	}
 	
-	
+	/**
+	 * 删除图片
+	 * @param id
+	 * @return
+	 */
 
 	@RequestMapping(value="/delImg/{id}")
 	public String delImg(@PathVariable("id")int id){
 		imagesService.delImg(id);
 		return "redirect:/admin/imglist";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * 查询所有图片类行
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping(value="/img/insert")
 	public ModelAndView  insert(){
 		List<Imges_type> ty=img_typeService.getlistAll();
@@ -92,6 +112,14 @@ public class ImgController {
 		md.setViewName("/admin/imgpsrsc/addImg");
 		return md;
 	}
+	
+	
+	/**
+	 * 通过id修改图片内容
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping(value="/upload/img",method=RequestMethod.POST)
 	public String upload(
 			Images images,@RequestParam("type_id")int type_id,@RequestParam("filename")String filename) throws Exception, IOException  {
@@ -107,6 +135,14 @@ public class ImgController {
 		imagesService.upImg(images);
 		return "redirect:/admin/imglist";
 	} 
+	
+	
+	/**
+	 * 上传图片到服务器
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping(value="/uploadfind/img")
 	@ResponseBody
 	public InfoNode uploadw(HttpServletRequest request,
@@ -130,6 +166,14 @@ public class ImgController {
 			return node;
 		}
 	}
+	
+	
+	/**
+	 * map封装所需要值
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	private Map inerMap(HttpServletRequest request){
 		 Map map=new HashMap<>();
 		 String  id=request.getParameter("type_id");
