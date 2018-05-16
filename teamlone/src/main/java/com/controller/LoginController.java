@@ -63,7 +63,9 @@ public class LoginController {
 	public Result createUser(HttpServletRequest request) {
 		Users user = new Users();		
 		String email = request.getParameter("user.email");
-
+		Users users=userServiceImpl.getPwd(email);
+		if (users==null) {
+			user.setPic_img("/images/yangfan.jpg");
 			user.setUser_name("yangfan");
 			user.setIs_avalible(1);
 			user.setLast_system_time(new Date());
@@ -71,14 +73,10 @@ public class LoginController {
 			user.setPassword(MD5Utils.md5(request.getParameter("user.password")));
 			user.setMobile(request.getParameter("user.mobile"));
 			userServiceImpl.addUser(user);
-
-//		}
-		return new Result(true, null, null);
-
-//		}else {
-//			return new Result(false, null, null);
-//		}
-		
+			return new Result(true, null, null);
+		}else {
+			return new Result(false, null, null);
+		}
 
 	}
 	//  验证是否登录
@@ -101,4 +99,5 @@ public class LoginController {
 		result.setSuccess(true);
 		return result;
 	}
+
 }
