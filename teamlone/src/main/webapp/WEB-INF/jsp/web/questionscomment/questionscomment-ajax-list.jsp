@@ -46,7 +46,7 @@
 									</fieldset>
 									<p class="of mt5 tar pl10 pr10">
 										<span class="fl "><tt class="c-red commentContentmeg" style="display: none;"></tt></span>
-										<a href="javascript:addComment();" title="回复" class="lh-reply-btn">回复</a>
+										<a href="javascript:;" title="回复" class="lh-reply-btn" onclick="addReply2(this)">回复</a>
 									</p>
 								</section>
 								<input type="hidden" id="" name="" value="${questionsComment.id}" />
@@ -169,14 +169,9 @@
 						</c:if>
 					</c:forEach>
 				</ul>
-				
 			</section>
-			
 		</div>
-		
-<!-- 		公共分页 开始 -->
-<%-- 		<jsp:include page="/teamlone/src/main/webapp/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include> --%>
-<!-- 		公共分页 结束 -->
+ <jsp:include page="/WEB-INF/jsp/common/front_page.jsp"></jsp:include>
 </div>
 <!-- /回答列表 结束 -->
 </c:if>

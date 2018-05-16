@@ -37,14 +37,14 @@
 <body>
 	<div class="in-wrap">
 	<!-- 公共头引入，开始 -->
-	<jsp:include page="/WEB-INF/layouts/web/uc/left_uc.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layouts/web/header.jsp"></jsp:include>
 	<!-- 公共头引入，结束 -->
 	<div class="bg-fa of">
 		<!-- /个人中心 主体 开始 -->
 		<section class="container">
 			<div class="u-body mt40">
 				<!-- 左侧，开始 -->
-				<jsp:include page="/WEB-INF/layouts/web/footer.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layouts/web/uc/left_uc.jsp"></jsp:include>
 				<!-- 左侧，结束 -->
 				<sitemesh:body></sitemesh:body>
 				<!-- /右侧内容区 结束 -->

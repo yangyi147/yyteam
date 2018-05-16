@@ -264,7 +264,7 @@ function addPraise(targetId,type,obj){
 					var priaseCount=parseInt($(obj).children("span").html());
 					$(obj).children("span").html(priaseCount+1);
 				}else{
-					dialog('提示',result.message,1);
+					dialog('提示',"已经点赞了哦",1);
 				}
 			}
 		})

@@ -13,4 +13,5 @@ public interface QuestionsWebMapper {
 	public void upRcount(int id);
 	public int  inQuestion(QuestionsWeb questionsWeb);
 	public int getselID();
+	public void upBrowse(int id);
 }

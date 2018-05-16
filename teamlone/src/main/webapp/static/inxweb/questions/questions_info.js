@@ -96,6 +96,45 @@ function addReply(obj){
 	}
 }
 
+function addReply2(obj){
+	if(isLogin()){
+		var replyCotent=$(obj).parent().prev().children("textarea").val();
+		var commentId=$(obj).parent().parent().next().val();
+		if(replyCotent.trim()==""){
+			//dialog('提示',"回复内容不能为空",1);
+			$(obj).parent().find("tt").html("回复内容不能为空");
+			return;
+		}
+		$.ajax({
+			url:baselocation + "/front/questionscomment/ajax/addReply",
+			data:{
+				"questionsComment.commentId":commentId,
+				"questionsComment.content":replyCotent
+			},
+			type:"post",
+			dataType:"json",
+			async:true,
+			success:function(result){
+				if(result.success==true){
+					$(obj).parent().prev().find("textarea").val("");
+					//重新加载该问答回复的子评论
+					var tempObj=$(obj).parent().parent().parent().parent().prev().find("a.noter-dy");
+					getCommentById2(tempObj,commentId);
+					//修改该问答回复的 评论数
+					var questionsReplyCount=parseInt($(tempObj).children("span").html());
+					$(tempObj).children("span").html(questionsReplyCount+1);
+					$(obj).parent().find("tt").html("发表成功");
+				}else{
+					//dialog('提示',result.message,1);
+					$(obj).parent().find("tt").html(result.message);
+				}
+			}
+		});
+	}else{
+		lrFun();
+	}
+}
+
 /**采纳为最佳答案**/
 function acceptComment(commentId){
 	$.ajax({
@@ -124,6 +163,21 @@ function acceptComment(commentId){
 function getCommentById(obj,commentId){
 	$.ajax({
 		url:baselocation + "/front/questionscomment/ajax/getCommentById/"+commentId,
+		data:{
+		},
+		type:"post",
+		dataType:"text",
+		async:true,
+		success:function(result){ 
+			$(obj).parent().parent().next().find("dl.n-reply-list").html(result);
+		}
+	});
+}
+
+
+function getCommentById2(obj,commentId){
+	$.ajax({
+		url:baselocation + "/front/questionscomment/ajax/getCommentById2/"+commentId,
 		data:{
 		},
 		type:"post",

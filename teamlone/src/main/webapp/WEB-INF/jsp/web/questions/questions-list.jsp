@@ -126,15 +126,16 @@
 									</ul>
 								</section>
 							</c:if>
-							<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
+							
 							<!-- 公共分页 结束 -->
 							<form action="${ctx}/front/Questionslist" id="searchForm" method="post">
-								<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
+								<input type="hidden" id="pageCurrentPage" name="page" value="1" />
 								<input type="hidden" name="questions.orderFalg" value="${questions.orderFalg}" />
 								<input type="hidden" name="questions.type" value="${questions.type}" />
 								<input type="hidden" name="questions.status" value="${questions.status}" />
 								<input type="hidden" name="questions.questionsTagId" value="${questions.questionsTagId}" />
 							</form>
+							<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
 						</div>
 						<!-- /问题列表 结束 -->
 					</section>

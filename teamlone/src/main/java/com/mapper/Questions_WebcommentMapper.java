@@ -17,4 +17,5 @@ public interface Questions_WebcommentMapper {
 	public int  selQid(int id);
 	public void addCount(int  id);
 	public void upRcount(int id);
+
 }

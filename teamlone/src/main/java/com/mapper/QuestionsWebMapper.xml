@@ -72,4 +72,7 @@
 	<update id="upRcount"  parameterType="java.util.Map">
 	update edu_questions  set reply_count=reply_count+1  where id=#{id}
 	</update>
+	<update id="upBrowse"  parameterType="java.util.Map">
+	update edu_questions  set browse_count=browse_count+1  where id=#{id}
+	</update>
 </mapper>

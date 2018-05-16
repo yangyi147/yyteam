@@ -41,5 +41,9 @@ public class QuestionsWebServiceImpl implements QuestionsWebService{
 		
 		return QuestionsMapper.getselID();
 	}
+	@Override
+	public void upBrowse(int id) {
+		QuestionsMapper.upBrowse(id);
+	}
 
 }

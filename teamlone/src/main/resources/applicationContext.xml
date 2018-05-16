@@ -83,7 +83,6 @@
        /admin/login/login=anon
        /comm/**=anon
        /css/**=anon
-       /onlinelearn/**=anon
        /v3.bootcss.com/**=anon
        /images/**=anon
        /inc/**=anon
@@ -94,6 +93,7 @@
         /validation/login=anon
        /shiro/logout=logout
        /front/**=anon
+       /uc/**=anon
        /**=authc
       </value>
     </property>
