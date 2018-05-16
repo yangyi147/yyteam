@@ -32,7 +32,70 @@
 	src="/static/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
 </head>
 <script type="text/javascript">
-	
+	function fun(a, b) {
+			var v = a.value;
+			var t;
+			if(b == 1) {
+				var reg =/^[0-9]*$/;
+				t = document.getElementById("d1");
+				if(v.trim().length == 0) {
+					t.innerText = "标题不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(reg.test(v)){
+					t.innerText = "标题不能为纯数字";
+					t.style.color = "red";
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+
+			} else if(b == 2) {
+				var reg =/^[0-9]*$/;
+				t = document.getElementById("d2");
+				if(v.trim().length == 0) {
+					t.innerText = "不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(v.trim().length <15) {
+					t.innerText = "不能小于十五个字!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				} else if(reg.test(v)){
+					t.innerText = "不能为纯数字";
+					t.style.color = "red";
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+			} else if(b == 3) {
+				t = document.getElementById("d3");
+				if(v.trim().length == 0) {
+					t.innerText = "作者不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(v.trim().length <2) {
+					t.innerText = "作者不能小于两个字!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+		}else if(b == 4) {
+			var reg =/^[0-9]*$/;
+			t = document.getElementById("d4");
+			if(v.trim().length == 0) {
+				t.innerText = "来源不能为空!";
+				t.style.color = "red";
+				$("#btn").attr({ disabled: "disabled" });
+			}  else{
+				t.innerText = "";
+				$("#btn").removeAttr("disabled");
+			}
+	}
+		
+		}
 </script>
 <body>
 	<section class="layui-larry-box">
@@ -46,29 +109,29 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">*标题:</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" id="title" class="layui-input  "
-							lay-verify="required" value="">
+						<input type="text" name="title" id="title" class="layui-input  " onblur="fun(this,1)"
+							lay-verify="required" value=""><span id="d1"></span>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">*摘要:</label>
 						<div class="layui-input-block">
-						<textarea value=""
-							class="layui-textarea" name="summary" id="summary"></textarea>
+						<textarea value="" onblur="fun(this,2)"
+							class="layui-textarea" name="summary" id="summary"></textarea><span id="d2"></span>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">*作者:</label>
 					<div class="layui-input-block">
-					<input type="text" name="author" id="author"
-							class="layui-input" value="">
+					<input type="text" name="author" id="author" onblur="fun(this,3)"
+							class="layui-input" value=""><span id="d3"></span>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">*来源:</label>
 					<div class="layui-input-block">
-					<input type="text" name="source" id="source"
-							class="layui-input" value="">
+					<input type="text" name="source" id="source" onblur="fun(this,4)"
+							class="layui-input" value=""><span id="d4"></span>
 					</div>
 				</div>
 				<div class="layui-form-item"  hidden="hidden">
@@ -135,7 +198,7 @@
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<input type="submit" style="height: 35px; width: 120px;"
+						<input type="submit" style="height: 35px; width: 120px;" id="btn"
 		class="btn btn-danger" value="添加" />
 	<button type="reset" style="height: 35px; width: 120px;"
 		class="btn btn-danger">重置</button>

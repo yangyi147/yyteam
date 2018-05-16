@@ -36,7 +36,49 @@
 </style>
 </head>
 <script type="text/javascript">
-	
+	function fun(a, b) {
+			var v = a.value;
+			var t;
+			if(b == 1) {
+				var reg =/^[0-9]*$/;
+				t = document.getElementById("d1");
+				if(v.trim().length ==0) {
+					t.innerText = "标题不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(v.trim().length <3) {
+					t.innerText = "标题不能小于三个字!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(reg.test(v)){
+					t.innerText = "标题不能为纯数字";
+					t.style.color = "red";
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+
+			} else if(b == 2) {
+				var reg =/^[0-9]*$/;
+				t = document.getElementById("d2");
+				if(v.trim().length ==0) {
+					t.innerText = "描述不能为空!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				}else if(v.trim().length <5) {
+					t.innerText = "描述不能小于五个字!";
+					t.style.color = "red";
+					$("#btn").attr({ disabled: "disabled" });
+				} else if(reg.test(v)){
+					t.innerText = "描述不能为纯数字";
+					t.style.color = "red";
+				} else{
+					t.innerText = "";
+					$("#btn").removeAttr("disabled");
+				}
+			} 
+		
+		}
 </script>
 <body>
 	<section class="layui-larry-box">
@@ -49,9 +91,10 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">图片标题</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" class="layui-input  "
+						<input type="text" name="title" class="layui-input  " onblur="fun(this,1)"
 							lay-verify="required" value="${im.title }">
 					</div>
+					<span id="d1"></span>
 				</div>
 				<input type="hidden" name="filename" id="filename"
 					value="${im.image_url}" /> <input type="hidden" name="image_id"
@@ -67,9 +110,10 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">图片描述</label>
 					<div class="layui-input-block">
-						<input type="text" name="describes" class="layui-input"
+						<input type="text" name="describes" class="layui-input" onblur="fun(this,2)"
 							value="${im.describes}">
 					</div>
+						<span id="d2"></span>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">图片类行</label>
@@ -92,7 +136,7 @@
 
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+						<button class="layui-btn" lay-submit="" id="btn" lay-filter="demo1">立即提交</button>
 					
 						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					</div>

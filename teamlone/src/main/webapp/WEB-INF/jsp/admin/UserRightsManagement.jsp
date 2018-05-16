@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 	<link rel="stylesheet" href="/static/common/ztree/css/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" href="/css/bootstrap.css" />
-	<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-3.0.0.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/inc/js/ztree/js/jquery.ztree.core.min.js"></script>
 	<script type="text/javascript" src="/inc/js/ztree/js/jquery.ztree.excheck.js"></script>
