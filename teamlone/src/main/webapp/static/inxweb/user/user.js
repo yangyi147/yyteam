@@ -3,19 +3,33 @@
  * @param userId 用户ID
  */
 function updateUserInfo(userId){
-	var params='';
-	$("#updateForm input,#updateForm select").each(function(){
-		params+=$(this).serialize()+"&";
-    });
+//	var params='';
+//	$("#updateForm input,#updateForm select").each(function(){
+//		params+=$(this).serialize()+"&";
+//    });
+//	alert(params);
+	
+	var userId=$("input[name='user.userId'").val();
+	var userName=$("input[name='user.userName'").val();
+	var showName=$("input[name='user.showName'").val();
+	var sex=$("input[name='user.sex'").val();
+	var age=$("input[name='user.age'").val();
+	  alert(userName);
 	$.ajax({
 		url:baselocation+'/uc/updateUser',
 		type:'post',
 		dataType:'json',
-		data:params,
+		data:{"user_id":userId,"user_name":userName,
+			"show_name":showName,"sex":sex,"age":age},
 		success:function(result){
 			if(result.success==true){
 				showUserInfo();
 				dialog('提示信息',result.message,0);
+
+				 var int=self.setInterval(function(){  // 这个方法是说在延迟两秒后执行大括号里的方法
+				      location.reload();
+				  // 这个方法是刷新当前页面
+				      },2000)
 			}else{
 				dialog('提示信息',result.message,1);
 			}
@@ -45,6 +59,7 @@ function showTab(_in){
  * 修改密码
  */
 function updatePwd(){
+	
 	var oldPwd=$("input[name='nowPassword'").val();
 	if(oldPwd.trim()==""){
 		$("input[name='nowPassword'").next().html('<em class="u-a-cw icon16">&nbsp;</em>请输入原始密码');
@@ -62,23 +77,25 @@ function updatePwd(){
 	}
 	
 	var confirmPwd=$("input[name='confirmPwd'").val();
+	
 	if(confirmPwd.trim()==""){
 		$("input[name='confirmPwd'").next().html('<em class="u-a-cw icon16">&nbsp;</em>请输入确认密码');
 		return;
 	}else{
 		$("input[name='confirmPwd'").next().html('<em class="u-a-zq icon16">&nbsp;</em>');
 	}
-	
-	var params ='';
+	var userId=$("input[name='userId'").val();
+/*	var params ='';
 	$("#pwdForm input").each(function(){
 		params+=$(this).serialize()+"&";
     });
+	alert(params);*/
 	
 	$.ajax({
 		url:baselocation+'/uc/updatePwd',
 		type:'post',
 		dataType:'json',
-		data:params,
+		data:{"userId":userId,"nowPassword":oldPwd,"newPassword":newPassword,"confirmPwd":confirmPwd},
 		success:function(result){
 			if(result.success==true){
 				dialog('提示信息',result.message,0);

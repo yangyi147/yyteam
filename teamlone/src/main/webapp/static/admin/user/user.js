@@ -19,7 +19,7 @@ $(function(){
  */
 function frozenOrThaw(userId,type,em){
 	$.ajax({
-		url:baselocation+'/admin/user/updateuserstate',
+		url:baselocation+'/admin/users/updateid',
 		type:'post',
 		dataType:'json',
 		data:{'user.userId':userId,'user.isavalible':type},
@@ -28,10 +28,10 @@ function frozenOrThaw(userId,type,em){
 				var td = $(em).parent('samp').parent('td').parent('tr').children('td')[7];
 				if(type==1){
 					$(td).text('正常');
-					$('#frozenOrThaw'+userId).html('<a class="button tooltip" onclick="frozenOrThaw('+userId+',2,this)" href="javascript:void(0)">冻结</a>');
+					$('#frozenOrThaw'+userId).html('<a class="button tooltip" onclick="frozenOrThaw('+userId+',1,this)" href="javascript:void(0)">冻结</a>');
 				}else if(type==2){
 					$(td).text('冻结');
-					$('#frozenOrThaw'+userId).html('<a class="button tooltip" onclick="frozenOrThaw('+userId+',1,this)" href="javascript:void(0)">解冻</a>');
+					$('#frozenOrThaw'+userId).html('<a class="button tooltip" onclick="frozenOrThaw('+userId+',0,this)" href="javascript:void(0)">解冻</a>');
 				}
 			}else{
 				alert(result.message);
@@ -61,7 +61,7 @@ function updateUserPwd(){
 		params+=$(this).serialize()+"&";
     });
 	$.ajax({
-		url:baselocation+'/admin/user/updateUserPwd',
+		url:baselocation+'/admin/users/update',
 		type:'post',
 		dataType:'json',
 		data:params,
@@ -87,7 +87,7 @@ function winHide(){
  * 用户列表导出
  */
 function userExcel(){
-	$("#searchForm").prop("action","/admin/user/export");
+	$("#searchForm").prop("action","/admin/users/export");
 	$("#searchForm").submit();
-	$("#searchForm").prop("action","/admin/user/getuserList");
+	$("#searchForm").prop("action","/admin/users/getuserList");
 }
