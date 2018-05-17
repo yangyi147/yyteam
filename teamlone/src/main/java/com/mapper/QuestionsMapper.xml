@@ -15,6 +15,7 @@
 		<association property="edu_user" column="cus_id"
 			select="com.mapper.UserDao.getById">
 		</association>
+
 	</resultMap>
 	<select id="listAll" resultMap="QuestionsMap" parameterType="java.util.Map">
 		select * from edu_questions

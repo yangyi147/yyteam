@@ -46,4 +46,5 @@
 	<select id="getById1" resultMap="Questions_commentMap" parameterType="int">
 	     select * from edu_questions_comment where question_id = #{id}
 	</select>
+	
 </mapper>

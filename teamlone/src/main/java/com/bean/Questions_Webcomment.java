@@ -12,6 +12,7 @@ public class Questions_Webcomment {
 	private Date add_time;
 	private int comment_id;
 	private int question_id;
+
 	public int getId() {
 		return id;
 	}

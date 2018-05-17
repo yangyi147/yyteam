@@ -19,6 +19,7 @@ public class QuestionsWeb {
     private String end;
     private List<Questions_Webcomment> qc;
     private List<Questions_Webtag> questions_tags;
+    
 	public List<Questions_Webcomment> getQc() {
 		return qc;
 	}
