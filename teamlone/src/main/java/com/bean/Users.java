@@ -2,6 +2,8 @@ package com.bean;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+@Component
 public class Users {
       private int user_id;
       private String  mobile;

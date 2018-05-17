@@ -11,6 +11,7 @@ public interface Questions_commentService {
 	public void update(int id);
 	public List<Questions_comment> listAll(Map map);
 	public void delete(int id);
+	public void deleteqid(int id);
 	public Questions_comment getById(int id);
 	public List<Questions_comment> getById1(int id);
 }

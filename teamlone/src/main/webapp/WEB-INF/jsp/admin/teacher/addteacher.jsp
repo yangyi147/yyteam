@@ -92,6 +92,7 @@
 	});
 	
 		function fun(a, b) {
+			var regs=/^[\u4E00-\u9FA5]+$/;  
 			var v = a.value;
 			var t;
 			if(b == 1) {
@@ -101,18 +102,21 @@
 					t.innerText = "姓名不能为空!";
 					t.style.color = "red";
 					$("#btn").attr({ disabled: "disabled" });
-				}else if(v.trim().length <2) {
-					t.innerText = "姓名不能小于两个字!";
+				}else if(v.trim().length <2||v.trim().length >6) {
+					t.innerText = "姓名不能小于两个字或者大于6位!";
 					t.style.color = "red";
 					$("#btn").attr({ disabled: "disabled" });
 				}else if(reg.test(v)){
 					t.innerText = "姓名不能为纯数字";
 					t.style.color = "red";
-				} else{
+				} else if(!regs.test(v)){  
+		            t.innerText = "必须输入中文!";
+					t.style.color = "red";
+		            return false;  
+		            }  else{
 					t.innerText = "";
 					$("#btn").removeAttr("disabled");
 				}
-
 			} else if(b == 2) {
 				var reg =/^[0-9]*$/;
 				t = document.getElementById("d2");
@@ -141,10 +145,11 @@
 					t.innerText = "专业不能小于两个字!";
 					t.style.color = "red";
 					$("#btn").attr({ disabled: "disabled" });
-				} else{
+				}else{
 					t.innerText = "";
 					$("#btn").removeAttr("disabled");
 				}
+				
 		}else if(b == 4) {
 			var reg =/^[0-9]*$/;
 			t = document.getElementById("d4");
@@ -179,7 +184,7 @@
 					<label class="layui-form-label">资历</label>
 					<div class="layui-input-block">
 						<input type="text" name="education" class="layui-input "   onblur="fun(this,2)"
-							value="" lay-verify="required"><span id="d2"></span>
+							value=""  lay-verify="required" ><span id="d2"></span>
 					</div>
 						
 				</div>

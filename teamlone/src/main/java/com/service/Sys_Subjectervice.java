@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bean.Sys_Subject;
 
@@ -26,5 +27,7 @@ public interface Sys_Subjectervice {
 	 * Ìí¼Ó×¨Òµ
 	 */
 	void insertSubject(Sys_Subject subject);
+	
+	List<Sys_Subject>getAllSubjectByChild(Map map);
 
 }

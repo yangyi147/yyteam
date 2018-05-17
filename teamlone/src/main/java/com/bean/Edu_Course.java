@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Edu_Course {
 	
@@ -45,8 +46,20 @@ public class Edu_Course {
 	private int sequence;//序列
 	
 	private double course_gross_income;//该课程总共卖了多少钱
+	
+	private List<Edu_Teacher> teacher;
+	
+	
    
 	
+	public List<Edu_Teacher> getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(List<Edu_Teacher> teacher) {
+		this.teacher = teacher;
+	}
+
 	public String getSubject_link() {
 		return subject_link;
 	}

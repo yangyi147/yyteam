@@ -24,6 +24,7 @@
          <script type="text/javascript" charset="utf-8" src="/static/utf8-jsp/umeditor.min.js"></script> 
         <script type="text/JavaScript" src="/static/My97DatePicker/WdatePicker.js"></script>
             <script type="text/javascript" src="/static/utf8-jsp/lang/zh-cn/zh-cn.js"></script> 
+            <script type="text/javascript" src="/js/jquery-zh.js"></script>
 		<style>
            .oh{
              width: 150px
@@ -174,6 +175,10 @@
     			nodes = zTree.getCheckedNodes(true),
     			v = "";
     			var b=0;
+    			if(nodes.length==0){
+    				$("#subject").text("");
+    				$("#ssid").val('');
+    			}
     			for (var i=0, l=nodes.length; i<l; i++) {
     				v += nodes[i].name + ",";
     			}
@@ -184,6 +189,9 @@
     			var cityObj = $("#citySel");
     			cityObj.attr("value", v);
     			$("#ssid").val(b);
+    			if($("#ssid").val()!=null){
+    				$("#subject").text("√");
+    			}
     		}
 
     		function showMenu() {
@@ -206,7 +214,9 @@
     		$(document).ready(function(){
     			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
     		});
-        
+    		
+    		
+    		           
    		$(function () {
 //     			$("input").blur(function(){
 //     				alert(this.val())
@@ -222,22 +232,13 @@
 				}
 			})
 			$("input").click(function () {
-				this.parent().parent().prev()..children()
+				this.parent().parent().prev().children()
 			})
 
  			})
         
         
-    	function edits(input) {
-    		if (input.files && input.files[0]) {
-    			var reader = new FileReader();
-    			reader.onload = function(e) {
-    				$('#images').attr('src', e.target.result);
-    			}
-    			reader.readAsDataURL(input.files[0]);
-    			$("#images").show();
-    		}
-    	}
+
 
     	function szz() {
 			var id= $("#sz").val();
@@ -260,103 +261,61 @@
 			}
 		}
 
-      function courseName(coursName){
-      	$.ajax({
-      		type:"post",
-      		url:"/admin/course/getCourseNameRepeat",
-      		async:true,
-      		data:{"course_name":coursName},
-      		dataType:"json",
-      		success: function(data){
-      			if(data==1){
-      			$("#cname").text("√");
-      			$("#cname").css({"color":"green"});
-      			}else{
-      			$("#cname").text("×");	
-      			$("#cname").css({"color":"red"});
-      			}
-      		}
-      	});
-      }
+ 	
+  
        
-      function courseLessionNum(lessionNum) {
-		if(lessionNum>0&&lessionNum<1000){
-			$("#lessionNum").text("√");
-  			$("#lessionNum").css({"color":"green"});
-		}else{
-			$("#lessionNum").text("×");
-  			$("#lessionNum").css({"color":"red"});
-		}
-	}
-     function courseSoursePrice(soursePrices) {
-    	 alert(soursePrices)
-    		if(soursePrices>0&&soursePrices<100000){
-    			$("#soursePrices").text("√");
-      			$("#soursePrices").css({"color":"green"});
-    		}else{
-    			$("#soursePrices").text("×");
-      			$("#soursePrices").css({"color":"red"});
-    		}
-	}
-     function courseCurrentPrice(currentPrice) {
-    	 alert(1)
-    	 var soursePrice= $("#soursePrice").val();
-    	 alert(soursePrice)
-    		if(currentPrice>=0&&currentPrice<soursePrice){
-    			$("#currentPrice").text("√");
-      			$("#currentPrice").css({"color":"green"});
-    		}else{
-    			$("#currentPrice").text("×");
-      			$("#currentPrice").css({"color":"red"});
-    		}
-	}
+
+
+ 
 
         </script>
 </head>
 <body>
-<form action="/admin/course/addCourseTo" class="form-horizontal"  method="post" enctype="multipart/form-data">
+<form action="/admin/course/addCourseTo" class="form-horizontal" id="userAddForm"  method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="ssid" id="ssid" value=""/>
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">专业管理</label>
-<div class="content_wrap">
+
 	<div class="zTreeDemoBackground left">
 		<ul class="list">
-			<li class="title"> <input id="citySel" class="form-control th" type="text" readonly value="网页设计" style="width:120px;" onclick="showMenu();" />
+			<li class="title"> <input id="citySel" class="form-control th bz" type="text" readonly value="" style="width:120px;" onclick="showMenu();"  />
+			<span id="subject" style="display: none;"></span>
 		</li>
 		</ul>
 	</div>
-	<span style="display: none">√</span>
-</div>
-<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+	
+
+<div id="menuContent" class="menuContent" style="display:none; position: absolute; z-index: 999">
 	<ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
 </div>
   </div>
   <div class="form-group">                                       
     <label for="inputPassword" class="col-sm-2 control-label" >课程名称</label>
     <div class="col-sm-10">
-    <input type="text" name="course_name" onkeyup="courseName(this.value)"  id="course_name" value="" class="form-control th bz" />
-    <span id="cname" ></span>
+    <input type="text" name="course_name"  id="course_name" onkeyup="uname(this.value)" value="" class="form-control th bz layui-input" autocomplete="off"  />
+    <span id="cname"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">总课时</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control th bz" name="lession_num" id="lessionNnum" value="" onkeyup="courseLessionNum(this.value)">
+    <c:if test=""></c:if>
+      <input type="number" class="form-control th bz" name="lession_num" id="lessionNnum" value="" onclick="courseLessionNum(this.value)" onkeyup="courseLessionNum(this.value)"  >
       <span id="lessionNum"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">课程原价格</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control th bz" id="soursePrice" onkeyup="courseSoursePrice(this.value)" name="source_price" value="" >
+      <input type="number" class="form-control th bz" id="soursePrice" onclick="courseSoursePrice(this.value)" onkeyup="courseSoursePrice(this.value)" name="source_price" value="0" >
       <span id="soursePrices"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">课程销售价格</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control th bz" onkeyup="courseCurrentPrice(this.value)" id="current_price" name="current_price" value="" placeholder="价格为0元时可以免费观看" >
+      <input type="number" class="form-control th bz" onclick="courseCurrentPrice(this.value)" onkeyup="courseCurrentPrice(this.value)" id="current_price" name="current_price" value="0" placeholder="价格为0元时可以免费观看"  >
       <span id="currentPrice"></span>
     </div>
   </div>
@@ -372,14 +331,17 @@
   <div class="form-group" id="ts">
     <label for="inputPassword" class="col-sm-2 control-label">按天数</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control oh" id="loseTime" name="lose_time" style="width: 150px" value=""  >
+      <input type="number" class="form-control oh bz" onclick="endsj(this.value)" onkeyup="endsj(this.value)" id="loseTime" name="lose_time" style="width: 150px" value=""  >
+      <span id="loseTimeSpan"></span>
     </div>
   </div>
   <div class="form-group" id="jz">
     <label for="inputPassword" class="col-sm-2 control-label">截至时间</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control th" id="endTime"  name="end_times" value="" >
+      <input type="date" class="form-control th bz" id="endTime"  name="end_times" value=""  >
+      <span id="endTimeSpan"></span>
     </div>
+    
   </div>
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">添加教师</label>
@@ -394,43 +356,47 @@
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">课程简介</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control th" name="title" style="width: 600px" value="" >
+      <input type="text" class="form-control th bz" name="title" onkeyup="titleValue(this.value)" style="width: 600px" value="" >
+    <span id="titles"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">课程图片</label>
     <div class="col-sm-10">
-      <input type="image" src="${courseByID.logo }"  id="images" style="width: 300px;height: 200px; display: none" >
-      <input type="file" value="上传图片" name="file" id="file" id="file" onchange="edits(this)"/>
-      <span id="fileSpan"></span>
+      <input type="image" src="${courseByID.logo }"   id="images" style="width: 300px;height: 200px; display: none" >
+      <input type="file" value="上传图片" class="bz"  name="file" id="file" onchange="edits(this)"/>
+      <span id="fileSpans" style="padding-top: 5px"></span>
     </div>
   </div>
     <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">课程详情</label>
     <div class="col-sm-8">
-<script type="text/plain" id="myEditor" id="context" name="context" style="width:1000px;height:240px;">
-   ${courseByID.context }
+<script type="text/plain"  id="context" name="context" style="width:1000px;height:240px;">
 </script>
+<span id="contextSpan"></span>
     </div>
   </div>
     <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label"></label>
     <div class="col-sm-8">
       
-     <input type="submit" class="btn btn-default "  value="提交"/>
+     <input type="button" class="btn btn-default " style="height: 35px" id="btn"  value="提交"/>
     </div>
   </div>
 </form>
 
 </body>
    <script type="text/javascript">
-   var um = UM.getEditor('myEditor');
+   var um = UM.getEditor('context');
    um.addListener('blur',function(){
        $('#focush2').html('编辑器失去焦点了')
    });
    um.addListener('focus',function(){
        $('#focush2').html('')
    });
+   
+   
+   
    </script>
 
 </html>

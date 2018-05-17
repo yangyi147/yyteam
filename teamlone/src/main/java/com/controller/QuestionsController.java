@@ -20,12 +20,20 @@ import com.bean.Questions;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.service.QuestionsService;
+import com.service.Questions_commentService;
 
 @Controller
 @RequestMapping("/admin/questions")
 public class QuestionsController {
 	@Autowired
 	private QuestionsService questionsService;
+	
+	@Autowired
+	private Questions_commentService questions_commentService;
+	/**
+	 * 查询所有问答
+	 *
+	 */
 	@RequestMapping("/listAll")
 	public ModelAndView listAll(@RequestParam(required=true,defaultValue="1") Integer page,HttpServletRequest request,Model md) throws UnsupportedEncodingException {
 		PageHelper.startPage(page, 5);
@@ -39,7 +47,11 @@ public class QuestionsController {
 		mv.addObject("questions",questions);
 		return mv;
 	}
-	
+	/**
+	 * map
+	 * 封装查询所需要的值
+	 *
+	 */
 	private Map initMap(HttpServletRequest request,Map map) throws UnsupportedEncodingException {
 		String title = request.getParameter("title");
 		String type = request.getParameter("type");
@@ -63,8 +75,14 @@ public class QuestionsController {
 		}
 		return map;
 	}
+	
+	/**
+	 *通过id删除问答
+	 *
+	 */
 	@RequestMapping("/delete/{id}")
 	public String delete(@PathVariable("id")int id) {
+		questions_commentService.deleteqid(id);
 		questionsService.delete(id);
 		return "redirect:/admin/questions/listAll";
 	}

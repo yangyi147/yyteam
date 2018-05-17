@@ -1,6 +1,8 @@
 package com.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lenovo
@@ -34,6 +36,15 @@ public class Edu_course_Kpoint {
 	private String file_type;//video 视频 audio 音频 file文档 txt 文本  atlas图片集
 	
 	private String content;//文本
+	private List<Edu_course_Kpoint> sonList=new ArrayList<Edu_course_Kpoint>();
+
+	public List<Edu_course_Kpoint> getSonList() {
+		return sonList;
+	}
+
+	public void setSonList(List<Edu_course_Kpoint> sonList) {
+		this.sonList = sonList;
+	}
 
 	public int getId() {
 		return id;

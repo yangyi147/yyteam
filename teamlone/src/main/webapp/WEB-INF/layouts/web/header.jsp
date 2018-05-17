@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/base.jsp"%>
 <!-- /global header begin-->
+<style>
+#courseNamemultiple{
+ position: absolute;
+ z-index: 999;
+ background-color: white;
+}
+</style>
 <header id="header">
 	<section class="container">
 		<h1 id="logo">
@@ -12,7 +19,7 @@
 		<div class="h-r-nsl">
 			<ul class="nav">
 			<li><a href="/front/front" title="首页" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>首页</a></li>
-			<li><a href="/front/course" title="课程" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>课程</a></li>
+			<li><a href="/front/courseKpoint/listCourse" title="课程" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>课程</a></li>
 			<li><a href="/front/teacher/list" title="名师" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>名师</a></li>
 			<li><a href="/front/article" title="文章" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>文章</a></li>
 			<li><a href="/front/Questionslist" title="问答" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>问答</a></li>
@@ -47,6 +54,7 @@
 						<button type="submit" class="s-btn">
 							<em class="icon18">&nbsp;</em>
 						</button></label>
+						<div id="courseNamemultiple"></div>
 				</form>
 			</aside>
 		</div>

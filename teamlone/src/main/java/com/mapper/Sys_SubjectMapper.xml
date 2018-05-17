@@ -7,7 +7,7 @@
 select subject_id id,subject_name name,parent_id pId from sys_subject where subject_id=#{id}
 </select>
 <select id="getAllSubjict" resultType="com.bean.Sys_Subject">
-select subject_id id,subject_name name,PARENT_ID pId from sys_subject
+select subject_id id,subject_name name,PARENT_ID pId from sys_subject 
 </select>  
 <select id="getAllSubjictByparent_Id" resultType="com.bean.Sys_Subject">
 SELECT subject_id id,subject_name name,parent_id pId from sys_subject
@@ -16,5 +16,14 @@ SELECT subject_id id,subject_name name,parent_id pId from sys_subject
 <insert id="insertSubject" parameterType="com.bean.Sys_Subject">
 INSERT INTO sys_subject VALUES(NULL,#{name},0,#{create_time},#{pId},#{sort})
 </insert>
+
+<select id="getAllSubjectByChild" resultType="com.bean.Sys_Subject" parameterType="java.util.Map">
+SELECT subject_id id,subject_name name,PARENT_ID pId from sys_subject 
+<where>
+<if test="sid!=null and sid>0">
+and  PARENT_ID=#{sid}
+</if>
+</where>
+</select>
 
 </mapper>

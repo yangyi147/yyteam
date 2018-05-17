@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.mapper.Edu_Course_NoteDao">
+<resultMap type="com.bean.Edu_Course_Note" id="noteMap">
+<result column="id" property="id"/>
+<result column="kpoint_id" property="kpoint_id"/>
+<result column="content" property="content"/>
+<result column="update_time" property="update_time"/>
+<result column="status" property="status"/>
+<association property="users" column="user_id" select="com.mapper.UserDao.getById"></association>
+</resultMap>
+<select id="getAllCourseNoteByID" resultMap="noteMap" parameterType="java.util.Map">
+SELECT * FROM Edu_Course_Note where KPOINT_ID =#{kpointId} and COURSE_ID=#{courseId}
+</select>
+<insert id="insertCourseNote" parameterType="com.bean.Edu_Course_Note">
+INSERT INTO edu_course_note VALUES(NULL,#{users.user_id},#{course_id},#{kpoint_id},#{content},#{update_time},0)
+</insert>
+<update id="updateCourseKpoint"  parameterType="com.bean.Edu_Course_Note">
+UPDATE  edu_course_note SET CONTENT=#{content},update_time=#{update_time} WHERE user_id=#{users.user_id} and COURSE_ID=#{course_id} and KPOINT_ID =#{kpoint_id}
+</update>
+</mapper>

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.bean.Edu_Course;
 import com.bean.Edu_course_Kpoint;
 
 public interface Edu_course_KpointService {
@@ -15,8 +17,21 @@ public interface Edu_course_KpointService {
 	
 	Edu_course_Kpoint getEdu_course_Kpoint(Edu_course_Kpoint courseKpoint);
 	
-	String readSchedule(MultipartFile file,HttpServletRequest request);
+	void storageUrl(HttpServletRequest request,Edu_course_Kpoint courseKpoint);
 	
 	String storeVideo(MultipartFile multiFile,HttpServletRequest request);
+	
+	List<Edu_course_Kpoint> getCourseKpoint(int id);
+	
+	List<Edu_course_Kpoint>getCourseKpointAllVideo(int id);
+	
+	Edu_course_Kpoint getCourseKpointByID(int id);
+	
+	Edu_course_Kpoint getCourseKponintByKpointId(int id);
+	
+	Edu_course_Kpoint getCourseKpointNameById(int id);
+	
+	Edu_course_Kpoint getCourseKpointByCourseId(int id);
+	
 
 }

@@ -84,7 +84,7 @@ public class Questions_commentController {
 	
 	
 	/**
-	 * 删除问答
+	 * 删除问答评论
 	 * @param request
 	 * @param page
 	 * @return
@@ -94,13 +94,24 @@ public class Questions_commentController {
 		questions_commentService.delete(id);
 		return "redirect:/admin/questions_comment/listAll";
 	}
-	
+	/**
+	 * 删除问答评论并且返回问答id
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/delete1/{id}/{questionsId}")
 	public String delete1(@PathVariable("id")int id,@PathVariable("questionsId")int qid){
 		questions_commentService.delete(id);
 		return "redirect:/admin/questions_comment/getById1/"+qid;
 	}
 	
+	/**
+	 * 通过i查询评论内容
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/getById/{id}")
 	public ModelAndView getById(@PathVariable("id")int id){
 		ModelAndView mv = new ModelAndView();
@@ -110,18 +121,36 @@ public class Questions_commentController {
 		mv.addObject("comment", comment);
 		return mv;
 	}
-	
+	/**
+	 * 修改id
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/update/{id}")
 	public String update(@PathVariable("id")int id) {
 		questions_commentService.update(id);
 		return "redirect:/admin/questions_comment/listAll";
 	}
 	
+	/**
+	 * 修改id
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/update1/{id}/{questionsId}")
 	public String update1(@PathVariable("id")int id,@PathVariable("questionsId")int qid){
 		questions_commentService.update(id);
 		return "redirect:/admin/questions_comment/getById1/"+qid;
 	}
+	
+	/**
+	 *通过问答评论id查询问答id
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/getById1/{id}")
 	public ModelAndView getById1(@PathVariable("id")int id,@RequestParam(required=true,defaultValue="1") Integer page,Model md){
 		PageHelper.startPage(page, 5);

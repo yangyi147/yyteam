@@ -22,6 +22,47 @@
 <result column="sequence" property="course_gross_income"/>
 <association property="subject" column="subject_id" select="com.mapper.Sys_SubjectDao.getSubjectById"></association>
 </resultMap>
+<select id="getCourseNextAllUser" resultType="com.bean.Users">
+select * from edu_user WHERE user_id in (select DISTINCT user_id from edu_course_studyhistory WHERE course_id=#{id})
+</select>
+<select id="getSunjectNextAllCourse" resultMap="functionMap">
+select * from edu_course WHERE subject_id=( SELECT subject_id from edu_course WHERE COURSE_ID=#{id})
+</select>
+<select id="getAllCourse" resultMap="functionMap" parameterType="java.util.Map">
+SELECT DISTINCT course.* from edu_course course, edu_teacher teacher,edu_course_teacher ct     
+
+<where>
+<if test="0==0">
+and course.course_id=ct.course_id
+</if>
+<if test="0==0">
+and  teacher.id= ct.teacher_id
+</if>
+<if test="tid!=null and tid>0">
+and teacher.id=#{tid}
+</if>
+<if test="sfid!=null and sfid>0">
+and course.subject_id=#{sfid}
+</if>
+<if test="courseName!=null and courseName.trim().length>0">
+and course_name like '%${courseName}%'
+</if>
+</where>
+</select>
+<select id="getAllCourseBySubjectParentid" resultMap="functionMap" parameterType="java.util.Map">
+SELECT DISTINCT  course.* from edu_course course, edu_teacher teacher,edu_course_teacher ct WHERE  course.course_id=ct.course_id and  teacher.id= ct.teacher_id and course.subject_id in(select subject_id from sys_subject WHERE parent_id=#{sid} )
+
+</select>
+
+<!-- 
+<select id="getAllCourseByMap" resultMap="functionMap" parameterType="java.util.Map">
+select * from edu_course <where>
+<if test="sid>0">
+PARENT_ID=#{sid}
+</if>
+</where>
+</select>
+ -->
 <insert id="insertCourse_Thacher">
 INSERT into edu_course_teacher VALUES(#{id},#{tid})
 </insert>

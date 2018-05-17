@@ -44,10 +44,11 @@ var setting={
  * @param obj
  */
 function getPlayerHtml(kpointId,free,obj) {
+	alert("1111");
 	//节点选中
 	$(".lh-menu-stair").find("ul>li>a,ol>li>a").removeClass("current-2");
 	$(obj).addClass("current-2");
-	
+	alert(kpointId);
 	if(isok==true || currentprice <= 0 || free==1){
 		$.ajax({
 			url : "" + baselocation + "/front/ajax/getKopintHtml",
