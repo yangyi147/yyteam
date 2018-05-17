@@ -39,6 +39,7 @@ public class LoginController {
 			return result;
 		}
 		pwd = MD5Utils.md5(pwd);
+		System.out.println(pwd);
 		String ipForget = request.getParameter("ipForget");
 		Users edu_User = userServiceImpl.getPwd(userName);
 		//		判断用户是否冻结状态   判断密码是否正确

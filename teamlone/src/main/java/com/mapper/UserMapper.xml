@@ -65,7 +65,12 @@
 		is_avalible=#{is_avalible}
 		where user_id=#{user_id}
 	</update>
-
+	<update id="updateAll" parameterType="Users">
+		update edu_user
+		set
+		user_name=#{user_name},show_name=#{show_name},sex=#{sex},age=#{age}
+		where user_id=#{user_id}
+	</update>
 	<select id="getById" resultMap="UsersMap" parameterType="int">
 		select * from edu_user where user_id=#{value}
 	</select>
@@ -82,7 +87,8 @@
   <select id="getPwd" resultType="Users" parameterType="String">
 		select * from edu_user WHERE email =#{value}
 	</select>
-	<insert id="addUser" parameterType="Users">
-		insert into edu_user (mobile,email,password) values (#{mobile},#{email},#{password}) 
+<insert id="addUser" parameterType="Users">
+		insert into edu_user (mobile,email,password,user_name,pic_img,last_system_time,is_avalible)
+		 values (#{mobile},#{email},#{password},#{user_name},#{pic_img},#{last_system_time},#{is_avalible}) 
 	</insert>
 </mapper>

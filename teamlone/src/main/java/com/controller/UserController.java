@@ -71,6 +71,7 @@ public class UserController {
 		List<EClass> listc=eclassServiceImpl.getlistAll();
 		mv.addObject("listc", listc);
 		mv.setViewName("/common/student");
+
 		return mv;	
 	}
 //   修改密码
@@ -234,72 +235,61 @@ public String getAction(HttpServletRequest request, HttpServletResponse response
     HSSFCellStyle style = wb.createCellStyle();    
     style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式    
 
-    HSSFCell cell = row.createCell((short) 0);    
-    cell.setCellValue("id");    
-    cell.setCellStyle(style);    
-    cell = row.createCell((short) 1);    
-    cell.setCellValue("手机号");    
-    cell.setCellStyle(style);    
-    cell = row.createCell((short) 2);    
-    cell.setCellValue("邮箱");    
-    cell.setCellStyle(style);    
-    cell = row.createCell((short) 3);    
-    cell.setCellValue("姓名");    
-    cell.setCellStyle(style);    
-    cell = row.createCell((short) 4);    
-    cell.setCellValue("昵称");    
-    cell.setCellStyle(style);    
+    HSSFCell cell = row.createCell(0);  
+	cell.setCellValue("用户Id");  
+	cell = row.createCell(1);  
+	cell.setCellValue("手机号");  
+	cell=row.createCell(2);  
+	cell.setCellValue("邮箱号");  
+	cell=row.createCell(3);  
+	cell.setCellValue("用户名"); 
+	cell=row.createCell(4);  
+	cell.setCellValue("昵称"); 
+	cell=row.createCell(5);  
+//	cell.setCellValue("性别"); 
+//	cell=row.createCell(6);  
+//	cell.setCellValue("年龄"); 
+//	cell=row.createCell(7);  
+//	cell.setCellValue("状态"); 
+    
     
     // 第五步，写入实体数据 实际应用中这些数据从数据库得到，    
     Map map = new HashMap<>();
 
 	map=initMap(request, map);
 	List<Users> list = userService.getlistAll(map);   
-
     for (int i = 0; i < list.size(); i++)    
     {    
         row = sheet.createRow((int) i + 1);    
         Users stu = (Users) list.get(i);    
         // 第四步，创建单元格，并设置值    
-        row.createCell((short) 0).setCellValue((double) stu.getUser_id());    
-        row.createCell((short) 1).setCellValue(stu.getMobile());    
-        row.createCell((short) 2).setCellValue(stu.getEmail());  
-        row.createCell((short) 3).setCellValue(stu.getUser_name()); 
-        row.createCell((short) 4).setCellValue(stu.getShow_name()); 
+        row.createCell(0).setCellValue((double) stu.getUser_id());    
+        row.createCell(1).setCellValue(stu.getMobile());    
+        row.createCell(2).setCellValue(stu.getEmail());  
+        row.createCell(3).setCellValue(stu.getUser_name()); 
+        row.createCell(4).setCellValue(stu.getShow_name()); 
     }    
     // 第六步，将文件存到指定位置    
-    try    
-    {    
-        FileOutputStream fout = new FileOutputStream("E:/Members.xls");    
-        wb.write(fout);    
-        fout.close();    
-    }    
-    catch (Exception e)    
-    {    
+
+    OutputStream out = null;    
+    try {        
+        out = response.getOutputStream();    
+        String fileName = "enroll.xls";// 文件名    
+        response.setContentType("application/x-msdownload");    
+        response.setHeader("Content-Disposition", "attachment; filename="    
+                                                + URLEncoder.encode(fileName, "UTF-8"));    
+        wb.write(out);    
+    } catch (Exception e) {    
         e.printStackTrace();    
-    }    
-    System.out.println("成功");
-//    OutputStream out = null;    
-//    try {        
-//        out = response.getOutputStream();    
-//        String fileName = "enroll.xls";// 文件名    
-//        response.setContentType("application/x-msdownload");    
-//        response.setHeader("Content-Disposition", "attachment; filename="    
-//                                                + URLEncoder.encode(fileName, "UTF-8"));    
-//        wb.write(out);    
-//    } catch (Exception e) {    
-//        e.printStackTrace();    
-//    } finally {      
-//        try {       
-//            out.close();      
-//        } catch (IOException e) {      
-//            e.printStackTrace();    
-//        }      
-//    }
-	   
+    } finally {      
+        try {       
+            out.close();      
+        } catch (IOException e) {      
+            e.printStackTrace();    
+        }      
+    }
+  System.out.println("成功"); 
 	return "redirect:/admin/users/list";
 }    
-   
-
 
 		    }

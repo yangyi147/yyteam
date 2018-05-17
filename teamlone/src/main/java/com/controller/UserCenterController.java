@@ -9,9 +9,6 @@ public class UserCenterController {
 	@RequestMapping("/index")
 	public String index(){
 		
-		
-		
-		
 		return "web/ucenter/uc_freecourse";
 	}
 }

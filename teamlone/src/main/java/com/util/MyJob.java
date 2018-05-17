@@ -18,7 +18,6 @@ import org.quartz.JobExecutionException;
 
 public class MyJob implements Job{
 
-
 	public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
        try{
 		JobDataMap map=jobExecutionContext.getJobDetail().getJobDataMap();
@@ -27,41 +26,41 @@ public class MyJob implements Job{
        String title=map.getString("title");
        final Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
-       // 邮件传输的协议
+       // 閭欢浼犺緭鐨勫崗璁 
        props.put("mail.transport.protocol", "smtp");
-       // 发送人
+       // 鍙戦 佷汉
        props.put("mail.user", "nanjingpaoyuan@163.com");
-       // 连接的邮件服务器
+       // 杩炴帴鐨勯偖浠舵湇鍔″櫒
        props.put("mail.host", "smtp.163.com");
-       // 访问SMTP服务时需要提供的密码
+       // 璁块棶SMTP鏈嶅姟鏃堕渶瑕佹彁渚涚殑瀵嗙爜
        props.put("mail.password", "huangjie");
-    // 构建授权信息，用于进行SMTP进行身份验证
+    // 鏋勫缓鎺堟潈淇℃伅锛岀敤浜庤繘琛孲MTP杩涜韬唤楠岃瘉证
 		Authenticator authenticator=new Authenticator(){
 			  @Override
 	            protected PasswordAuthentication getPasswordAuthentication() {
-	                // 用户名、密码
+	                // 鐢ㄦ埛鍚嶃 佸瘑鐮 
 	                String userName = props.getProperty("mail.user");
 	                String password = props.getProperty("mail.password");
 	                return new PasswordAuthentication(userName, password);
 	            }
 		};
-		  // 使用环境属性和授权信息，创建邮件会话
+		  //浣跨敤鐜灞炴 у拰鎺堟潈淇℃伅锛屽垱寤洪偖浠朵細璇 
        Session mailSession = Session.getInstance(props, authenticator);
-       // 创建邮件消息
+       // 鍒涘缓閭欢娑堟伅
        MimeMessage message = new MimeMessage(mailSession);
-       // 设置发件人
+       // 璁剧疆鍙戜欢浜 
        InternetAddress form = new InternetAddress(
                props.getProperty("mail.user"));
        message.setFrom(form);
 
-       // 设置收件人
+       // 璁剧疆鏀朵欢浜 
        InternetAddress to = new InternetAddress(email);
        message.setRecipient(RecipientType.TO, to);
-       // 设置邮件标题
+       // 璁剧疆閭欢鏍囬
        message.setSubject(title);
-       // 设置邮件的内容体
+       //璁剧疆閭欢鐨勫唴瀹逛綋
        message.setContent(content,"text/html;charset=UTF-8");
-       // 发送邮件
+       //鍙戦 侀偖浠 
        Transport.send(message);
        }catch(Exception e){
     	   e.printStackTrace();

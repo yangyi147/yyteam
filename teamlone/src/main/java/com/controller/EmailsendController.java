@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bean.Emailsend;
 import com.bean.Users;
 import com.email.JavaEmailSender;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.EmailsendServiceImpl;
 import com.service.UserServiceImpl;
 import com.util.MyJob;
@@ -34,10 +36,10 @@ import com.util.QuartzManager;
 @Controller
 @RequestMapping("/admin/email")
 public class EmailsendController {
-	public static String JOB_NAME = "锟斤拷态锟斤拷锟斤拷锟斤拷锟�";  
-	public static String TRIGGER_NAME = "锟斤拷态锟斤拷锟今触凤拷锟斤拷";  
-	public static String JOB_GROUP_NAME = "XLXXCC_JOB_GROUP";  
-	public static String TRIGGER_GROUP_NAME = "XLXXCC_JOB_GROUP"; 
+	public static String JOB_NAME = "动态任务调度";  
+	  public static String TRIGGER_NAME = "动态任务触发器";  
+	  public static String JOB_GROUP_NAME = "XLXXCC_JOB_GROUP";  
+	  public static String TRIGGER_GROUP_NAME = "XLXXCC_JOB_GROUP";
 	@Autowired
 	EmailsendServiceImpl emailsendServiceImpl;
 	@Autowired
@@ -95,14 +97,19 @@ public class EmailsendController {
  * @throws Exception
  */
 @RequestMapping("/toEmailMsg")
-public ModelAndView add(HttpServletRequest request)throws Exception {
+public ModelAndView add(@RequestParam(required=true,defaultValue="1")Integer page,HttpServletRequest request)throws Exception {
 	ModelAndView mv = new ModelAndView();
 	Map map = new HashMap<>();
+	PageHelper.startPage(page,10); //分页设置每页显示数
 	List<Users> lists = (List<Users>) userServiceImpl.getListAlls();
+	PageInfo<Users> pageInfo=new PageInfo<>(lists); //分页把数据存放pageinfo
 	mv.addObject("lists", lists);
+	mv.addObject("page", pageInfo);  //分页界面传参
 	mv.setViewName("/common/youjianup");
 	return mv;
 }
+
+
 /**
  * 发送邮件
  * @throws Exception 

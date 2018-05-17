@@ -76,6 +76,12 @@ public class UserServiceImpl implements UserService{
 		userdao.addUser(user);
 	}
 
+	@Override
+	public void updateAll(Users users) {
+		// TODO Auto-generated method stub
+		userdao.updateAll(users);
+	}
+
 
 
 
