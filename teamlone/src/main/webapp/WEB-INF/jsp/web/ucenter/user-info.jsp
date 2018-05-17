@@ -36,42 +36,42 @@ $(function(){
 				<div class="mt40" id="p_tCont">
 					<div class="u-account-box">
 						<form method="post" id="updateForm">
-							<input type="hidden" name="user.userId" value="${user.userId}" />
+							<input type="hidden" name="user.userId" value="${login_success.user_id}" />
 							<ol class="u-account-li"> 
 								<li>
 									<label class="u-a-title">
 										<span class="fsize16 c-999">邮 箱</span>
 									</label>
-									<input type="text" class="u-a-inpt" name="${user.email}" value="${user.email}" placeholder="" readonly="readonly" disabled="disabled">
+									<input type="text" class="u-a-inpt" name="${login_success.email}" value="${login_success.email}" placeholder="" readonly="readonly" disabled="disabled">
 									<!-- <span class="u-a-error"><em class="u-a-zq icon16">&nbsp;</em></span> -->
 								</li>
 								<li>
 									<label class="u-a-title">
 										<span class="fsize16 c-999">手机号</span>
 									</label>
-									<input type="text" class="u-a-inpt" name="user.mobile" value="${user.mobile }" placeholder="" readonly="readonly" disabled="disabled">
+									<input type="text" class="u-a-inpt" name="${login_success.mobile }" value="${login_success.mobile }" placeholder="" readonly="readonly" disabled="disabled">
 									<!-- <span class="u-a-error"><em class="u-a-zq icon16">&nbsp;</em></span> -->
 								</li>
 								<li>
 									<label class="u-a-title">
 										<span class="fsize16 c-999">姓 名</span>
 									</label>
-									<input type="text" class="u-a-inpt" name="user.userName" value="${user.userName }" placeholder="" >
+									<input type="text" class="u-a-inpt" name="user.userName" value="${login_success.user_name }" placeholder="" >
 									<!-- <span class="u-a-error"><em class="u-a-cw icon16">&nbsp;</em>请输入正确的账 号</span> -->
 								</li>
 								<li>
 									<label class="u-a-title">
 										<span class="fsize16 c-999">昵 称</span>
 									</label>
-									<input type="text" class="u-a-inpt" name="user.showName" value="${user.showName}" placeholder="">
+									<input type="text" class="u-a-inpt" name="user.showName" value="${login_success.show_name}" placeholder="">
 									<!-- <span class="u-a-error"><em class="u-a-cw icon16">&nbsp;</em>请输入正确的昵称</span> -->
 								</li>
 								<li>
 									<label class="u-a-title">
 										<span class="fsize16 c-999">性 别</span>
 									</label>
-									<input type="radio" name="user.sex" <c:if test="${user.sex==1}">checked="checked"</c:if> value="1"/><span class="vam fsize14 c-666">男</span>
-									<input type="radio" name="user.sex" <c:if test="${user.sex==2}">checked="checked"</c:if> value="2"/><span class="vam fsize14 c-666">女</span>
+									<input type="radio" name="user.sex" <c:if test="${login_success.sex==1}">checked="checked"</c:if> value="1"/><span class="vam fsize14 c-666">男</span>
+									<input type="radio" name="user.sex" <c:if test="${login_success.sex==0}">checked="checked"</c:if> value="2"/><span class="vam fsize14 c-666">女</span>
 									<!-- <span class="u-a-error"><em class="u-a-zq icon16">&nbsp;</em></span> -->
 								</li>
 								<li>
@@ -81,7 +81,7 @@ $(function(){
 									<select name="user.age">
 											<option value="0">0岁</option>
 											<c:forEach var="age" begin="1" end="110">
-												<option <c:if test="${user.age==age}">selected</c:if> value="${age}">${age}岁</option>
+												<option <c:if test="${login_success.age==age}">selected</c:if> value="${age}">${age}岁</option>
 											</c:forEach>
 									</select>
 									<!-- <span class="u-a-error"><em class="u-a-cw icon16">&nbsp;</em></span> -->
@@ -107,8 +107,8 @@ $(function(){
 										<!--个人头像裁切控件-->
 										<div class="fl jc-demo-box pr mt40">
 											<c:choose>
-												<c:when test="${user.picImg!=null && user.picImg!=''}">
-													<img src="<%=staticImage%>${user.picImg}" width="100%" height="100%" alt="头像加载中..." class="dis pictureWrap" id="picture" />
+												<c:when test="${login_success.pic_img!=null && login_success.pic_img!=''}">
+													<img src="<%=staticImage%>${login_success.pic_img}" width="100%" height="100%" alt="头像加载中..." class="dis pictureWrap" id="picture" />
 												</c:when>
 												<c:otherwise>
 													<img src="${ctx}/static/inxweb/img/avatar-boy.gif" width="100%" height="100%" alt="头像加载中..." class="dis pictureWrap"
@@ -118,8 +118,8 @@ $(function(){
 											<div id="preview-pane" class="preview-pane1">
 												<div class="preview-container">
 													<c:choose>
-														<c:when test="${user.picImg!=null && user.picImg!=''}">
-															<img src="<%=staticImage%>${user.picImg}" class="jcrop-preview" alt="头像加载中..." width="100%" />
+														<c:when test="${login_success.pic_img!=null && login_success.pic_img!=''}">
+															<img src="<%=staticImage%>${login_success.pic_img}" class="jcrop-preview" alt="头像加载中..." width="100%" />
 														</c:when>
 														<c:otherwise>
 															<img src="${ctx}/static/inxweb/img/avatar-boy.gif" class="jcrop-preview" alt="头像加载中..." width="100%" />
@@ -131,8 +131,8 @@ $(function(){
 											<div id="preview-pane" class="preview-pane2">
 												<div class="preview-container" style="width: 80px; height: 80px; margin: 0 auto;">
 													<c:choose>
-														<c:when test="${user.picImg!=null && user.picImg!=''}">
-															<img src="<%=staticImage%>${user.picImg}" class="jcrop-preview" alt="头像加载中..." width="100%" />
+														<c:when test="${login_success.pic_img!=null && login_success.pic_img!=''}">
+															<img src="<%=staticImage%>${login_success.pic_img}" class="jcrop-preview" alt="头像加载中..." width="100%" />
 														</c:when>
 														<c:otherwise>
 															<img src="${ctx}/static/inxweb/img/avatar-boy.gif" class="jcrop-preview" alt="头像加载中..." width="100%" />
@@ -144,8 +144,8 @@ $(function(){
 											<div id="preview-pane" class="preview-pane3">
 												<div class="preview-container" style="width: 50px; height: 50px;">
 													<c:choose>
-														<c:when test="${user.picImg!=null && user.picImg!=''}">
-															<img src="<%=staticImage%>${user.picImg}" class="jcrop-preview" alt="头像加载中..." width="100%" />
+														<c:when test="${login_success.pic_img!=null && login_success.pic_img!=''}">
+															<img src="<%=staticImage%>${login_success.pic_img}" class="jcrop-preview" alt="头像加载中..." width="100%" />
 														</c:when>
 														<c:otherwise>
 															<img src="${ctx}/static/inxweb/img/avatar-boy.gif" class="jcrop-preview" alt="头像加载中..." width="100%" />
@@ -193,7 +193,7 @@ $(function(){
 					<!--修改密码，开始-->
 					<div class="u-account-box undis">
 						<form method="post" name="pwdForm" id="pwdForm">
-							<input type="hidden" name="user.userId" value="${user.userId}" />
+							<input type="hidden" name="userId" value="${login_success.user_id}" />
 							<ol class="u-account-li">
 								<li>
 									<label class="u-a-title">
