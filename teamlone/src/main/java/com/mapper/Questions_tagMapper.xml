@@ -11,6 +11,7 @@
     <select id="getById" parameterType="int" resultType="Questions_tag">
      select * from edu_questions_tag where questions_tag_id=#{id}
     </select>
+
     <update id="update" parameterType="Questions_tag">
      update edu_questions_tag set questions_tag_name=#{questions_tag_name},create_time=#{create_time} where questions_tag_id=#{questions_tag_id}
     </update>

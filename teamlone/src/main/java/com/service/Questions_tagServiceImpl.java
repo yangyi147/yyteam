@@ -35,5 +35,6 @@ public class Questions_tagServiceImpl implements Questions_tagService{
 	public void updateStatus(int id) {
 		Questions_tagMapper.updateStatus(id);
 	}
+	
 
 }

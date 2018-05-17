@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Questions {
 
@@ -16,6 +17,7 @@ public class Questions {
     private Date add_time;//Ìí¼ÓÊ±¼ä
     private String start;
     private String end;
+
 	public String getStart() {
 		return start;
 	}
