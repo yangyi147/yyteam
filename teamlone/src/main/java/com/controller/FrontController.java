@@ -19,7 +19,6 @@ import com.service.CommentService;
 import com.service.Edu_CourseService;
 import com.service.ImagesService;
 import com.service.TeacherService;
-
 @Controller
 @RequestMapping("/front")
 public class FrontController {
@@ -36,8 +35,9 @@ public class FrontController {
 		Map map=new HashMap<>();
 		PageInfo<Teacher> th=teacherService.getlistAll(map, page);
 		PageInfo<Edu_Course> ts=edu_CourseService.getAllEnd_Course(map, page);
+		PageInfo<Comment>commentList=commentService.getListAll(map, page);
+		map.put("id", 1);
 		PageInfo<Images> websiteImagesList=imagesService.getlistAll(map,page);
-		PageInfo<Comment>	commentList=commentService.getListAll(map, page);
 		ModelAndView md=new ModelAndView();
 		md.addObject("websiteImagesList", websiteImagesList);
 		md.addObject("subjectList", ts);

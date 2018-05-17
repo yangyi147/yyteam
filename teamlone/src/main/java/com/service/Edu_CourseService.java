@@ -9,6 +9,7 @@ import org.apache.shiro.web.util.SavedRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bean.Edu_Course;
+import com.bean.Users;
 import com.github.pagehelper.PageInfo;
 
 public interface Edu_CourseService {
@@ -32,6 +33,15 @@ public interface Edu_CourseService {
 	void insertCourse(MultipartFile file,Edu_Course course,String end_times,int tid,String ssid,HttpServletRequest request);
 	
 	int getCourseNameRepeat(String courseName);
+	
+	List<Edu_Course>getAllCourse(Map map);
+	
+	List<Edu_Course>getAllCourseBySubjectParentid(Map  map);
+	
+	List<Edu_Course> getSunjectNextAllCourse(int id);
+	
+	List<Users>getCourseNextAllUser(int id);
+
 
 
 }

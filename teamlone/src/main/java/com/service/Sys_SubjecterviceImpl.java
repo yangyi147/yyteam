@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.mgt.SubjectDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,15 @@ public class Sys_SubjecterviceImpl implements Sys_Subjectervice {
 	public void insertSubject(Sys_Subject subject) {
 		// TODO Auto-generated method stub
 		SubjectDAO.insertSubject(subject);
+	}
+	/* (non-Javadoc)
+	 * @see com.service.Sys_Subjectervice#getAllSubjectByChild()
+	 * 查询所有子内容
+	 */
+	@Override
+	public List<Sys_Subject> getAllSubjectByChild(Map map) {
+		 
+		 return SubjectDAO.getAllSubjectByChild(map);
 	}
 
 }

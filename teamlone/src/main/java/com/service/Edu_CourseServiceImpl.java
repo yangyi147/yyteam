@@ -16,9 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bean.Edu_Course;
 import com.bean.Sys_Subject;
+import com.bean.Users;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mapper.Edu_CourseDao;
+
+import net.sf.ehcache.search.expression.And;
 
 @Service
 public class Edu_CourseServiceImpl implements Edu_CourseService {
@@ -66,10 +69,11 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 				 file.transferTo(new File(pathRoot+path));
 			 } catch (Exception e) {
 				 e.printStackTrace();
-			 }  
+			 } 
+			 course.setLogo("/images"+path);
 		 }  
 		 System.out.println(pathRoot+path);  
-		 course.setLogo("/images"+path);
+		 
 		 if (ssid!=null&&ssid.trim().length()>0) {
 			 String sid=ssid.replace(" ", "");
 			 subject.setId(Integer.parseInt(sid));
@@ -144,6 +148,29 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 	public List<Edu_Course> getTeaByID(int id) {
 		// TODO Auto-generated method stub
 		return courseDao.getTeaByID(id);
+	}
+	@Override
+	public List<Edu_Course> getAllCourse(Map map) {
+		if (map.get("sid")!=null&&map.get("sfid")==null) {
+		 return	getAllCourseBySubjectParentid(map);
+		}else {
+			return courseDao.getAllCourse(map);
+		}
+	}
+	@Override
+	public List<Edu_Course> getAllCourseBySubjectParentid(Map map) {
+		// TODO Auto-generated method stub
+		return courseDao.getAllCourseBySubjectParentid(map);
+	}
+	@Override
+	public List<Edu_Course> getSunjectNextAllCourse(int id) {
+		// TODO Auto-generated method stub
+		return courseDao.getSunjectNextAllCourse(id);
+	}
+	@Override
+	public List<Users> getCourseNextAllUser(int id) {
+		// TODO Auto-generated method stub
+		return courseDao.getCourseNextAllUser(id);
 	}
 
 

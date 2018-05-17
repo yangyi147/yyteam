@@ -29,7 +29,10 @@ public class Questions_tagController {
 	
 	@Autowired
 	private Questions_tagService Questions_tagService;
-
+	/**
+	 * 查询所有问答类型
+	 * 
+	 */
 	@RequestMapping("/listAll")
 	public ModelAndView listAll(@RequestParam(required=true,defaultValue="1") Integer page,HttpServletRequest request) {
 		PageHelper.startPage(page, 5);
@@ -43,12 +46,23 @@ public class Questions_tagController {
 		return mv;
 	}
 	
+	/**
+	 * 通过id修改 问答status
+	 * @param request
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/updateStatus/{id}")
 	public String updateStatus(@PathVariable("id")int id) {
 	    Questions_tagService.updateStatus(id);
 		return "redirect:/admin/questions_tag/listAll";
 	}
 	
+	/**
+	 * 查询单个类型
+	 *
+	 *
+	 */
 	@RequestMapping("/init/{id}")
 	public String init(@PathVariable("id")int id,Model model) {
 		Questions_tag tag = Questions_tagService.getById(id);
@@ -56,6 +70,12 @@ public class Questions_tagController {
 		return "/admin/question/updateTag";
 	}
 	
+	
+	/**
+	 * 修改类型
+	*
+	*
+	 */
 	@RequestMapping("/update")
 	public String update(Questions_tag tag){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -70,6 +90,10 @@ public class Questions_tagController {
 		return "redirect:/admin/questions_tag/listAll";
 	}
 	
+	/**
+	 * 修改id
+	 *添加类型
+	 */
 	@RequestMapping("/save")
 	public String save(Questions_tag tag){
 		if (!tag.getQuestions_tag_name().equals("")) {

@@ -37,8 +37,11 @@
 	<delete id="delete" parameterType="int">
 	     delete from edu_questions_comment where id = #{id}
 	</delete>
+	<delete id="deleteqid" parameterType="int">
+	     delete from edu_questions_comment where id = #{id}
+	</delete>
 	<select id="getById" resultType="Questions_comment" parameterType="int">
-	     select * from edu_questions_comment where id = #{id}
+	     select * from edu_questions_comment where question_id = #{id}
 	</select>
 	<update id="update" parameterType="int">
 	     update edu_questions_comment set is_best=1 where id = #{id}

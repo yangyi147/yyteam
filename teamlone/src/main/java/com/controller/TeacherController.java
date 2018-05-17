@@ -30,6 +30,10 @@ public class TeacherController {
 	private Sys_Subjectervice sys_Subjectervice;
 	@Autowired
 	private TeacherService teacherService;
+	/**
+	 * 查询所有teacher
+	 *
+	 */
 	@RequestMapping("/teacher")
     public ModelAndView findall(@RequestParam(name="page",defaultValue="0")int page,HttpServletRequest request) {
 		ModelAndView md=new ModelAndView();
@@ -39,11 +43,20 @@ public class TeacherController {
 		md.setViewName("/admin/teacher/teacher");
 		return md;
 	}
+	/**
+	 * 通过id删除teacher
+	 *
+	 */
 	@RequestMapping("/delTe/{id}")
 	public String  delTe(@PathVariable("id")int id){
 		teacherService.delTe(id);
 		return "redirect:/admin/teacher";
 	}
+	
+	/**
+	 * 通过id查询teacher
+	 *
+	 */
 	@RequestMapping("/teacher/getById/{id}")
 	public ModelAndView  getById(@PathVariable("id")int id){
 		Teacher teacher=teacherService.getById(id);
@@ -56,6 +69,12 @@ public class TeacherController {
 		md.setViewName("/admin/teacher/upteacher");
 		return md;
 	}
+	
+	/**
+	 * map
+	 * 通过map封装所需要的值
+	 *
+	 */
 	private Map inerMap(HttpServletRequest request){
 	 String startdate=request.getParameter("startdate");
 	 String  stopdate=request.getParameter("stopdate");
@@ -80,30 +99,24 @@ public class TeacherController {
 		request.setAttribute("stopdate", stopdate);
 		return map;
 	}
+	
+	
 	 @RequestMapping(value="/upload",method=RequestMethod.POST)
      public String upload(HttpServletRequest request,
-            @RequestParam("file") MultipartFile file,Teacher teacher,@RequestParam("sd")int sd) throws Exception {
-		 if(!file.isEmpty()) {
-        	Date day=new Date();    
-            String path = request.getRealPath("/images/");
-            String filename = file.getOriginalFilename();
-            File filepath = new File(path,filename);
+    		 @RequestParam("filename")String filename,Teacher teacher,@RequestParam("sd")int sd) throws Exception {
+        	Date day=new Date();   
             Sys_Subject  sub= sys_Subjectervice.getSubjectById(sd).get(0);
             teacher.setPic_path("/images/"+filename);
             teacher.setSubject_id(sub);
             teacher.setCreate_time(day);
             teacher.setUpdate_time(day);
             teacherService.inTer(teacher);
-            if (!filepath.getParentFile().exists()) { 
-                filepath.getParentFile().mkdirs();
-            }
-            file.transferTo(new File(path + File.separator + filename));
             return "redirect:/admin/teacher";
-        } else {
-        	System.out.println("=====================");
-            return "";
-        }
      }
+	 /**
+		 *把文件上传到服务器
+		 *
+		 */
 	 @RequestMapping(value="/uploadfind")
 	 @ResponseBody
      public InfoNode uploadw(HttpServletRequest request,
@@ -123,10 +136,13 @@ public class TeacherController {
             node.setUrl(filename);
             return node;
         } else {
-        	System.out.println("=====================");
             return node;
         }
      }
+	 /**
+		 * 通过id修改老师的个人信息
+		 *
+		 */
 	@RequestMapping(value="/upTer")
 	   public String upTer(Teacher teacher,@RequestParam("sd")int sd) throws Exception {
         	Date day=new Date();    

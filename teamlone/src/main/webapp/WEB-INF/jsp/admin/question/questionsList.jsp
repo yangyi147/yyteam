@@ -33,12 +33,12 @@
 function fun(a) {   
     layer.open({  
             title: ['温馨提示'],  
-            content: '<div style="color:#767676">确定删除吗</div>',  
+            content: '<div style="color:#767676">确定删除所有内容吗</div>',  
             btn: ['确定', '取消'],  
             shadeClose: true,  
             //回调函数  
             yes: function(index, layero){  
-            	window.location.href='/admin/delImg/'+a;  
+            	window.location.href="/admin/questions/delete/"+a;  
             },  
             btn2: function(index, layero){  
             },  
@@ -118,7 +118,7 @@ $(function(){
 				<tr>
 					<td>ID</td>
 					<td>发表人</td>
-					<td>回答标题</td>
+					<td>问答标题</td>
 					<td>类型</td>
 					<td>回复数</td>
 					<td>浏览数</td>
@@ -142,7 +142,7 @@ $(function(){
 						<td><fmt:formatDate value="${q.add_time }" type="date"
 								pattern="yyyy-MM-dd hh:mm:ss" /></td>
 						<td><a class="layui-btn layui-btn-sm layui-btn-normal"
-							href="/admin/questions/delete/${q.id }"> <i
+							href="javascript:;"  onclick="fun(${q.id})"> <i
 								class="layui-icon"></i>
 						</a>
 							<a class="layui-btn layui-btn-xs"
@@ -204,7 +204,7 @@ $(function(){
 							//得到了当前页，用于向服务端请求对应数据
 							var curr = obj.curr;
 							if(!first) {
-								document.forms[0].action="/admin/questions_comment/listAll?page="+curr;
+								document.forms[0].action="/admin/questions/listAll?page="+curr;
 								document.forms[0].submit();
 							}
 						}

@@ -97,7 +97,6 @@ public class CourseController {
 	public String addCourse(HttpServletRequest request) {
 		List<Sys_Subject> allSubjict = subjectService.getAllSubjictByparent_Id();
 		List<Edu_Teacher> allTeacher = teacherService.getAllTeacherBySubjectId();
-		allSubjict.get(0).setChecked(true);
 		String json=JsonUtils.objectToJson(allSubjict);
 		request.setAttribute("allSubjict", json);
 		request.setAttribute("allTeacher", allTeacher);
@@ -119,13 +118,19 @@ public class CourseController {
 		course_KpointService.insertCourseKpoint(courseKpoint, tid);
 		return "redirect:/admin/course/chapte/"+courseKpoint.getId();
 	}
-	@ResponseBody
-	@RequestMapping("/readSchedule")
-	public String readSchedule(MultipartFile file,HttpServletRequest request) {
-		course_KpointService.readSchedule(file, request);
+	@RequestMapping("/storageUrl")
+	public String storageUrl(HttpServletRequest request,Edu_course_Kpoint courseKpoint,int courseid) {
+		course_KpointService.storageUrl(request,courseKpoint);
 		
-		return "";
+		return "redirect:/admin/course/chapte/"+courseid;
 	}
+	
+	/**
+	 * @param file
+	 * @param request
+	 * @return
+	 * ÉÏ´«ÊÓÆµ
+	 */
 	@ResponseBody
 	@RequestMapping("/storeVideo")
 	public String storeVideo(@RequestParam("uploadfile")MultipartFile file,HttpServletRequest request) {

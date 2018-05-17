@@ -10,4 +10,26 @@ INSERT INTO edu_course_kpoint VALUES(NULL,#{id},#{name},#{pId},#{add_time},#{sor
 <select id="getEdu_course_Kpoint" parameterType="com.bean.Edu_course_Kpoint" resultType="com.bean.Edu_course_Kpoint">
 SELECT * from edu_course_kpoint where course_id=#{id} and name=#{name} and PARENT_ID=#{pId}
 </select>
+<update id="updateCourseKpoint" parameterType="com.bean.Edu_course_Kpoint">
+UPDATE edu_course_kpoint SET video_url=#{video_url} WHERE kpoint_id=#{id} 
+</update>
+<select id="getCourseKpoint" resultType="com.bean.Edu_course_Kpoint">
+SELECT kpoint_id id,name,parent_id pId, add_time,sort,play_count,is_free,video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content from edu_course_kpoint where course_id=#{id}
+</select>
+
+<select id="getCourseKpointAllVideo" resultType="com.bean.Edu_course_Kpoint">
+SELECT  kpoint_id id,name,parent_id pId, add_time,sort,play_count,is_free,video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content from edu_course_kpoint WHERE parent_id!=0 and course_id=#{id}
+</select>
+<select id="getCourseKpointByID" resultType="com.bean.Edu_course_Kpoint">
+select kpoint_id id,name,parent_id pId, add_time,sort,play_count,is_free,video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content  FROM edu_course_kpoint where KPOINT_ID=(SELECT min(KPOINT_ID) from  edu_course_kpoint where course_id =#{id} and PARENT_ID !=0 )
+</select>
+<select id="getCourseKponintByKpointId" resultType="com.bean.Edu_course_Kpoint">
+SELECT * from edu_course_kpoint WHERE KPOINT_ID=#{id}
+</select>
+<select id="getCourseKpointNameById" resultType="com.bean.Edu_course_Kpoint">
+SELECT  name from edu_course_kpoint WHERE KPOINT_ID=#{id}
+</select>
+<select id="getCourseKpointByCourseId" resultType="com.bean.Edu_course_Kpoint">
+SELECT * from edu_course_kpoint WHERE kpoint_id=( SELECT min(kpoint_id) from edu_course_kpoint WHERE COURSE_ID=#{ID} and parent_id!=0)
+</select>
 </mapper>

@@ -50,8 +50,9 @@ margin-left: 50px;
 			id = treeNode.id;
 			name=treeNode.name;
 			 pId=treeNode.pId;
-			 console.log(pId)
 			if(pId!=null&&pId!=""){
+				$("#idone").val(id);
+			
 				$(".cj").hide();
 				initUpdateKpoint();
 				$("#edit").css({"display":"block"});
@@ -75,6 +76,7 @@ margin-left: 50px;
 			$("#addVideo").click(function () {
 				$("#pId").val(id);
 				if(id==0){
+					
 					$("#names").attr("name","name");
 					$("#names").parent().parent().show();
 					$("#name").parent().parent().hide();
@@ -86,15 +88,17 @@ margin-left: 50px;
 				$("#myModal").modal("show");
 			})
 			$("#add").click(function () {
-				document.forms[0].action="/admin/course/addVideo";
-				document.forms[0].submit();
+				document.forms[1].action="/admin/course/addVideo";
+				document.forms[1].submit();
 			})
 			$("#file").change(function () {
 				var localhost= $("#file").val();
 			});
+			$("#btn").click(function(){
+				document.forms[0].action="/admin/course/storageUrl";
+				document.forms[0].submit();
+			});
 		})
-
-
 	</SCRIPT>
 <body>
 <div class="zTreeDemoBackground left" id="ztree" style="width: 50%;">
@@ -105,13 +109,15 @@ margin-left: 50px;
 		<input type="button" id="addVideo" class="top btn btn-default cj"   value="创建视频节点" /><input type="button" class="top btn btn-default cj" onclick="qx()" value="取消选中" />
 	</shiro:hasPermission>
 	<div style="width: 50%;position: absolute;left: 35%; top: 0px; height: 100%;display: none " id="edit" >
-	
-<!-- 	<input id="fileupload" type="file" name="file[]" multiple style="display: none">  -->
-	3123123123
+	   <form action="" method="post">
+	   <input type="hidden" id="idone" name="id"/>
+	    <input type="hidden" value="${id }" name="courseid"/>
 	        <input type="file" id="fileupload" class="vam" id="filename"  name="mp4" style="display: block !important;" /> 
 	        <div id="fileQueue" class="mt10">
 											</div>
 											<input type="hidden" name="video_url" id="videourl" value="" style="width: 360px;"/>
+											<input type="button" id="btn"  value="上传"/>
+											</form>
 	</div>
 	
 	
@@ -219,7 +225,7 @@ function uploadPicLoad(fileupload,showId,fileQueue){
 		'sizeLimit' : 5120000000,//控制上传文件的大小
 		'queueSizeLimit' : 3,//限制在一次队列中的次数（可选定几个文件）
 		'fileDesc' : '支持格式:mp4.',//出现在上传对话框中的文件类型描述
-		'fileExt' : '*.MP4;*.mp4;',//支持的格式，启用本项时需同时声明fileDesc
+		'fileExt' : '*.MP4;*.mp4;*.flv;',//支持的格式，启用本项时需同时声明fileDesc
 		'cancelImg' : '/static/common/uploadify/cancel.png',
 		onSelect : function(event, queueID,fileObj) {
 			fileuploadIndex = 1;

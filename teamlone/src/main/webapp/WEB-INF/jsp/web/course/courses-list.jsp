@@ -4,32 +4,46 @@
 <html>
 <head>
 <title>课程列表</title>
-<script type="text/javascript" src="${ctx}/static/inxweb/front/course.js"></script>
+<script type="text/javascript" src="/static/inxweb/front/course.js"></script>
 </head> 
 <body> 
 	<div id="aCoursesList" class="bg-fa of">
 		<!-- /课程列表 开始 -->
 		<section class="container">
-			<header class="comm-title">
-				<h2 class="fl tac">
-					<span class="c-333">全部课程</span>
-				</h2>
-			</header>
+
 			<section class="c-sort-box">
 				<section class="c-s-dl">
 					<dl>
 						<dt>
-							<span class="c-999 fsize14">按班型</span>
+							<span class="c-999 fsize14">方向</span>
 						</dt>
 						<dd class="c-s-dl-li">
 							<ul class="clearfix">
-								<li <c:if test="${queryCourse.subjectId==0}">class="current"</c:if>><a onclick="submitForm(1,0)" title="全部" href="javascript:void(0)">全部</a></li>
-								<c:forEach items="${subjectList}" var="subject">
-									<li <c:if test="${queryCourse.subjectId==subject.subjectId or subjectParentId==subject.subjectId}">class="current"</c:if>><a onclick="submitForm(1,${subject.subjectId})" title="${subject.subjectName}" href="javascript:void(0)">${subject.subjectName}</a></li>
+								<li ><a onclick="allCourse(0)" title="全部" >全部</a></li> 
+								<c:forEach items="${allSubjict}" var="subject">
+								<c:if test="${subject.pId==0}">
+									<li class="current"><a onclick="allCourse(${subject.id})" title="${subject.name}" href="javascript:void(0)" style="color: black;">${subject.name}</a></li>
+									</c:if>
 								</c:forEach>
 							</ul>
 							<aside class="c-s-more">
-								<a href="javascript: void(0)" title="" class="fsize14 c-master">[展开]</a> 
+								<a href="javascript: void(0)" title="" class="fsize14 c-master" style="color: black;">[展开]</a> 
+							</aside>
+						</dd>
+					</dl>
+					<dl>
+						<dt>
+							<span class="c-999 fsize14">分类</span>
+						</dt>
+						<dd class="c-s-dl-li">
+							<ul class="clearfix">
+								<li ><a onclick="allCoursebyFid(0)" title="全部" >全部</a></li>
+								<c:forEach items="${allSubjectByChild}" var="subject">
+									<li class="current"><a  href="javascript: void(0)" onclick="allCoursebyFid(${subject.id})" title="${subject.name}"  style="color: black;" >${subject.name}</a></li>
+								</c:forEach>
+							</ul>
+							<aside class="c-s-more">
+								<a href="javascript: void(0)" title="" class="fsize14 c-master" style="color: black;" >[展开]</a> 
 							</aside>
 						</dd>
 					</dl>
@@ -56,13 +70,13 @@
 						</dt>
 						<dd class="c-s-dl-li">
 							<ul class="clearfix">
-								<li <c:if test="${queryCourse.teacherId==0}">class="current"</c:if>><a onclick="submitForm(2,0)" title="全部" href="javascript:void(0)">全部</a></li>
-								<c:forEach items="${teacherList}" var="teacher">
-									<li <c:if test="${teacher.id==queryCourse.teacherId}">class="current"</c:if>><a title="${teacher.name}" onclick="submitForm(2,${teacher.id})" href="javascript:void(0)">${teacher.name}</a></li>
+								<li class="current"><a onclick="teacher(0)" title="全部" href="javascript:void(0)" style="color: black;">全部</a></li>
+								<c:forEach items="${allTeacherBySubjectId}" var="teacher">
+									<li class="current"><a  href="javascript: void(0)" title="${teacher.name}" onclick="teacher(${teacher.id})" style="color: black;" >${teacher.name}</a></li>
 								</c:forEach>
 							</ul>
 							<aside class="c-s-more">
-								<a href="javascript: void(0)" title="" class="fsize14 c-master">[展开]</a>
+								<a href="javascript: void(0)" title="" class="fsize14 c-master" style="color: black;">[展开]</a>
 							</aside>
 						</dd>
 					</dl>
@@ -82,17 +96,19 @@
 					</section>
 				</div>
 				<div class="mt40">
-					<c:if test="${empty courseList}">
+					<c:if test="${empty allCourse}">
 						<!-- /无数据提示 开始-->
 						<section class="no-data-wrap">
 							<em class="icon30 no-data-ico">&nbsp;</em> <span class="c-666 fsize14 ml10 vam">没有相关数据，小编正在努力整理中...</span>
 						</section>
 						<!-- /无数据提示 结束-->
 					</c:if>
-					<c:if test="${not empty courseList}">
+					<c:if test="${not empty allCourse}">
 						<article class="comm-course-list">
 							<ul class="of">
-								<c:forEach items="${courseList}" var="course" varStatus="index">
+							
+							
+								<c:forEach items="${allCourse}" var="course" varStatus="index">
 									<li>
 										<div class="cc-l-wrap">
 											<section class="course-img">
@@ -105,25 +121,27 @@
 													</c:otherwise>
 												</c:choose>
 												<div class="cc-mask">
-													<a href="${ctx}/front/couinfo/${course.courseId}" title="" class="comm-btn c-btn-1">开始学习</a>
+													<a href="/front/courseKpoint/videoDetails/${course.course_id}" title="" class="comm-btn c-btn-1">开始学习</a>
 												</div>
 											</section>
 											<h3 class="hLh30 txtOf mt10">
-												<a href="${ctx}/front/couinfo/${course.courseId}" title="${course.courseName}" class="course-title fsize18 c-333">${course.courseName}</a>
+												<a href="${ctx}/front/couinfo/${course.course_id}" title="${course.course_name}" class="course-title fsize18 c-333">${course.course_name}</a>
 											</h3>
 											<section class="mt10 hLh20 of">
-												<c:if test="${course.currentPrice=='0.00' }">
+												<c:if test="${course.current_price=='0.00' }">
 													<span class="fr jgTag bg-green"><tt class="c-fff fsize12 f-fA">免费</tt></span>
 												</c:if>
-												<c:if test="${course.currentPrice!='0.00' }">
-													<span class="fr jgTag bg-orange"><tt class="c-fff fsize14 f-fG">￥${course.currentPrice }</tt></span>
+												<c:if test="${course.current_price!='0.00' }">
+													<span class="fr jgTag bg-orange"><tt class="c-fff fsize14 f-fG">￥${course.current_price }</tt></span>
 												</c:if>
-												<span class="fl jgAttr c-ccc f-fA"> <tt class="c-999 f-fA">${course.pageBuycount }人学习</tt> | <tt class="c-999 f-fA">${course.pageViewcount }浏览</tt>
+												<span class="fl jgAttr c-ccc f-fA"> <tt class="c-999 f-fA">${course.page_buycount }人学习</tt> | <tt class="c-999 f-fA">${course.page_vlewcount }浏览</tt>
 												</span>
 											</section>
 										</div>
 									</li>
 								</c:forEach>
+								
+								
 							</ul>
 							<div class="clear"></div>
 						</article>
@@ -132,17 +150,15 @@
 				<!-- 公共分页 开始 -->
 				<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
 				<!-- 公共分页 结束 -->
-				<form action="${ctx}/front/showcoulist" id="searchForm" method="post">
-					<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
-					<input type="hidden" name="queryCourse.teacherId" value="${queryCourse.teacherId}" />
-					<input type="hidden" name="queryCourse.subjectId" value="${queryCourse.subjectId}" />
-					<input type="hidden" name="queryCourse.order" value="${queryCourse.order}" />
-				</form>
+				
 			</section>
 		</section>
 		<!-- /课程列表 结束 -->
 	</div>
 	<script>
+	   var  sid='${sid }';
+	   var tid='${teacher.id}';
+	   var sfid='${sfid }';
 		$(function() {
 			cSortFun(); //分类更多按钮交互效果
 			scrollLoad(); //响应滚动加载课程图片
@@ -169,6 +185,20 @@
 		        }
 		    });
 		}
+		function allCourse(sid) {
+			    window.location.href="/front/courseKpoint/listCourse?sid="+sid+"&sfid="+sfid+"&tid="+tid;	
+		}
+		function allCoursebyFid(sfid) {
+			    window.location.href="/front/courseKpoint/listCourse?sid="+sid+"&sfid="+sfid+"&tid="+tid;	
+		}
+		function teacher(tid) {
+			    window.location.href="/front/courseKpoint/listCourse?sid="+sid+"&sfid="+sfid+"&tid="+tid;	
+			}
 	</script>
 </body>
+<style>
+a{
+color: black;
+}
+</style>
 </html>

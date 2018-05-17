@@ -1,5 +1,8 @@
 package com.util;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Result {
 	private boolean success;
 	private String message;

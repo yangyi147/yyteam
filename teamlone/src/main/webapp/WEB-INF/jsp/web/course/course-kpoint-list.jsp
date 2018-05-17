@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/base.jsp"%>
-<c:if test="${not empty parentKpointList }">
+<c:if test="${not empty courseKpointByID }">
 	<menu id="lh-menu" class="lh-menu">
 		<ul>
 			<c:set var="folderIndex" value="1"/>

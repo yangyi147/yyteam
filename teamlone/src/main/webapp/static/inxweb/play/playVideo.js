@@ -12,13 +12,13 @@ $(function() {
 
 	// 加载 笔记编辑器
 	initKindEditornote();
-	if (isok == false) {
-		dialog('播放提示', message, 1);
+	/*if (isok == false) {
+	    dialog('播放提示', message, 1);
 		return false;
 	} else {
 		// 播放第一个视频节点
 		$("#lh-menu").find("ul>li:eq(0)").find("ul>li:eq(0),ol>li:eq(0)").find("a").click();
-	}
+	}*/
 	// 学过此课程的用户
 	getCourseLearnedUser(otherId);
 })
@@ -177,19 +177,21 @@ function browserRedirect() {
 /**
  * 获得播放器的html 
  */
-function getPlayerHtml(kpointId,name,obj) {
+function getPlayerHtml(kpointId,name,obj,cid) {
+	alert(cid)
 	// 节点选中
 	$(".lh-menu-stair").find("ul>li>a,ol>li>a").removeClass("current-2");
 	$(obj).addClass("current-2");
 
 	$("#contentTitle").text(name);
 	currentKpointId = kpointId;
-	
 	$.ajax({
-		url : "" + baselocation + "/front/ajax/getKopintHtml",
+//		 "" + baselocation + 
+		url :"/front/courseKpoint/getPlayerHtml",
 		data : {
 			"kpointId" : kpointId,
-			"courseId" : otherId
+			"cid":cid
+//			"courseId" : otherId
 		},
 		type : "post",
 		dataType : "text",
@@ -201,6 +203,9 @@ function getPlayerHtml(kpointId,name,obj) {
 		}
 	});
 }
+$(function () {
+	
+})
 
 /**
  * 收藏课程
@@ -277,29 +282,59 @@ function favorites(courseId,obj) {
  	 		$("#notContextId").show();
             return false;
  		}
- 		$.ajax({
- 			url : baselocation + "/courseNote/ajax/addnote",
- 			type : 'post',
- 			dataType : 'json',
- 			data : {
- 				'kpointId' :currentKpointId,
-                 'courseId':otherId,
- 				'content' : notesContext
- 			},
-             async:false,
- 			success : function(result) {
- 				if (result.message == "success") {
- 					//dialog('成功', '保存成功', 0);
- 					$("#notContextId").html("笔记保存成功");
- 		 	 		$("#notContextId").show();
- 				}
- 				if (result.message == "false") {
- 					//dialog('失败', '保存失败，请刷新重试', 1);
- 					$("#notContextId").html("笔记保存失败，请刷新重试");
- 		 	 		$("#notContextId").show();
- 				}
- 			}
- 		});
+ 		if($("#notesState").text()=="保存"){
+ 			$.ajax({
+ 	 			url : baselocation + "/front/courseKpoint/addnote",
+ 	 			type : 'post',
+ 	 			dataType : 'json',
+ 	 			data : {
+ 	 				'kpointId' :currentKpointId,
+ 	                 'courseId':otherId,
+ 	 				'content' : notesContext,
+ 	 				'uid':uid
+ 	 			},
+ 	             async:false,
+ 	 			success : function(result) {
+ 	 				if (result.message == "success") {
+ 	 					//dialog('成功', '保存成功', 0);
+ 	 					$("#notContextId").html("笔记保存成功");
+ 	 		 	 		$("#notContextId").show();
+ 	 				}
+ 	 				if (result.message == "false") {
+ 	 					//dialog('失败', '保存失败，请刷新重试', 1);
+ 	 					$("#notContextId").html("笔记保存失败，请刷新重试");
+ 	 		 	 		$("#notContextId").show();
+ 	 				}
+ 	 			}
+ 	 		});
+ 		}else{
+ 			
+ 			$.ajax({
+ 	 			url : baselocation + "/front/courseKpoint/updatenote",
+ 	 			type : 'post',
+ 	 			dataType : 'json',
+ 	 			data : {
+ 	 				'kpointId' :currentKpointId,
+ 	                 'courseId':otherId,
+ 	 				'content' : notesContext,
+ 	 				'uid':uid
+ 	 			},
+ 	             async:false,
+ 	 			success : function(result) {
+ 	 				if (result.message == "success") {
+ 	 					//dialog('成功', '保存成功', 0);
+ 	 					$("#notContextId").html("笔记修改成功");
+ 	 		 	 		$("#notContextId").show();
+ 	 				}
+ 	 				if (result.message == "false") {
+ 	 					//dialog('失败', '保存失败，请刷新重试', 1);
+ 	 					$("#notContextId").html("笔记修改失败，请刷新重试");
+ 	 		 	 		$("#notContextId").show();
+ 	 				}
+ 	 			}
+ 	 		});
+ 		}
+ 		
  	}
  };
  
@@ -308,22 +343,28 @@ function favorites(courseId,obj) {
  */
 function queryNote() {
 	$.ajax({
-		url : baselocation + "/courseNote/ajax/querynote",
+		url : "/front/courseKpoint/queryNote",
 		type : "post",
 		dataType : "json",
 		data : {
 			'kpointId' : currentKpointId,
-			"courseId" : otherId
+			"courseId" : otherId 
 		},
 		success : function(result) {
-			if (result.courseNote != undefined) {
-				KindEditor.html("#notesContextId", result.courseNote.content);
-			} else {
-				KindEditor.html("#notesContextId", '');
-			}
+			if (result != undefined) {
+				if(result.id==null || result.id==0){
+					$("#notesState").text("保存");
+					KindEditor.html("#notesContextId", '');
+				}else{
+					$("#notesState").text("修改");
+					KindEditor.html("#notesContextId", result.content);
+				}
+			
+			} 
 		}
 	});
 }
+
 
 /**
  * 记录播放次数

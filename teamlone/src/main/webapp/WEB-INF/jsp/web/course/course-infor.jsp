@@ -6,9 +6,11 @@
 <title>${course.courseName}详情</title>
 <script src="http://vod.baofengcloud.com/html/script/bfcloud.js?v=2"></script>
 <script type="text/javascript" src="/static/common/ckplayer/ckplayer.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/jquery-3.0.0.js"></script>
 <script type="text/javascript">
-	var isok = ${isok};
-	var currentprice=${course.currentPrice};
+	//var isok = ${isok};
+	var isok=true;
+	var currentprice=${courseByID.current_price};
 	function getData(){
 		var status=CKobject.getObjectById('ckplayer_a1').getStatus();
 		//获取插件播放视频的时间何视频的总时间
@@ -23,23 +25,22 @@
 		<section class="container">
 			<section class="path-wrap txtOf hLh30">
 				<a href="${ctx }" title="" class="c-999 fsize14">首页</a>
-				\
 				<a href="${ctx }/front/showcoulist" title="" class="c-999 fsize14">课程列表</a>
-				\ <span class="c-333 fsize14">${course.courseName}</span>
+				 <span class="c-333 fsize14">${courseByID.course_name}</span>
 			</section>
 			<div>
 				<article class="c-v-pic-wrap">
 					<section class="p-h-video-box" id="videoPlay">
 						<c:choose>
-							<c:when test="${course.logo!=null &&course.logo!=''}">
-								<img src="<%=staticImage%>${course.logo}" alt="${course.courseName}" class="dis c-v-pic" />
+							<c:when test="${courseByID.logo!=null &&courseByID.logo!=''}">
+								<img src="<%=staticImage%>${course.logo}" alt="${courseByID.course_name}" class="dis c-v-pic" />
 							</c:when>
 							<c:otherwise>
-								<img src="${ctx}/static/inxweb/img/default-img.gif" alt="${course.courseName}" class="dis c-v-pic" />
+								<img src="${ctx}/static/inxweb/img/default-img.gif" alt="${courseByID.course_name}" class="dis c-v-pic" />
 							</c:otherwise>
 						</c:choose>
 	
-						<a href="javascript:void(0)" onclick="vedioClick(${freeVideoId})" title="${course.courseName}" class="v-play-btn">
+						<a href="javascript:void(0)" onclick="vedioClick(${freeVideoId})" title="${courseByID.course_name}" class="v-play-btn">
 							<em class="icon30">&nbsp;</em>
 						</a>
 					</section>
@@ -51,13 +52,13 @@
 				<aside class="c-attr-wrap">
 					<section class="ml20 mr15">
 						<h2 class="hLh30 txtOf mt15">
-							<span class="c-fff fsize24">${course.courseName}</span>
+							<span class="c-fff fsize24">${courseByID.course_name}</span>
 						</h2>
 						<section class="c-attr-jg">
-							<span class="c-fff">价格：</span><big class="c-yellow">￥${course.currentPrice }</big> <span class="c-ccc ml10">原价：<s>￥${course.sourcePrice }</s></span>
+							<span class="c-fff">价格：</span><big class="c-yellow">￥${courseByID.current_price }</big> <span class="c-ccc ml10">原价：<s>￥${courseByID.source_price }</s></span>
 						</section>
 						<section class="c-attr-mt c-attr-undis">
-							<span class="c-fff fsize14">主讲： <c:forEach items="${teacherList }" var="tea">
+							<span class="c-fff fsize14">主讲： <c:forEach items="${teacherById }" var="tea">
 									<%-- <a href="${ctx}/front/teacher/${tea.id }">${tea.name }</a>&nbsp;&nbsp;&nbsp; --%>
 									${tea.name }&nbsp;&nbsp;&nbsp; 
                       			</c:forEach>
@@ -65,17 +66,17 @@
 						</section>
 						<section class="c-attr-mt c-attr-time">
 							<span class="c-fff fsize14">课程有效期：
-											<c:if test="${course.loseType==0 }">
-												<fmt:formatDate pattern="yyyy/MM/dd HH:mm"  value="${course.endTime}" />
+											<c:if test="${courseByID.losetype==1 }">
+												<fmt:formatDate pattern="yyyy/MM/dd HH:mm"  value="${courseByID.end_time}" />
 											</c:if>
-											<c:if test="${course.loseType==1 }">
-													从购买之日起${course.loseTime }天
+											<c:if test="${courseByID.losetype==2 }">
+													从购买之日起${courseByID.lose_time }天
 												</span>
 											</c:if>
 							</span>
 						</section>
 						<section class="c-attr-mt">
-									<a href="javascript:void(0)" title="立即观看" onclick="if(isLogin()){ window.location.href='/uc/play/${course.courseId }'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a>
+									<a href="javascript:void(0)" title="立即观看" onclick="if(1==1){ window.location.href='/front/courseKpoint/chapterTranslation/${courseByID.course_id}'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a>
 							<span class="ml10"><tt class="c-yellow f-fM">*咨询 ${websitemap.web.phone}</tt></span>
 						</section>
 						<section class="c-attr-mt of ml10">
@@ -100,17 +101,17 @@
 						<li><p>&nbsp;</p>
 							<aside>
 								<span class="c-fff f-fM">购买数</span><br>
-								<h6 class="c-fff f-fM mt10">${course.pageBuycount }</h6>
+								<h6 class="c-fff f-fM mt10">${courseByID.page_buycount }</h6>
 							</aside></li>
 						<li><p>&nbsp;</p>
 							<aside>
 								<span class="c-fff f-fM">课时数</span><br>
-								<h6 class="c-fff f-fM mt10">${course.lessionNum }</h6>
+								<h6 class="c-fff f-fM mt10">${courseByID.lession_num }</h6>
 							</aside></li>
 						<li><p>&nbsp;</p>
 							<aside>
 								<span class="c-fff f-fM">浏览数</span><br>
-								<h6 class="c-fff f-fM mt10">${course.pageViewcount}</h6>
+								<h6 class="c-fff f-fM mt10">${courseByID.page_vlewcount }</h6>
 							</aside></li>
 					</ol>
 				</aside>
@@ -134,16 +135,16 @@
 										<span>课程介绍</span>
 									</h6>
 									<!-- /无数据提示 开始-->
-									<c:if test="${empty course.context}">
+									<c:if test="${empty courseByID.context}">
 										<section class="no-data-wrap">
 											<em class="icon30 no-data-ico">&nbsp;</em> <span class="c-666 fsize14 ml10 vam">没有相关数据，小编正在努力整理中...</span>
 										</section>
 									</c:if>
 									<!-- /无数据提示 结束-->
-									<c:if test="${not empty course.context}">
+									<c:if test="${not empty courseByID.context}">
 										<div class="course-txt-body-wrap">
 											<section class="course-txt-body">
-												<p>${course.context}</p>
+												<p>${courseByID.context}</p>
 											</section>
 											<section class="ctb-btn"><a href="javascript: void(0)" class="comm-btn c-btn-6" title="查看更多">查看更多∨</a></section>
 										</div>
@@ -159,8 +160,8 @@
 											<menu id="lh-menu" class="lh-menu mt10 mr10">
 												<ul>
 													<c:set var="folderIndex" value="1"/>
-													<c:forEach items="${parentKpointList }" var="parentKpoint" varStatus="index">
-														<c:if test="${parentKpoint.kpointType==0 }"><!-- 文件目录 -->
+													<c:forEach items="${courseKpoint }" var="parentKpoint" varStatus="index">
+														<c:if test="${parentKpoint.kpoint_type==0 }"><!-- 文件目录 -->
 															<li class="lh-menu-stair">
 																<a href="javascript: void(0)" title="${parentKpoint.name }" 
 																	<c:if test="${index.first==true}">class="current-1"</c:if>
@@ -170,37 +171,39 @@
 																	<c:if test="${index.first==true}">style="display: block;"</c:if>
 																	<c:if test="${index.first==false}">style="display: none;"</c:if>
 																>
-																	<c:forEach items="${parentKpoint.kpointList}" var="sonKpoint">
-																		<li class="lh-menu-second ml30"><a href="javascript:void(0)" <%-- onclick="playVideo('${sonKpoint.videoUrl }',this)" --%> onclick="getPlayerHtml(${sonKpoint.kpointId },${sonKpoint.free },this)" title="">
+																	<c:forEach items="${courseKpoint}" var="sonKpoint"> 
+                                                                        <c:if test="${sonKpoint.pId==parentKpoint.id }">
+																		<li class="lh-menu-second ml30"><a href="javascript:void(0)" <%-- onclick="playVideo('${sonKpoint.videoUrl }',this)" --%> onclick="if(1==1){ window.location.href='/front/courseKpoint/chapterTranslation/${courseByID.course_id}?ckid=${sonKpoint.id}'} else{lrFun();} " title="">
 																				<span class="fr"> 
-																					<c:if test="${sonKpoint.free==1 }">
+																					<c:if test="${sonKpoint.is_free==1 }">
 																						<tt class="free-icon vam mr10">免费试听</tt>
 																					</c:if>
-																					<c:if test="${!empty sonKpoint.playTime}">
+																					<c:if test="${!empty sonKpoint.play_time}">
 																						<em class="lh-p-icon icon14 ml5">&nbsp;</em>
-																						${sonKpoint.playTime}
+																						${sonKpoint.play_time}
 																					</c:if>
 																				</span><em class="lh-menu-i-2 icon14 mr5">&nbsp;</em>${sonKpoint.name }
 																			</a>
 																		</li>
-																	</c:forEach>
+																		</c:if>
+ 																  </c:forEach> 
 																</ol>
 															</li>
 															<c:set var="folderIndex" value="${folderIndex+1 }"/>
 														</c:if>
-														<c:if test="${parentKpoint.kpointType==1 }"><!-- 视频 -->
+														<c:if test="${sonKpoint.kpoint_type==1 }"><!-- 视频 -->
 															<li class="lh-menu-stair">
 																<ul class="lh-menu-ol no-parent-node">
-																	<li class="lh-menu-second"><a title="" <%-- onclick="playVideo('${parentKpoint.videoUrl }',this)" --%> onclick="getPlayerHtml(${parentKpoint.kpointId },${parentKpoint.free },this)" href="javascript:void(0)">
+																	<li class="lh-menu-second"><a title="" <%-- onclick="playVideo('${parentKpoint.videoUrl }',this)" --%> onclick="getPlayerHtml(${sonKpoint.id },${sonKpoint.is_free },this)" href="javascript:void(0)">
 																			<span class="fr"> 
-																				<c:if test="${parentKpoint.free==1 }">
+																				<c:if test="${sonKpoint.is_free==1 }">
 																					<tt class="free-icon vam mr10">免费试听</tt>
 																				</c:if>
-																				<c:if test="${!empty parentKpoint.playTime}">
+																				<c:if test="${!empty sonKpoint.play_time}">
 																					<em class="lh-p-icon icon14 ml5">&nbsp;</em>
-																					${parentKpoint.playTime}
+																					${sonKpoint.play_time}
 																				</c:if>
-																				</span><em class="lh-menu-i-2 icon14 mr5">&nbsp;</em>${parentKpoint.name }</a>
+																				</span><em class="lh-menu-i-2 icon14 mr5">&nbsp;</em>${sonKpoint.name }</a>
 																	</li>
 																</ul>
 															</li>
@@ -225,14 +228,14 @@
 								<a title="" href="javascript:void(0)">主讲讲师</a>
 							</section>
 							<section class="stud-act-list">
-								<c:forEach items="${teacherList }" var="tea">
+								<c:forEach items="${teacherById }" var="tea">
 									<ul style="height: auto;">
 										<li>
 											<div class="u-face">
 												<a href="${ctx }/front/teacher/${tea.id }">
 													<c:choose>
-														<c:when test="${not empty tea.picPath }">
-															<img src="<%=staticImage%>${tea.picPath }" width="50" height="50" alt="">
+														<c:when test="${not empty tea.pic_path }">
+															<img src="<%=staticImage%>${tea.pic_path }" width="50" height="50" alt="">
 														</c:when>
 														<c:otherwise>
 															<img src="${ctx }/static/inxweb/img/avatar-boy.gif" width="50" height="50" alt="">
@@ -268,21 +271,21 @@
 							<section class="c-infor-tabTitle c-tab-title">
 								<a title="" href="javascript:void(0)">猜你想学</a>
 							</section>
-							<c:if test="${empty courseList}">
+							<c:if test="${empty sunjectNextAllCourse}">
 								<section class="no-data-wrap">
 									<em class="icon30 no-data-ico">&nbsp;</em> <span class="c-666 fsize14 ml10 vam">没有相关数据，小编正在整理中...</span>
 								</section>
 							</c:if>
-							<c:if test="${not empty courseList}">
+							<c:if test="${not empty sunjectNextAllCourse}">
 								<section class="course-r-list">
 									<ol>
-										<c:forEach items="${courseList}" var="interfixCourse">
+										<c:forEach items="${sunjectNextAllCourse}" var="interfixCourse">
 											<li>
 												<aside class="course-r-pic">
-													<a href="${ctx }/front/couinfo/${interfixCourse.courseId}" title="">
+													<a href="${ctx }/front/couinfo/${interfixCourse.course_id}" title="">
 														<c:choose>
 															<c:when test="${interfixCourse.logo!=null && interfixCourse.logo!=''}">
-																<img alt="" src="<%=staticImage%>${interfixCourse.logo}" />
+																<img alt="" src="${interfixCourse.logo}" />
 															</c:when>
 															<c:otherwise>
 																<img alt="" src="${ctx }/static/inxweb/img/default-img.gif" />
@@ -291,18 +294,18 @@
 													</a>
 												</aside>
 												<section class="hLh20 txtOf">
-													<a href="${ctx }/front/couinfo/${interfixCourse.courseId}" class="c-333 fsize16">${interfixCourse.courseName}</a>
+													<a href="${ctx }/front/couinfo/${interfixCourse.course_id}" class="c-333 fsize16">${interfixCourse.course_name}</a>
 												</section>
 												<section class="hLh20 mt5 txtOf">
-													<span class="c-999">讲师： <c:if test="${interfixCourse.teacherList!=null && interfixCourse.teacherList.size()>0}">
-															<c:forEach items="${interfixCourse.teacherList}" var="teacher">
+													<span class="c-999">讲师： <c:if test="${interfixCourse.teacher!=null && interfixCourse.teacher.size()>0}">
+															<c:forEach items="${interfixCourse.teacher}" var="teacher">
 																	${teacher.name}&nbsp;&nbsp;
 																</c:forEach>
 														</c:if>
 													</span>
 												</section>
 												<section class="hLh20 txtOf">
-													<span class="c-master">${interfixCourse.pageBuycount }人</span>
+													<span class="c-master">${interfixCourse.page_buycount }人</span>
 												</section>
 											</li>
 										</c:forEach>
@@ -319,17 +322,20 @@
 		<!-- /课程详情 结束 -->
 	</div>
 	<%-- <script type="text/javascript" src="${ctx}/static/common/jquery-1.11.1.min.js"></script> --%>
-	<script type="text/javascript" src="${ctx}/static/inxweb/front/courseInfo.js"></script>
-	<script type="text/javascript" src="${ctx}/static/inxweb/comment/comment.js"></script>
+	<script type="text/javascript" src="/static/inxweb/front/courseInfo.js"></script>
+	<script type="text/javascript" src="/static/inxweb/comment/comments.js"></script>
+	<script type="text/javascript" src="/static/inxweb/js/commons.js"></script>
+
 	<script>
 		//评论课程id
-		var otherId = '${course.courseId}';
+		var others_id  = '${courseByID.course_id}';
 		//课程有效期到期时间
-		var loseTimeTime = '${course.endTime}';
+		var loseTimeTime = '${courseByID.end_times}';
 		//有效期类型，0：到期时间，1：按天数
-		var loseType="${course.loseType}";
+		var loseType="${courseByID.losetype}";
 		//评论类型,类型2为课程
 		var type = 2;
+		
 		$(function() {
 			shareShow(); //课程分享
 			treeMenu(); //课程树
@@ -337,7 +343,7 @@
 			cTabFun($("#c-i-tabTitle>a")); //滚动定位
 			queryComment();//评论
 			 //学过此课程的用户
-		    getCourseLearnedUser("${course.courseId}");
+		    getCourseLearnedUser("${courseByID.course_id}");
 		  	//课程详情收起展开
 		    ctbodyFun();
 		  	//课程封面图适配尺寸
@@ -367,6 +373,12 @@
 			$(".c-v-pic-wrap").css("height" , $(".c-v-pic").height());
 		}
 		window.onresize = function() {cvPic();};
+	
+	</script>
+	<script type="text/javascript">
+	$(function () {
+		getCourseLearnedUser(others_id);
+	})
 	</script>
 </body>
 </html>
