@@ -12,21 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.Questions;
 import com.bean.Questions_tag;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.service.QuestionsService;
 import com.service.Questions_tagService;
 
 @Controller
 @RequestMapping("/admin/questions_tag")
 public class Questions_tagController {
-	
+	@Autowired
+	private QuestionsService   questionsService;
 	@Autowired
 	private Questions_tagService Questions_tagService;
 	/**
@@ -57,6 +60,20 @@ public class Questions_tagController {
 	    Questions_tagService.updateStatus(id);
 		return "redirect:/admin/questions_tag/listAll";
 	}
+	
+	@RequestMapping("/update/{id}")
+	@ResponseBody
+	public int updatess(@PathVariable("id")int id) {
+	  List<Questions> q= questionsService.getByQaT(id);
+	  System.out.println(q.size());
+	  if(q.size()>0){
+		  System.out.println("11111111");
+		  return 1;
+	  }else{
+		  return 2;
+	  }
+	}
+	
 	
 	/**
 	 * 查询单个类型

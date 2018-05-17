@@ -50,11 +50,13 @@ public class Questions_commentWebController {
 		Map map=initMap(request);
 		PageHelper.startPage(page, 5);
 		List<QuestionsWeb>  qc=questionsService.getlistAll(map);
+		System.out.println(qc);
 		ModelAndView md=new ModelAndView();
 		List<Questions_Webtag> qt=questions_tagService.getlistAll();
 		PageInfo<QuestionsWeb>  pageInfo = new PageInfo<QuestionsWeb>(qc);
 		md.addObject("questionsTagList", qt);
 		md.addObject("questionsList", qc);
+		
 		md.addObject("th", pageInfo);
 		md.setViewName("/web/questions/questions-list");
 		return md;

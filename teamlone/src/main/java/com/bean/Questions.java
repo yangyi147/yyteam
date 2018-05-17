@@ -1,9 +1,9 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Questions {
-
 	private int id;//主键
 	private Users edu_user;
 	private String title;//问答标题
@@ -89,5 +89,12 @@ public class Questions {
 	public void setAdd_time(Date add_time) {
 		this.add_time = add_time;
 	}
-    
+	@Override
+	public String toString() {
+		return "Questions [id=" + id + ", edu_user=" + edu_user + ", title=" + title + ", content=" + content
+				+ ", type=" + type + ", status=" + status + ", reply_count=" + reply_count + ", browse_count="
+				+ browse_count + ", praise_count=" + praise_count + ", add_time=" + add_time + ", start=" + start
+				+ ", end=" + end + "]";
+	}
+	
 }

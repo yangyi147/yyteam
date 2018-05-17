@@ -41,4 +41,10 @@ public class QuestionsServiceImpl implements QuestionsService{
 	public Questions getById(int id) {
 		return QuestionsMapper.getById(id);
 	}
+
+	@Override
+	public List<Questions> getByQaT(int id) {
+		// TODO Auto-generated method stub
+		return QuestionsMapper.getByQaT(id);
+	}
 }
