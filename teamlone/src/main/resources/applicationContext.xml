@@ -95,6 +95,7 @@
        /shiro/logout=logout
        /front/**=anon
        /uc/**=anon
+       /video/**=anon
        /**=authc
       </value>
     </property>

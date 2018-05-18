@@ -18,5 +18,10 @@ public class Sys_RoleServiceImpl implements Sys_RoleService {
 		// TODO Auto-generated method stub
 		return roleDao.getAllSys_Role();
 	}
+	@Override
+	public Sys_Role getRoleByID(int id) {
+		// TODO Auto-generated method stub
+		return roleDao.getRoleByID(id);
+	}
 
 }

@@ -3,7 +3,7 @@ package com.bean;
 import java.util.Date;
 
 public class Sys_Role {
-	
+	            
 	private int role_id;
 	
 	private String role_name;

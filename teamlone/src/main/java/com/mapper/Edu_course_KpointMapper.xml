@@ -32,4 +32,7 @@ SELECT  name from edu_course_kpoint WHERE KPOINT_ID=#{id}
 <select id="getCourseKpointByCourseId" resultType="com.bean.Edu_course_Kpoint">
 SELECT * from edu_course_kpoint WHERE kpoint_id=( SELECT min(kpoint_id) from edu_course_kpoint WHERE COURSE_ID=#{ID} and parent_id!=0)
 </select>
+<select id="getCourseKpointMinIDByCourseID" resultType="int">
+SELECT min(KPOINT_ID) from edu_course_kpoint  WHERE PARENT_ID!=0 and COURSE_ID =#{id}
+</select>
 </mapper>

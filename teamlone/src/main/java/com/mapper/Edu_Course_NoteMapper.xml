@@ -13,6 +13,9 @@
 SELECT * FROM Edu_Course_Note where KPOINT_ID =#{kpointId} and COURSE_ID=#{courseId}
 </select>
 <insert id="insertCourseNote" parameterType="com.bean.Edu_Course_Note">
+<selectKey resultType="int" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+	</selectKey>
 INSERT INTO edu_course_note VALUES(NULL,#{users.user_id},#{course_id},#{kpoint_id},#{content},#{update_time},0)
 </insert>
 <update id="updateCourseKpoint"  parameterType="com.bean.Edu_Course_Note">

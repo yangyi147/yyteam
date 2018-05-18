@@ -7,5 +7,7 @@ import com.bean.Sys_Role;
 public interface Sys_RoleDao {
 	
 	List<Sys_Role> getAllSys_Role();
+	
+	Sys_Role getRoleByID(int id);
 
 }

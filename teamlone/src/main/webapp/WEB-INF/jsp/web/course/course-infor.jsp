@@ -76,7 +76,7 @@
 							</span>
 						</section>
 						<section class="c-attr-mt">
-									<a href="javascript:void(0)" title="立即观看" onclick="if(1==1){ window.location.href='/front/courseKpoint/chapterTranslation/${courseByID.course_id}'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a>
+									<a href="javascript:void(0)" title="立即观看" onclick="if(isLogin()){ window.location.href='/front/courseKpoint/chapterTranslation/${courseByID.course_id}'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a>
 							<span class="ml10"><tt class="c-yellow f-fM">*咨询 ${websitemap.web.phone}</tt></span>
 						</section>
 						<section class="c-attr-mt of ml10">

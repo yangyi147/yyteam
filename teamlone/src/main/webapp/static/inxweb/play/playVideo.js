@@ -267,6 +267,7 @@ function favorites(courseId,obj) {
      
    //添加笔记
  function addNotest() {
+	 alert(uid)
  	var notesContext = $("#notesContextId").val();
  	if (KindEditor.get("#notesContextId").isEmpty()) {
  		$("#notContextId").html("您还没有输入笔记");
@@ -283,23 +284,23 @@ function favorites(courseId,obj) {
  		}
  		if($("#notesState").text()=="保存"){
  			$.ajax({
- 	 			url : baselocation + "/front/courseKpoint/addnote",
+ 	 			url :  "/front/courseKpoint/addnote",
  	 			type : 'post',
  	 			dataType : 'json',
  	 			data : {
  	 				'kpointId' :currentKpointId,
  	                 'courseId':otherId,
  	 				'content' : notesContext,
- 	 				'uid':uid
+ 	 				'uid':"7"
  	 			},
  	             async:false,
  	 			success : function(result) {
- 	 				if (result.message == "success") {
+ 	 				if (result == 1) {
  	 					//dialog('成功', '保存成功', 0);
  	 					$("#notContextId").html("笔记保存成功");
  	 		 	 		$("#notContextId").show();
  	 				}
- 	 				if (result.message == "false") {
+ 	 				if (result == 2) {
  	 					//dialog('失败', '保存失败，请刷新重试', 1);
  	 					$("#notContextId").html("笔记保存失败，请刷新重试");
  	 		 	 		$("#notContextId").show();
@@ -307,31 +308,33 @@ function favorites(courseId,obj) {
  	 			}
  	 		});
  		}else{
- 			
+ 			if(notesContext!=''||notesContext!=null){
  			$.ajax({
- 	 			url : baselocation + "/front/courseKpoint/updatenote",
+ 	 			url :"/front/courseKpoint/updatenote",
  	 			type : 'post',
  	 			dataType : 'json',
  	 			data : {
  	 				'kpointId' :currentKpointId,
  	                 'courseId':otherId,
  	 				'content' : notesContext,
- 	 				'uid':uid
+ 	 				'uid':"7"
  	 			},
- 	             async:false,
+ 	        
  	 			success : function(result) {
- 	 				if (result.message == "success") {
+ 	 				alert(result) 
+ 	 				if (result == 1) {
  	 					//dialog('成功', '保存成功', 0);
  	 					$("#notContextId").html("笔记修改成功");
  	 		 	 		$("#notContextId").show();
  	 				}
- 	 				if (result.message == "false") {
+ 	 				if (result == 2) {
  	 					//dialog('失败', '保存失败，请刷新重试', 1);
  	 					$("#notContextId").html("笔记修改失败，请刷新重试");
  	 		 	 		$("#notContextId").show();
  	 				}
  	 			}
  	 		});
+ 			}
  		}
  		
  	}
@@ -351,7 +354,6 @@ function queryNote() {
 		},
 		success : function(result) {
 			if (result != undefined) {
-				alert(result.id)
 				if(result.id==null || result.id==0){
 					$("#notesState").text("保存");
 					KindEditor.html("#notesContextId", '');

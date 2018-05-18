@@ -9,5 +9,11 @@ public interface Sys_UserDao {
 	Sys_User getUserByName(String name);
 	
 	List<Sys_User>getAllUser();
+	
+	int updateUser(Sys_User user);
+	
+	Sys_User getUserByID(int id);
+	
+	void insertUser(Sys_User user);
 
 }

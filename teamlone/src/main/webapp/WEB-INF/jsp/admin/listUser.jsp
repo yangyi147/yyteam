@@ -113,11 +113,11 @@
 										<th>${user.create_time }</th>
 										<th>${user.email }</th>
 										<th>${user.tel }</th>
-										<th>${user.roel.role_id }</th>
+										<th>${user.roel.role_name }</th>
 										
 										<th>
 										  <shiro:hasPermission name="/admin/sysuser/updateuser">
-                  						  <input type="button" class="btn btn-default in"   value="修改用户" style="background: black; color: white;" />
+                  						  <input type="button" class="btn btn-default in"   onclick="updateUser(${user.user_id})"  value="修改用户" style="background: black; color: white;" />
 	                                      </shiro:hasPermission>
 										  <shiro:hasPermission name="/admin/sysuser/disableOrstart/">
 										  <input type="button" class="btn btn-default in" <c:if test="${user.status==0 }"> value="冻结"</c:if><c:if test="${user.status==1 }"> value="启用"</c:if>  style="background: black; color: white;" /><!-- value 冻结/启用 -->
@@ -162,7 +162,11 @@
 					});
 	 });
 	   
-
+     
+     function updateUser(id) {
+		window.location.href="/admin/user/getUserByID/"+id;
+		
+	}
 
 
 	   

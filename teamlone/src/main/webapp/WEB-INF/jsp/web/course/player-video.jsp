@@ -157,9 +157,10 @@
 										<section class="mt5 clearfix">
 											<span class="fr">
 												<tt class="mr5 c-orange" style="display: none;" id="notContextId"></tt>
-												<a href="javascript: void(0)" onclick="addNotest()" title="保存" class="lh-reply-btn">保存</a>
+												<a href="javascript: void(0)" onclick="addNotest()" id="notesState" title="保存" class="lh-reply-btn"></a>
 											</span>
 										</section>
+										
 									</div>
 								</section>
 								<!-- /课程笔记 -->
@@ -272,7 +273,7 @@
 	var others_id='${course.course_id}';
 	//评论类型,类型2为课程
 	var type = 2;
-	var currentKpointId="0";//当前播放视频id(没有视频节点默认为零)
+	var currentKpointId=${courseKpointMinIDByCourseID};//当前播放视频id(没有视频节点默认为零)
 	var isok="${isok}";//是否可以播放
 	var message="${message}";//提示信息
 	var countPlayTimeOut='15';//播放后记录播放次数的延时
