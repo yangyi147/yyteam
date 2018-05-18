@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,21 @@ public class Edu_articleServiceImpl implements Edu_articleService{
 	public void deleteArtcle(int artcleId) {
 		eacdt.deleteArticleContent(artcleId);
 		edu_articleDao.deleteArtcle(artcleId);
+	}
+
+	@Override
+	public List<Edu_article> getlistAlls() {
+		return edu_articleDao.getlistAlls();
+	}
+
+	@Override
+	public void updatepubl(Map map) {
+		edu_articleDao.updatepubl(map);
+	}
+
+	@Override
+	public void updatenopubl(Map map) {
+		edu_articleDao.updatenopubl(map);
 	}
 	
 }

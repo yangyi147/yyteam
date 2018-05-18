@@ -29,4 +29,15 @@ public class Edu_commentServiceImpl implements Edu_commentService{
 		return edu_comment.getcommentpcomm(map);
 	}
 
+	@Override
+	public void savelikess(int targetId) {
+		edu_comment.savelikess(targetId);
+	}
+
+	@Override
+	public void saveconut(int targetId) {
+		// TODO Auto-generated method stub
+		edu_comment.saveconut(targetId);
+	}
+
 }

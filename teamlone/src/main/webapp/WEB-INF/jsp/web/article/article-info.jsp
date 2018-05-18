@@ -6,6 +6,7 @@
 <title>文章详情</title>
 <script src="${ctx }/static/inxweb/acticle/acticle.js" type="text/javascript"></script>
 <script src="${ctx }/static/inxweb/comment/comment.js" type="text/javascript"></script>
+<script src="${ctx }/js/commonat.js" type="text/javascript"></script>
 <script type="text/javascript">
 	//全局变量 
 	var otherId = ${eac.edu_article.article_id};
@@ -40,9 +41,9 @@
 							<section class="hLh30 txtOf mt5 pb20 mreadnum">
 								<div class="fr">
 									<span> <a class="noter-dy vam" title="评论" href="#i-art-comment">
-											<em class="icon18">&nbsp;</em>(<span class="totalResultComment">0</span>)
-										</a> <tt title="赞一下" onclick="addPraise('${eac.edu_article.article_id}',3)" class="noter-zan vam ml5 f-fM">
-											<em class="icon18">&nbsp;</em>(<span class="addPraise${eac.edu_article.article_id}_3 praiseCount">0</span>)
+											<em class="icon18">&nbsp;</em>(<span class="totalResultComment">${eac.edu_article.comment_num}</span>)
+										</a> <tt title="赞一下" onclick="addPraise('${eac.edu_article.article_id}',1,this)" class="noter-zan vam ml5 f-fM">
+											<em class="icon18">&nbsp;</em>(<span class="addPraise${eac.edu_article.article_id}_3 praiseCount">${eac.edu_article.praise_count }</span>)
 										</tt>
 									</span>
 								</div>
@@ -55,9 +56,9 @@
 							<div id="art-infor-body">${eac.content }
 								<div>
 									<tt class="c-999 f-fM">
-										评论：<span class="totalResultComment">0</span>
+										评论：<span class="totalResultComment">${eac.edu_article.comment_num}</span>
 									</tt> <tt class="c-999 f-fM ml20">
-										点赞：<span class="addPraise(${eac.edu_article.article_id})_3 praiseCount">0</span>
+										点赞：<span class="addPraise(${eac.edu_article.article_id}),3,this">${eac.edu_article.praise_count }</span>
 									</tt> <tt class="c-999 f-fM ml20">
 										阅读：<span class="clickNum"></span>
 									</tt>
@@ -65,17 +66,17 @@
 							</div>
 							<section class="mt20 tac" id="sharebutton">
 								<div class="bdsharebuttonbox clearfix disIb">
-									<div class="pr disIb fl of">
-										<a href="javascript:void(0)" onclick="addActiclePraise('${eac.edu_article.article_id}',3)"  title="" class="zan-icon dz-btn pr"></a>
-										<div class="dz-num">
-											<span class="c-red fsize16">+1</span>
-										</div>
-									</div>
-									<a title="分享到微信" href="#" class="bds_weixin fl" data-cmd="weixin">
-										<em class="share-fir-icon icon30"></em>
-									</a>
-									<a title="分享到新浪微博" href="#" class="bds_tsina fl" data-cmd="tsina"></a>
-								</div>
+<!-- 									<div class="pr disIb fl of"> -->
+<%-- 										<a href="#" onclick="addActiclePraise('${eac.edu_article.article_id}',3)"  title="" class="zan-icon dz-btn pr"></a> --%>
+<!-- 										<div class="dz-num"> --> 
+<!-- 										<span class="c-red fsize16"></span> --> 
+<!-- 									</div> -->
+<!-- 									</div> -->
+<!-- 									<a title="分享到微信" href="#" class="bds_weixin fl" data-cmd="weixin"> -->
+<!-- 										<em class="share-fir-icon icon30"></em> -->
+<!-- 									</a> -->
+<!-- 									<a title="分享到新浪微博" href="#" class="bds_tsina fl" data-cmd="tsina"></a> -->
+<!-- 								</div> -->
 <!-- 								<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script> -->
 							</section>
 						</article>

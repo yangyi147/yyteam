@@ -28,4 +28,11 @@ insert into edu_comment(user_id,p_comment_id,content,addtime,other_id,type) valu
 <select id="getcommentpcomm" parameterType="java.util.Map" resultMap="CommentMap">
 select * from edu_comment where other_id = #{otherId } and p_comment_id = #{pCommentId }
 </select>
+
+<update id="savelikess" parameterType="int">
+update edu_comment set praise_count = praise_count+1 where comment_id = #{value }
+</update>
+<update id="saveconut" parameterType="int">
+update edu_comment set reply_count = reply_count+1 where comment_id = #{value }
+</update>
 </mapper>
