@@ -28,6 +28,9 @@ select * from edu_user WHERE user_id in (select DISTINCT user_id from edu_course
 <select id="getSunjectNextAllCourse" resultMap="functionMap">
 select * from edu_course WHERE subject_id=( SELECT subject_id from edu_course WHERE COURSE_ID=#{id})
 </select>
+<select id="deleteCourseByID">
+DELETE from edu_course WHERE COURSE_ID=#{id}
+</select>
 <select id="getAllCourse" resultMap="functionMap" parameterType="java.util.Map">
 SELECT DISTINCT course.* from edu_course course, edu_teacher teacher,edu_course_teacher ct     
 

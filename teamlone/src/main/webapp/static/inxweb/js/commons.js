@@ -529,7 +529,6 @@ function dialogRegister() {
 	};
 	
 	var mobileVal=$("#u-mobile-reg").val();
-	alert(mobileVal)
 	if(mobileVal==""){//验证手机是否为空
 		$("#u-mobile-reg").next().html('<span class="c-orange"><em class="icon16 u-a-cw">&nbsp;</em>请输入用户手机号！</span>');
 		return;
@@ -539,7 +538,6 @@ function dialogRegister() {
 		$("#u-mobile-reg").next().html('<span class="c-orange"><em class="icon16 u-a-cw">&nbsp;</em>请输入正确的手机！</span>');
 		return;
 	};
-	alert($("#u-password-reg").val())
 	if($("#u-password-reg").val().trim()==""){//验证密码是否为空
 		$("#u-password-reg").next().html('<span class="c-orange"><em class="icon16 u-a-cw">&nbsp;</em>请输入密码！</span>');
 		return;

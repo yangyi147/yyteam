@@ -178,7 +178,6 @@ function browserRedirect() {
  * 获得播放器的html 
  */
 function getPlayerHtml(kpointId,name,obj,cid) {
-	alert(cid)
 	// 节点选中
 	$(".lh-menu-stair").find("ul>li>a,ol>li>a").removeClass("current-2");
 	$(obj).addClass("current-2");
@@ -352,6 +351,7 @@ function queryNote() {
 		},
 		success : function(result) {
 			if (result != undefined) {
+				alert(result.id)
 				if(result.id==null || result.id==0){
 					$("#notesState").text("保存");
 					KindEditor.html("#notesContextId", '');

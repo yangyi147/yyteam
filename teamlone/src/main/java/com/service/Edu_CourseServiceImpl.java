@@ -172,6 +172,11 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 		// TODO Auto-generated method stub
 		return courseDao.getCourseNextAllUser(id);
 	}
+	@Override
+	public void deleteCourseByID(int id) {
+		// TODO Auto-generated method stub
+		courseDao.deleteCourseByID(id);
+	}
 
 
 

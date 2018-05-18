@@ -182,7 +182,7 @@
     				$("#endTimeSpan").text("√");
     				$("#endTimeSpan").css({"display":"none"});
     				
-    				$("#loseTimeSpan").css({"color":"red"});
+    				$("#loseTimeSpan").css({"color":"green"});
     			}else{
     				$("#loseTimeSpan").text("天数不能为空且不能大于712!");
     				$("#loseTimeSpan").css({"color":"red"});
@@ -247,8 +247,10 @@
     			$("#titles").text("请输入课程简介!");
     			$("#titles").css({"color":"red"});
     		}
+    		alert($("#fileSpans").text())
     		if($("#fileSpans").text()!="√"){
-    			if(fileName!=""){
+    			alert(fileName)
+    			if(fileName!=""&&fileName!="undefined"&&fileName!=null){
     				$("#fileSpans").text("请选择正确的图片格式!");
     				$("#fileSpans").css({"color":"red"});
     				$("#fileSpans").css({"display":"block"});
@@ -284,8 +286,7 @@
 //              alert($("#fileSpans").text()=="√")
 //              alert($("#contextSpan").text()=="√")
               if($("#subject").text()=="√"&&$("#cname").text()=="√"&&$("#lessionNum").text()=="√"&&$("#soursePrices").text()=="√"&&$("#currentPrice").text()=="√"&&$("#loseTimeSpan").text()=="√"&&$("#endTimeSpan").text()=="√"&&$("#titles").text()=="√"&&$("#fileSpans").text()=="√"&&$("#contextSpan").text()=="√"){
-            	alert(123)
-            	  //$("#userAddForm").submit();
+            	  $("#userAddForm").submit();
               }
     	})
 	})

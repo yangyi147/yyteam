@@ -116,7 +116,7 @@
 	$(function() {
 		replyFun(); //回复展开
 	});
-
+ 	var title = "评论";
 // 	var totalResultSize = ${page.totalResultSize};
 // 	$(".totalResultComment").html(totalResultSize);
 // 	var order = "${comment.order}";

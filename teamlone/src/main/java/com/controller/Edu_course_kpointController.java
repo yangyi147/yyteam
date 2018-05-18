@@ -48,9 +48,9 @@ public class Edu_course_kpointController {
 	@RequestMapping("/listCourse")
 	public String listCourse(HttpServletRequest request) {
 		Map map=init(request);
-		List<Edu_Course> allCourse = courseService.getAllCourse(map);//²éÑ¯ËùÓÐ¿Î³Ì
-		List<Sys_Subject> allSubjict = subjectService.getAllSubjict();//²éÑ¯ËùÓÐ×¨Òµ
-		List<Sys_Subject> allSubjectByChild = subjectService.getAllSubjectByChild(map);//²éÑ¯×Ó×¨Òµ
+		List<Edu_Course> allCourse = courseService.getAllCourse(map);//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ð¿Î³ï¿½
+		List<Sys_Subject> allSubjict = subjectService.getAllSubjict();//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½×¨Òµ
+		List<Sys_Subject> allSubjectByChild = subjectService.getAllSubjectByChild(map);//ï¿½ï¿½Ñ¯ï¿½ï¿½×¨Òµ
 		List<Edu_Teacher> allTeacherBySubjectId = teacherSevice.getAllTeacherByMap(map);
 		request.setAttribute("allSubjectByChild", allSubjectByChild);
 		request.setAttribute("allTeacherBySubjectId", allTeacherBySubjectId);
@@ -129,6 +129,7 @@ public class Edu_course_kpointController {
 	}
 	@RequestMapping("/getPlayerHtml")
 	public String getPlayerHtml(HttpServletRequest request,HttpSession session) {
+		System.out.println("cid:"+request.getParameter("cid"));
 		if (request.getParameter("cid")==null ||request.getParameter("cid").equals("0")) {
 			if (request.getParameter("kpointId")!=null) {
 				Edu_course_Kpoint courseKponintByKpointId = courseKpointService.getCourseKponintByKpointId(Integer.parseInt(request.getParameter("kpointId")));

@@ -63,7 +63,7 @@
 									</td>
 									<td >
 									创建时间: <input type="date" name="stattime" id="stattime" value="${map.stattim }"/> - <input type="date" id="endtime" name="endtime" value="${map.endtime}" /> </td>
-									<td><button type="submit" class="btn btn-info no">查找课程</button></td>
+									<td><button type="submit" class="btn btn-info no">查找</button></td>
 									<td><button type="button" class="btn btn-info no" onclick="addCourse()">添加课程</button></td>
 									<td><button type="button" class="btn btn-info no" onclick="qk()">清空</button></td>
 								</tr>
@@ -79,48 +79,52 @@
 								<table class="layui-table table-hover" lay-even="" lay-skin="nob" id="mytab" name="mytab">
 									<thead>
 										<tr>
-										<th>课程名称</th>
+										<th>编号</th>
+										<th>登陆名</th>
+										<th>密码</th>
+										<th>姓名</th>
 										<th>状态</th>
-										<th>专业</th>
-										<th>原价</th>
-										<th>优惠价</th>
-										<th>课时</th>
-										<th>销售量</th>
-										<th>浏览量</th>
+										<th>最后登陆时间</th>
+										<th>最后登陆IP</th>
 										<th>创建时间</th>
-										<th>有效结束时间</th>
+										<th>邮件</th>
+										<th>手机</th>
+										<th>角色</th>
 										<th>操作</th>
 										</tr>
 									</thead>
 										<tbody id="t1" name="t1">
-										<c:forEach items="${allEnd_Course.list }" var="course" varStatus="stat">
+										<c:forEach items="${allUser.list }" var="user" varStatus="stat">
 										<tr>
-										<th>${course.course_name }</th>
+										<th>${stat.index+1 }</th>
+										<th>${user.login_name }</th>
+										<th>${user.login_pwd }</th>
+										<th>${user.user_name }</th>
+											<th>
+										<c:if test="${user.status==0 }">
+										正常
+										</c:if>
+										<c:if test="${user.status==1 }">
+										冻结
+										</c:if>
+										</th>
+										<th> <fmt:formatDate value="${user.last_login_time }" type="date" pattern="yyyy-MM-dd" /></th>
+										<th>${user.last_login_ip }</th>
+										<th>${user.create_time }</th>
+										<th>${user.email }</th>
+										<th>${user.tel }</th>
+										<th>${user.roel.role_id }</th>
+										
 										<th>
-										<c:if test="${course.is_avaliable==1 }">
-										上架
-										</c:if>
-										<c:if test="${course.is_avaliable==2 }">
-										下架
-										</c:if>
-										</th>
-										<th>${course.subject.name }</th>
-										<th>${course.source_price }</th>
-										<th>${course.current_price }</th>
-										<th>${course.lession_num }</th>
-										<th>${course.page_buycount }</th>
-										<th>${course.page_vlewcount }</th>
-										<th> <fmt:formatDate value="${course.update_time }" type="date" pattern="yyyy-MM-dd" /></th>
-										<th><c:if test="${course.losetype==1 }">
-										<fmt:formatDate value="${course.update_time }" type="date" pattern="yyyy-MM-dd" />
-										</c:if>
-										<c:if test="${course.losetype==2 }">
-										购买后的${course.lose_time }天
-										</c:if>
-										</th>
-										<th><input type="button" class="btn btn-default in" onclick="chapte(${course.course_id })"  value="章节管理" style="background: black; color: white;" />
-										<input type="button" class="btn btn-default in" onclick="chapter(${course.subject.id },${course.is_avaliable },${course.course_id })" value="修改" style="background: black; color: white;" />
-										<input type="button" class="btn btn-default in" value="删除" onclick="deleteCourse(${course.subject.id })"  style="background: black; color: white;" /></th>
+										  <shiro:hasPermission name="/admin/sysuser/updateuser">
+                  						  <input type="button" class="btn btn-default in"   value="修改用户" style="background: black; color: white;" />
+	                                      </shiro:hasPermission>
+										  <shiro:hasPermission name="/admin/sysuser/disableOrstart/">
+										  <input type="button" class="btn btn-default in" <c:if test="${user.status==0 }"> value="冻结"</c:if><c:if test="${user.status==1 }"> value="启用"</c:if>  style="background: black; color: white;" /><!-- value 冻结/启用 -->
+	                                      </shiro:hasPermission>
+										  <shiro:hasPermission name="/admin/user/deleteuser">
+										  <input type="button" class="btn btn-default in" value="删除" style="background: black; color: white;" /></th>
+	                                      </shiro:hasPermission>
 										</tr>
 											</c:forEach>
 										</tbody>
@@ -158,31 +162,9 @@
 					});
 	 });
 	   
-	   function chapter(id,aid,cid) {
-		window.location.href="/admin/course/chapter/"+id+"/"+aid+"/"+cid;
-	}
-	   $(function () {
-		$("#ztid").val(${map.ztid});
-		$("#zyid").val(${map.zyid});
-	})
-	function qk() {
-		   $("#ztid").val("-1");
-			$("#zyid").val("-1");
-			$("#nameid").val("");
-			$("#stattime").val("");
-			$("#endtime").val("");
-			
-	}
-	   function chapte(id) {
-		window.location.href="/admin/course/chapte/"+id;
-	}
-	   
-	   function addCourse() {
-		window.location.href="/admin/course/addCourse"
-	}
-	   function deleteCourse(id) {
-		   window.location.href="/admin/course/deleteCourse/"+id
-	}
+
+
+
 	   
 </script>
 

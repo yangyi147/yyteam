@@ -138,7 +138,7 @@ margin-left: 50px;
       <div class="modal-body">
       
   
- <form class="form-horizontal">
+ <form class="form-horizontal" method="post">
  <input type="hidden" value="${id }" name="id"/>
  <input type="hidden" value="" id="pId" name="pId"/>
   <div class="form-group">

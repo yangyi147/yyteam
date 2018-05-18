@@ -33,7 +33,7 @@
 					<section class="p-h-video-box" id="videoPlay">
 						<c:choose>
 							<c:when test="${courseByID.logo!=null &&courseByID.logo!=''}">
-								<img src="<%=staticImage%>${course.logo}" alt="${courseByID.course_name}" class="dis c-v-pic" />
+								<img src="${courseByID.logo}" alt="${courseByID.course_name}" class="dis c-v-pic" />
 							</c:when>
 							<c:otherwise>
 								<img src="${ctx}/static/inxweb/img/default-img.gif" alt="${courseByID.course_name}" class="dis c-v-pic" />
@@ -46,7 +46,7 @@
 					</section>
 					<section class="p-h-video-tip">
 						<img src="${ctx }/static/inxweb/img/v-loading.gif">
-						<p class="hLh20"><span class="c-999">加载中...</span></p>
+						<p class="hLh20"><span class="c-999">${course.logo}加载中...</span></p>
 					</section>
 				</article>
 				<aside class="c-attr-wrap">

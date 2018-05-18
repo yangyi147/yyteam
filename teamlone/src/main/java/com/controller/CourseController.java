@@ -159,6 +159,11 @@ public class CourseController {
 		
 		return "";
 	}
+	@RequestMapping("/deleteCourse/{id}")
+	public String deleteCourse(@PathVariable("lid")int id) {
+		courseService.deleteCourseByID(id);
+		return "redirect:/admin/course/list";
+	}
 	
 	@SuppressWarnings("deprecation")
 	private Map init(HttpServletRequest request){

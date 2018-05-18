@@ -42,6 +42,6 @@ public interface Edu_CourseService {
 	
 	List<Users>getCourseNextAllUser(int id);
 
-
+	void deleteCourseByID(int id);
 
 }

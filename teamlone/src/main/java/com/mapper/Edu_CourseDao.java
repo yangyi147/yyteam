@@ -39,5 +39,7 @@ public interface Edu_CourseDao {
 	List<Edu_Course> getSunjectNextAllCourse(int id);
 	
 	List<Users>getCourseNextAllUser(int id);
+	
+	void deleteCourseByID(int id);
 
 }

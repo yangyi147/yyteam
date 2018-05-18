@@ -18,14 +18,13 @@ public class Sys_User {
 	
 	private String last_login_ip;
 	
-	private Date rcreat_time;
+	private Date create_time;
 	
 	private String email;
 	
 	private String tel;
 	
 	private Sys_Role roel;
-
 
 	public int getUser_id() {
 		return user_id;
@@ -83,12 +82,12 @@ public class Sys_User {
 		this.last_login_ip = last_login_ip;
 	}
 
-	public Date getRcreat_time() {
-		return rcreat_time;
+	public Date getCreate_time() {
+		return create_time;
 	}
 
-	public void setRcreat_time(Date rcreat_time) {
-		this.rcreat_time = rcreat_time;
+	public void setCreate_time(Date create_time) {
+		this.create_time = create_time;
 	}
 
 	public String getEmail() {
@@ -119,7 +118,7 @@ public class Sys_User {
 	public String toString() {
 		return "Sys_User [user_id=" + user_id + ", login_name=" + login_name + ", login_pwd=" + login_pwd
 				+ ", user_name=" + user_name + ", status=" + status + ", last_login_time=" + last_login_time
-				+ ", last_login_ip=" + last_login_ip + ", rcreat_time=" + rcreat_time + ", email=" + email + ", tel="
+				+ ", last_login_ip=" + last_login_ip + ", create_time=" + create_time + ", email=" + email + ", tel="
 				+ tel + ", roel=" + roel + "]";
 	}
 

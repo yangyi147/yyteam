@@ -1,5 +1,6 @@
 ﻿﻿<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ include file="/base.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
@@ -126,23 +127,23 @@
 															</li>
 															<c:set var="folderIndex" value="${folderIndex+1 }"/>
 														</c:if>
-														<%--<c:if test="${parentKpoint.kpoint_type==1 }"><!-- 视频 -->
-															<li class="lh-menu-stair">
-																<ul class="lh-menu-ol no-parent-node">
-																	<li class="lh-menu-second"><a title="" onclick="getPlayerHtml(${parentKpoint.id },'${parentKpoint.name }',this)" href="javascript:void(0)">
-																			<span class="fr"> 
-																				 <c:if test="${parentKpoint.free==1 }">
-																					<tt class="free-icon vam mr10">免费试听</tt>
-																				</c:if> 
-																				<c:if test="${!empty parentKpoint.play_time}">
-																					<em class="lh-p-icon icon14 ml5">&nbsp;</em>
-																					${parentKpoint.play_time}
-																				</c:if>
-																				</span><em class="lh-menu-i-2 icon14 mr5">&nbsp;</em>${parentKpoint.name }</a>
-																	</li>
-																</ul>
-															</li>  
-														</c:if>--%>
+<%-- 														<c:if test="${parentKpoint.kpoint_type==1 }"><!-- 视频 --> --%>
+<!-- 															<li class="lh-menu-stair"> -->
+<!-- 																<ul class="lh-menu-ol no-parent-node"> -->
+<%-- 																	<li class="lh-menu-second"><a title="" onclick="getPlayerHtml(${parentKpoint.id },'${parentKpoint.name }',this)" href="javascript:void(0)"> --%>
+<!-- 																			<span class="fr">  -->
+<%-- 																				<c:if test="${parentKpoint.free==1 }">
+<%-- 																					<tt class="free-icon vam mr10">免费试听</tt> --%>
+<%-- 																				</c:if> --%> 
+<%-- 																				<c:if test="${!empty parentKpoint.play_time}"> --%>
+<!-- 																					<em class="lh-p-icon icon14 ml5">&nbsp;</em> -->
+<%-- 																					${parentKpoint.play_time} --%>
+<%-- 																				</c:if> --%>
+<%-- 																				</span><em class="lh-menu-i-2 icon14 mr5">&nbsp;</em>${parentKpoint.name }</a> --%>
+<!-- 																	</li> -->
+<!-- 																</ul> -->
+<!-- 															</li> -->
+<%-- 														</c:if> --%>
 													</c:forEach>
 											</ul>
 										</menu>
@@ -156,7 +157,7 @@
 										<section class="mt5 clearfix">
 											<span class="fr">
 												<tt class="mr5 c-orange" style="display: none;" id="notContextId"></tt>
-												<a href="javascript: void(0)" onclick="addNotest()" title="保存" class="lh-reply-btn" id="notesState">保存</a>
+												<a href="javascript: void(0)" onclick="addNotest()" title="保存" class="lh-reply-btn">保存</a>
 											</span>
 										</section>
 									</div>
@@ -200,7 +201,7 @@
 						<c:if test="${not empty sunjectNextAllCourse}">
 								<section class="course-r-list">
 									<ol>
-										<c:forEach items="${sunjectNextAllCourse}" var="interfixCourse">
+										<c:forEach items="${sunjectNextAllCourse }" var="interfixCourse">
 											<li>
 												<aside class="course-r-pic">
 													<a href="${ctx }/front/couinfo/${interfixCourse.course_id}" title="">
@@ -215,7 +216,7 @@
 													</a>
 												</aside>
 												<section class="hLh20 txtOf">
-													<a href="${ctx }/front/couinfo/${interfixCourse.course_id}" class="c-333 fsize16">${interfixCourse.course_name}</a>
+													<a href="/front/courseKpoint/videoDetails/${interfixCourse.course_id}"" class="c-333 fsize16">${interfixCourse.course_name}</a>
 												</section>
 												<section class="hLh20 mt5 txtOf">
 													<span class="c-999">讲师：
@@ -256,7 +257,7 @@
 	<!-- 公共底引入 -->
 	<jsp:include page="/WEB-INF/layouts/web/footer.jsp" />
 	<!-- 公共底引入 -->
-	<script type="text/javascript" src="${ctx}/static/common/jquery-3.0.0.js"></script>
+	<script type="text/javascript" src="${ctx}/static/common/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="${ctx}/static/common/jquery-1.11.1.min.js"></script>
 
 	<script type="text/javascript" src="${ctx}/static/common/webutils.js"></script>
@@ -271,16 +272,13 @@
 	var others_id='${course.course_id}';
 	//评论类型,类型2为课程
 	var type = 2;
-	var currentKpointId="${kid}";//当前播放视频id(没有视频节点默认为零)
+	var currentKpointId="0";//当前播放视频id(没有视频节点默认为零)
 	var isok="${isok}";//是否可以播放
 	var message="${message}";//提示信息
 	var countPlayTimeOut='15';//播放后记录播放次数的延时
-	var studyPercent="";
-	var notesState =0;
-	 var uid=7;
-	 var name="${name}"
+	var studyPercent="";//学习进度百分比
 	</script>
-	<script type="text/javascript">
+		<script type="text/javascript">
 	$(function () {
 		getCourseLearnedUser(others_id);
 		if(currentKpointId!=0){

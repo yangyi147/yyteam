@@ -176,8 +176,10 @@
     			v = "";
     			var b=0;
     			if(nodes.length==0){
-    				$("#subject").text("");
     				$("#ssid").val('');
+    				$("#subject").text("课程专业不能为空");
+    				$("#subject").css({"color":"red"});
+    				$("#subject").show();
     			}
     			for (var i=0, l=nodes.length; i<l; i++) {
     				v += nodes[i].name + ",";
@@ -189,8 +191,9 @@
     			var cityObj = $("#citySel");
     			cityObj.attr("value", v);
     			$("#ssid").val(b);
-    			if($("#ssid").val()!=null){
+    			if($("#ssid").val()!=null&&$("#ssid").val()!=''&&$("#ssid").val().trim().length>0&&$("#ssid").val()!=0){
     				$("#subject").text("√");
+    				$("#subject").css({"color":"green"});
     			}
     		}
 
