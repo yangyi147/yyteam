@@ -6,9 +6,6 @@
 		<association property="edu_article" column="article_id"
 			select="com.mapper.Edu_articleDao.getById" />
 </resultMap>
-<!-- <select id="getcomment" parameterType="int" resultType="Edu_comment"> -->
-<!-- select * from edu_comment where otherId = #{value } -->
-<!-- </select> -->
 <select id="getByid" parameterType="int" resultMap="Edu_article_contentMap">
 select * from edu_article_content where article_id = #{value }
 </select>
@@ -17,8 +14,8 @@ select * from edu_article_content where article_id = #{value }
 			SELECT LAST_INSERT_ID()
 	</selectKey>
      insert into 
-     edu_article(title,summary,article_type,author,source,image_url,click_num,create_time,publish_time,sort) 
-     values (#{title },#{summary },#{article_type },#{author },#{source },#{image_url },#{click_num },#{create_time },#{publish_time },#{sort })
+     edu_article(title,summary,article_type,author,source,image_url,click_num,create_time,publish,sort) 
+     values (#{title },#{summary },#{article_type },#{author },#{source },#{image_url },#{click_num },#{create_time },0,#{sort })
 </insert>
 <insert id="addarticle" parameterType="Edu_article_content">
 insert into edu_article_content values(#{edu_article.article_id },#{content })
@@ -27,4 +24,23 @@ insert into edu_article_content values(#{edu_article.article_id },#{content })
 <delete id="deleteArticleContent" parameterType="int">
 delete from edu_article_content where article_id = #{value }
 </delete>
+
+<update id="updateArticle" parameterType="Edu_Article">
+		update edu_article set
+		title=#{title},summary=#{summary},author=#{author},source=#{source},image_url=#{image_url},sort=#{sort}
+		where article_id=#{article_id}
+	</update>
+	
+		<update id="updateArticleContent" parameterType="Edu_article_content">
+		update
+		edu_article_content set content = #{content } where
+		article_id = #{edu_article.article_id }
+	</update>
+	
+	<update id="savelikes" parameterType="int">
+	update edu_article set praise_count = praise_count+1 where article_id = #{value }
+	</update>
+	<update id="savenum" parameterType="int">
+	update edu_article set comment_num = comment_num+1 where article_id = #{value }
+	</update>
 </mapper>

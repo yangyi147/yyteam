@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper  namespace="com.mapper.Edu_likesDao">
+<resultMap type="Edu_likes" id="Edu_likesMap">
+		<result property="likes_ID" column="likes_ID" />
+		<result property="type" column="type" />
+		<result property="likes_eid" column="likes_eid" />
+		<association property="uid" column="uid"
+			select="com.mapper.UserDao.getById" />
+</resultMap>
+<select id="getLikes" resultMap="Edu_likesMap" parameterType="java.util.Map">
+select * from edu_likes where targetId = #{targetId } and type = #{type } and uid = #{uid }
+</select>
+
+<insert id="saveLikes" parameterType="java.util.Map">
+insert into edu_likes(type,uid,targetId) values(#{type },#{uid },#{targetId })
+</insert>
+</mapper>

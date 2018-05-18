@@ -2,18 +2,26 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper  namespace="com.mapper.Edu_articleDao">
 <select id="getlistAll" resultType="Edu_article">
+select * from edu_article where  publish = 1
+</select>
+<select id="getlistAlls" resultType="Edu_article">
 select * from edu_article
 </select>
 <select id="getById" parameterType="int" resultType="Edu_article">
 select * from edu_article where article_id = #{value }
 </select>
 
-<!-- <insert id="artcleAdd" parameterType="java.uitl.Map"  keyProperty="id"> -->
-<!-- <selectKey keyProperty='id' resultType='int' order='AFTER'  >   -->
-<!--         select LAST_INSERT_ID();   -->
-<!--     </selectKey>  -->
-<!-- </insert> -->
+<update id="updatepubl" parameterType="java.util.Map">
+update edu_article set
+		publish_time=#{publish_time },publish=1
+		where article_id=#{article_id }
+</update>
 
+<update id="updatenopubl" parameterType="java.util.Map">
+update edu_article set 
+publish_time=#{publish_time },publish=0
+where article_id=#{article_id }
+</update>
 
 <delete id="deleteArtcle" parameterType="int">
 delete from edu_article where article_id = #{value }

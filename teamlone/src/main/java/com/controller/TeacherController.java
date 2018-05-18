@@ -121,6 +121,7 @@ public class TeacherController {
 	 @ResponseBody
      public InfoNode uploadw(HttpServletRequest request,
     		 @RequestParam("file")MultipartFile  file) throws Exception {
+		 System.out.println("=============="+file);
 		 InfoNode node=new InfoNode();
 		 if(!file.isEmpty()) {
             String path = request.getRealPath("/images/");
@@ -153,4 +154,13 @@ public class TeacherController {
             teacherService.upTer(teacher);
 			return "redirect:/admin/teacher";
 	 }
+	@RequestMapping("/teacher/delectall/{str}")
+	public  String delectall(@PathVariable("str")String checkedId){
+		String  sd[]  =	checkedId.split(",");
+		int b[] = new int [sd.length];
+		for(int i=0;i<sd.length;i++){
+			teacherService.delTe(Integer.parseInt(sd[i]));
+		}
+		return "redirect:/admin/teacher";
+	}
 }

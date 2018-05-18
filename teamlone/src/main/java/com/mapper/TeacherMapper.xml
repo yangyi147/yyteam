@@ -50,4 +50,12 @@ insert into edu_teacher(name,th_name,education,career,pic_path,sort,create_time,
 <update id="upTer"  parameterType="Teacher"  >
 update edu_teacher  set name=#{name},th_name=#{th_name},education=#{education},pic_path=#{pic_path},career=#{career},sort=#{sort},update_time=#{update_time}  where id=#{id}
 </update>
+ <delete id="deleteAll"  >  
+    delete edu_teacher  where id in  
+      <foreach collection="array" item = "id" open="(" separator="," close=")"> 
+      <if test="id!=null and id!=''">
+       #{id}  
+      </if> 
+    </foreach>    
+  </delete> 
 </mapper>

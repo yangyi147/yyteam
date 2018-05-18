@@ -56,4 +56,7 @@
 		delete from edu_questions
 		where id=#{id}
 	</delete>
+	<select id="getByQaT" parameterType="int" resultType="Questions">
+     select * from edu_questions where id in (select questions_id from edu_questions_tag_relation where questions_tag_id=#{id} )
+    </select>
 </mapper>

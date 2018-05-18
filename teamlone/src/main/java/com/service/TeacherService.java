@@ -12,5 +12,6 @@ public interface TeacherService {
 	  public void delTe(int id);
 	  public  Teacher getById(int id);
 	  public void upTer(Teacher teacher);
+	  public void deleteAll(String checkedId);
 
 }

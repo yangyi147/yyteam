@@ -49,6 +49,7 @@ function find(){
 	document.forms[0].action="/admin/teacher";
 	document.forms[0].submit();
 }
+
 </script>
 <body>
 	<section class="layui-larry-box ">
@@ -89,8 +90,12 @@ function find(){
 						</div>
 						<a class="layui-btn search_btn" onclick="find()">查询</a>
 						<div class="layui-inline">
+						
+						<shiro:hasPermission name="/admin/teacher/toadd">
 							<a class="layui-btn layui-btn-normal newsAdd_btn"
 								href="/admin/getSuAll">添加老师</a>
+								</shiro:hasPermission>
+					<button class="layui-btn layui-btn-sm" type="button" onclick="datadel()">批量删除</button>
 						</div>
 					</div>
 				</blockquote>
@@ -115,7 +120,7 @@ function find(){
 								</tr>
 								<c:forEach items="${tc.list}" var="p" varStatus="stea">
 									<tr>
-										<td><input type="checkbox"></td>
+										<td><input type="checkbox" value="${p.id}"></td>
 										<th>${stea.index+1 }</th>
 										<th >${p.name}</th>
 										<th>${p.th_name}</th>
@@ -124,12 +129,20 @@ function find(){
 										<th><fmt:formatDate value="${p.create_time}"
 												pattern="yyyy/MM/dd HH:mm" /></th>
 										<th>${p.sort}</th>
-										<th><button class="layui-btn layui-btn-sm" type="button"
+										<th>
+										<shiro:hasPermission name="/admin/teacher/delete/">
+										<button class="layui-btn layui-btn-sm" type="button"
 												onclick="fun(${p.id})">
 												<i class="layui-icon">&#xe640;</i>
-											</button></th>
-										<th><a href="/admin/teacher/getById/${p.id}"
-											class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe642;</i></a></th>
+											</button>
+											</shiro:hasPermission>
+											</th>
+										<th>
+									<shiro:hasPermission name="/admin/teacher/update">
+										<a href="/admin/teacher/getById/${p.id}"
+											class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe642;</i></a>
+											</shiro:hasPermission>
+											</th>
 									</tr>
 								</c:forEach>
 							</thead>
@@ -198,7 +211,37 @@ function find(){
 	   if(a!=''){
 		   $("#sel").val('${qtname}');
 		   }
-	   
+	   function datadel(){  
+		   layer.open({  
+	            title: ['温馨提示'],  
+	            content: '<div style="color:#767676">确定删除吗</div>',  
+	            btn: ['确定', '取消'],  
+	            shadeClose: true,  
+	            //回调函数  
+	            yes: function(index, layero){  
+	            	  var option = $(":checked");  
+	      		    var checkedId="";  
+	      		    var boo=true;   
+	      		  for (var i = 1, len = option.length; i < len; i++) {  
+	  		        if (boo) {  
+	  		            if (option[i].id=='selected-all') {  
+	  		                boo=true;  
+	  		            }else {  
+	  		                boo=false;  
+	  		                checkedId += option[i].value;  
+	  		            }  
+	  		        }else{  
+	  		            checkedId += ","+option[i].value;  
+	  		        }  
+	  		    } 
+	      		window.location.href='/admin/teacher/delectall/'+checkedId; 
+	            },  
+	            btn2: function(index, layero){  
+	            },  
+	            cancel: function(index,layero){  
+	            },  
+	    });   
+	   }
 </script>
 </body>
 </html>

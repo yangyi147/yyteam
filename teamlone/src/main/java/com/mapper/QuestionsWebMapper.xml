@@ -46,6 +46,9 @@
 			<if test="flag==5">
 				and type=2
 			</if>
+			<if test="uid !=0 and uid !=null">
+				and cus_id=#{uid}
+			</if>
 		</where>
 		<if test="flag==1">
 			order by ADD_TIME desc
@@ -75,4 +78,6 @@
 	<update id="upBrowse"  parameterType="java.util.Map">
 	update edu_questions  set browse_count=browse_count+1  where id=#{id}
 	</update>
+	
+	
 </mapper>

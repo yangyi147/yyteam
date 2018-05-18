@@ -53,10 +53,9 @@
 							href="/pbrandtype/listpt">Θ 清空</a>
 					</div>
 					<div class="layui-inline">
-						<a class="layui-btn layui-btn-danger newsAdd_btn">批量删除</a>
-					</div>
-					<div class="layui-inline">
+					<shiro:hasPermission name="/admin/essaysadd">
 						<a class="layui-btn layui-btn-danger newsAdd_btn" href="/admin/essaysadd">添加文章</a>
+					</shiro:hasPermission>
 					</div>
 			</div>
 			</blockquote>
@@ -104,32 +103,29 @@
 							 	
 							 	
 							 	<c:if test="${empty a.publish_time}">
-							 	
-							 	<a onclick="funupbl(${a.article_id})"
-										class="layui-btn layui-btn-danger"><i class="layui-icon">现在发布</i></a>
+							 	<shiro:hasPermission name="/admin/article/publishOrDelete/1">
+							 
+							 	<a onclick="funupbl(${a.article_id})" class="layui-btn layui-btn-danger"><i class="layui-icon">现在发布</i></a>
+										</shiro:hasPermission>
 									</c:if>
-									
 								<c:if test="${not empty a.publish_time}">
 								<a onclick="funnoupbl(${a.article_id})"
 										class="layui-btn layui-btn-danger"><i class="layui-icon">取消发布</i></a>
-									</c:if>
-							 	
+						     		</c:if>
 							 	<button class="layui-btn layui-btn-sm" type="button"
 										onclick="funct(${a.article_id})">
 						 					<i class="layui-icon">&#xe640;</i>
 										</button>
+										<shiro:hasPermission name="/admin/article/updatearticle/1">
 										<a onclick="funcp(${a.article_id})"
 										class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe642;</i></a>
-										
-										
-										
+										</shiro:hasPermission>
 										</th>
 								</tr>
 							</c:forEach>
 						</thead>
 					</table>
 					   <div class="larry-table-page clearfix">
-                          <a href="javascript:;" class="layui-btn layui-btn-small"><i class="iconfont icon-shanchu1"></i>删除</a>
 				          <div id="page" class="page"></div>
 			         </div>
 			    </div>

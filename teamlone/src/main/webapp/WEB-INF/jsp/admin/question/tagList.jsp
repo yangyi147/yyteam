@@ -37,8 +37,14 @@ function fun(a) {
             btn: ['确定', '取消'],  
             shadeClose: true,  
             //回调函数  
-            yes: function(index, layero){  
-            	window.location.href='/admin/delImg/'+a;  
+            yes: function(index, layero){
+            	$.post("/admin/questions_tag/update/"+a,function(data) { 
+    						if(data==2){
+    							window.location.href='/admin/questions_tag/updateStatus/'+a;  
+    						}else{
+    						alert("该类型真在被使用无法删除")
+    						}
+    					}, "json")
             },  
             btn2: function(index, layero){  
             },  
@@ -83,7 +89,7 @@ $(function(){
 			<tr>
 				<td>${t.questions_tag_name }</td>
 				<td><a class="layui-btn layui-btn-sm layui-btn-normal"
-						href="/admin/questions_tag/updateStatus/${t.questions_tag_id }">
+						href="javascript:;"  onclick="fun(${t.questions_tag_id})">
 						<i class="layui-icon"></i>
 					</a>
 					<a class="layui-btn layui-btn-xs" href="/admin/questions_tag/init/${t.questions_tag_id }">修改</a></td>

@@ -10,4 +10,6 @@ public interface Edu_commentDao {
 	public void insertComment(Map map);
 	
 	public List<Comment> getcommentpcomm(Map map);
+	public void savelikess(int targetId);
+	public void saveconut(int targetId);
 }

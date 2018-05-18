@@ -18,8 +18,6 @@ public class Edu_article_contentServiceImpl implements Edu_article_contentServic
 	@Override
 	public Edu_article_content getByid(int id) {
 		return eac.getByid(id);
-		
-		
 	}
 
 	@Override
@@ -40,5 +38,25 @@ public class Edu_article_contentServiceImpl implements Edu_article_contentServic
 	@Override
 	public void deleteArticleContent(int artcleId) {
 		eac.deleteArticleContent(artcleId);
+	}
+
+	@Override
+	public void updateArticleContent(Edu_article_content edu_article_content) {
+		eac.updateArticleContent(edu_article_content);
+	}
+
+	@Override
+	public void updateArticle(Edu_article edu_article) {
+		eac.updateArticle(edu_article);
+	}
+
+	@Override
+	public void savelikes(int targetId) {
+		eac.savelikes(targetId);
+	}
+
+	@Override
+	public void savenum(int targetId) {
+		eac.savenum(targetId);
 	}
 }

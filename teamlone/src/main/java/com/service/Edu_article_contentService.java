@@ -14,4 +14,10 @@ public interface Edu_article_contentService {
 	public void artcleAdd(Edu_article edu_article);
 	
 	public void deleteArticleContent(int artcleId);
+	
+	public void updateArticleContent(Edu_article_content edu_article_content);
+	public void updateArticle(Edu_article edu_article);
+	
+	public void savelikes(int targetId);
+	public void savenum(int targetId);
 }

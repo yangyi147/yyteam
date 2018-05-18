@@ -80,7 +80,7 @@
 										class="icon18">&nbsp;</em>(<span
 										class="replyCount${ac.comment_id}">${ac.reply_count}</span>)
 								</a> <tt title="赞一下" class="noter-zan vam ml10"
-										onclick="addPraise('${ac.comment_id}',4)">
+										onclick="addPraise('${ac.comment_id}',2,this)">
 										<em class="icon18">&nbsp;</em>(<span
 											class="addPraise${ac.comment_id}_4 praiseCount">${ac.praise_count }</span>)
 									</tt>
@@ -116,20 +116,25 @@
 	$(function() {
 		replyFun(); //回复展开
 	});
- 	var title = "评论";
+ 	//var title = "评论";
 // 	var totalResultSize = ${page.totalResultSize};
+// 	var totalResultSize = $
+// 	{
+// 		page.totalResultSize
+// 	};
 // 	$(".totalResultComment").html(totalResultSize);
 // 	var order = "${comment.order}";
-// 	var title = "评论";
+ 	var title = "评论";
 // 	if (type == 1) {
 // 		title = "文章评论（${page.totalPageSize}条）"
 // 	}
 // 	if (type == 2) {
 // 		title = "课程评论"
-// 		if(order=='praiseCount'){
+// 		if (order == 'praiseCount') {
 // 			title = "精彩评论"
 // 			$(".replyhtml").hide();
 // 		}
+
 // 	}
 
 	$(".commentTitle").html(title);

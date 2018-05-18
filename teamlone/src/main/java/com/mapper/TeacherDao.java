@@ -11,5 +11,6 @@ public interface TeacherDao {
   public void delTe(int id);
   public void inTer(Teacher teacher);
   public void upTer(Teacher teacher);
+  public void deleteAll(String[] checkedId);
   
 }

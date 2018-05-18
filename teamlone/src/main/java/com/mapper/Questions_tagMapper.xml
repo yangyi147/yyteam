@@ -18,4 +18,5 @@
     <insert id="save" parameterType="Questions_tag">
     insert into edu_questions_tag(questions_tag_name,status,create_time,parent_id) values(#{questions_tag_name},#{status},#{create_time},#{parent_id})
     </insert>
+    
 </mapper>

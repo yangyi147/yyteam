@@ -42,4 +42,9 @@ public class TeacherServiceImpl  implements TeacherService {
 	public void upTer(Teacher teacher) {
 		teacherDao.upTer(teacher);
 	}
+	@Override
+	public void deleteAll(String checkedId) {
+	teacherDao.deleteAll(checkedId.split(","));
+	
+	}
 }
