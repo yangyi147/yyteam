@@ -89,6 +89,7 @@
        /js/**=anon
        /jsplug/**=anon
        /skins/**=anon
+       /kindeditor/**=anon
        /static/**=anon
         /validation/login=anon
        /shiro/logout=logout
