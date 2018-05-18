@@ -5,4 +5,7 @@
 <select id="getAllSys_Role" resultType="com.bean.Sys_Role">
 select * from  sys_role
 </select>
+<select id="getRoleByID" resultType="com.bean.Sys_Role">
+select * from  sys_role where role_id=#{id}
+</select>
 </mapper>

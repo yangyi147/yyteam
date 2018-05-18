@@ -16,9 +16,21 @@
 <association property="roel" select="com.mapper.Sys_RoleDao.getRoleByID" column="role_id"></association>
 </resultMap>
 <select id="getUserByName" parameterType="java.lang.String" resultType="com.bean.Sys_User">
-SELECT * from sys_user WHERE LOGIN_NAME=#{LOGIN_NAME}
+SELECT * from sys_user WHERE LOGIN_NAME=#{LOGIN_NAME} and status=0
 </select>
 <select id="getAllUser" resultMap="userMap" >
 SELECT * from sys_user where status!=2
 </select>
+<update id="updateUser" parameterType="com.bean.Sys_User" >
+UPDATE sys_user SET login_name=#{login_name} , login_pwd=#{login_pwd},user_name=#{user_name}, STATUS=#{status},EMAIL=#{email}, tel=#{tel} , role_id=#{roel.role_id} WHERE user_id=#{user_id}
+</update>
+<select id="getUserByID" resultMap="userMap" >
+SELECT *  FROM sys_user WHERE user_id=#{id}
+</select>
+<insert id="insertUser" parameterType="com.bean.Sys_User">
+<selectKey resultType="int" order="AFTER" keyProperty="user_id">
+			SELECT LAST_INSERT_ID()
+	</selectKey>
+INSERT INTO sys_user VALUES(null,#{login_name},#{login_pwd},#{user_name},0,NULL,null,#{create_time},#{email},#{tel},#{roel.role_id})
+</insert>
 </mapper>

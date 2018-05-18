@@ -95,6 +95,11 @@ public class Edu_course_KpointServiceImpl implements Edu_course_KpointService {
 		// TODO Auto-generated method stub
 		return course_KpintDao.getCourseKpointByCourseId(id);
 	}
+	@Override
+	public int getCourseKpointMinIDByCourseID(int id) {
+		// TODO Auto-generated method stub
+		return course_KpintDao.getCourseKpointMinIDByCourseID(id);
+	}
 
 
 }

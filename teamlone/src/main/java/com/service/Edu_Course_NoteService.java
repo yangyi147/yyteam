@@ -11,8 +11,8 @@ public interface Edu_Course_NoteService {
 	
 	Edu_Course_Note getAllCourseNoteByID(Map map);
 	
-	String insertCourseNote(HttpServletRequest  request);
+	int  insertCourseNote(HttpServletRequest  request);
 	
-	String updateCourseKpoint(HttpServletRequest request);
+	int updateCourseKpoint(HttpServletRequest request);
 
 }

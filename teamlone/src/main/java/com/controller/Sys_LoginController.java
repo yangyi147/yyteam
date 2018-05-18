@@ -34,8 +34,7 @@ public class Sys_LoginController {
 			try {
 				subject.login(token);
 			} catch (Exception e) {
-				e.printStackTrace();
-				return "common/login";
+				return "/common/login";
 			}
 		}
 		return "redirect:/admin/login/home";

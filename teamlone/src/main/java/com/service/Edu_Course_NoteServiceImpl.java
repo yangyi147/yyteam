@@ -27,33 +27,35 @@ public class Edu_Course_NoteServiceImpl implements Edu_Course_NoteService {
 		return courseNoteDao.getAllCourseNoteByID(map);
 	}
 	@Override
-	public String insertCourseNote(HttpServletRequest  request) {
+	public int insertCourseNote(HttpServletRequest  request) {
 		user.setUser_id(Integer.parseInt(request.getParameter("uid")));
 		courseNote.setUsers(user);
 		courseNote.setKpoint_id(Integer.parseInt(request.getParameter("kpointId")));
 		courseNote.setContent(request.getParameter("content"));
 		courseNote.setCourse_id(Integer.parseInt(request.getParameter("courseId")));
 		courseNote.setUpdate_time(new Date());
-		try {
+	
 			courseNoteDao.insertCourseNote(courseNote);
-		} catch (Exception e) {
-			return "false";
+			System.out.println("===========================================");
+			System.out.println(courseNote.getId());
+			if (courseNote.getId()!=0) {
+			return 1;
 		}
-		return "success";
+		return 2;
 	}
 	@Override
-	public String updateCourseKpoint(HttpServletRequest request) {
+	public int updateCourseKpoint(HttpServletRequest request) {
 		user.setUser_id(Integer.parseInt(request.getParameter("uid")));
 		courseNote.setUsers(user);
 		courseNote.setKpoint_id(Integer.parseInt(request.getParameter("kpointId")));
 		courseNote.setContent(request.getParameter("content"));
 		courseNote.setCourse_id(Integer.parseInt(request.getParameter("courseId")));
 		courseNote.setUpdate_time(new Date());
-		try {
-			courseNoteDao.updateCourseKpoint(courseNote);
-		} catch (Exception e) {
-			return "false";
-		}
-		return "success";
+			int updateCourseKpoint = courseNoteDao.updateCourseKpoint(courseNote);
+			System.out.println("updateCourseKpoint:"+updateCourseKpoint);
+			if(updateCourseKpoint==0){
+				return 2;
+			}
+		return 1;
 	}
 }

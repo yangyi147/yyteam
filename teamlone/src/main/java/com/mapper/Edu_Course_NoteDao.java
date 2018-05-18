@@ -11,6 +11,6 @@ public interface Edu_Course_NoteDao {
 	
 	void insertCourseNote(Edu_Course_Note courseNote);
 	
-	void updateCourseKpoint(Edu_Course_Note courseNote);
+	int updateCourseKpoint(Edu_Course_Note courseNote);
 
 }

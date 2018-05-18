@@ -112,6 +112,16 @@ public class Edu_course_kpointController {
 			for (Edu_Course edu_Course : sunjectNextAllCourse) {
 				edu_Course.setTeacher(subjectNextAllTeacher);
 			}
+			//int courseKpointMinIDByCourseID = courseKpointService.getCourseKpointMinIDByCourseID(id);
+//			if (courseKpointMinIDByCourseID!=0) {
+//				request.setAttribute("courseKpointMinIDByCourseID", courseKpointMinIDByCourseID);
+//			}
+			if(parentList.size()>0){
+				Edu_course_Kpoint point=parentList.get(0);
+				if(point!=null&&point.getSonList().size()>0){
+					request.setAttribute("courseKpointMinIDByCourseID", point.getSonList().get(0).getId());
+				}
+			}
 			request.setAttribute("sunjectNextAllCourse", sunjectNextAllCourse);
 		request.setAttribute("parentKpointList", courseKpoint);
 		request.setAttribute("course",course);
@@ -119,7 +129,7 @@ public class Edu_course_kpointController {
 	}
 	@ResponseBody
 	@RequestMapping("/getCourseNextAllUser/{cid}")
-	public Result name(@PathVariable("cid")int cid) {
+	public Result getCourseNextAllUser(@PathVariable("cid")int cid) {
 		List<Users> courseNextAllUser = courseService.getCourseNextAllUser(cid);
 		if (courseNextAllUser.size()>0) {
 			result.setSuccess(true);
@@ -158,14 +168,18 @@ public class Edu_course_kpointController {
 		}
 		return allCourseNoteByID;
 	}
+	@ResponseBody
 	@RequestMapping("/addnote")
-	public String addnote(HttpServletRequest request) {
-		String insertCourseNote = courseNoteService.insertCourseNote(request);
+	public int addnote(HttpServletRequest request) {
+		int insertCourseNote = courseNoteService.insertCourseNote(request);
 		return insertCourseNote;
 	}
+	@ResponseBody
 	@RequestMapping("/updatenote")
-	public String updatenote(HttpServletRequest request) {
-		String insertCourseNote = courseNoteService.updateCourseKpoint(request);
+	public int updatenote(HttpServletRequest request) {
+		System.out.println("=================ds=============================");
+		int insertCourseNote = courseNoteService.updateCourseKpoint(request);
+		System.out.println(insertCourseNote);
 		return insertCourseNote;
 	}
 	
