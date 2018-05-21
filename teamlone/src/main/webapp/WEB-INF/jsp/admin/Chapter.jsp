@@ -288,7 +288,7 @@
 <input type="hidden" name="course_id" value="${courseByID.course_id }"/>
 <input type="hidden" name="ssid" id="ssid" value=""/>
   <div class="form-group" >
-    <label for="inputPassword" class="col-sm-2 control-label">专业管理</label>
+    <label for="inputPassword" class="col-sm-2 control-label th">专业管理</label>
 <div class="">
 	<div class="zTreeDemoBackground left">
 		<ul class="list">
@@ -306,7 +306,7 @@
   <div class="form-group">                                       
     <label for="inputPassword" class="col-sm-2 control-label" >状态</label>
     <div class="col-sm-10">
-    <select name="is_avaliable" class="form-control">
+    <select name="is_avaliable" class="form-control th">
             <option value="1" >上架</option> 
              <option value="2" >下架</option> 
 </select>
@@ -345,7 +345,7 @@
   <div class="form-group" id="ts">
     <label for="inputPassword" class="col-sm-2 control-label">按天数</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control oh bz" onclick="endsj(this.value)" onkeyup="endsj(this.value)" id="loseTime" name="lose_time" style="width: 150px" value="${courseByID.lose_time }"  >
+      <input type="number" class="form-control th bz" onclick="endsj(this.value)" onkeyup="endsj(this.value)" id="loseTime" name="lose_time" style="width: 150px" value="${courseByID.lose_time }"  >
       <span id="loseTimeSpan"></span>
     </div>
   </div>
@@ -359,7 +359,7 @@
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">添加教师</label>
     <div class="col-sm-10">
-       <select class="form-control oh" name="tid" style="width: 150px">
+       <select class="form-control th" name="tid" style="width: 150px">
        <c:forEach items="${allTeacher }" var="teacher">
      <option value="${teacher.id }">${teacher.name }</option>
        </c:forEach>

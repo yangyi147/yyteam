@@ -14,7 +14,7 @@ function updateUserInfo(userId){
 	var showName=$("input[name='user.showName'").val();
 	var sex=$("input[name='user.sex'").val();
 	var age=$("input[name='user.age'").val();
-	  alert(userName);
+	
 	$.ajax({
 		url:baselocation+'/uc/updateUser',
 		type:'post',

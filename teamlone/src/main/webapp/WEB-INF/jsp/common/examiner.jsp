@@ -59,7 +59,6 @@
 					<div class="layui-input-block">  
 					<c:if test="${emailsend.type==1}" >
 					<input type="text" name="title" value="普通" autocomplete="off"  class="layui-input layui-disabled"  disabled="disabled" >
-					
 			       </c:if>
 			       	<c:if test="${emailsend.type==2}">
 			       	<input type="text" name="title" value="定时" autocomplete="off"  class="layui-input layui-disabled"  disabled="disabled" >

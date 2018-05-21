@@ -87,7 +87,7 @@ function winHide(){
  * 用户列表导出
  */
 function userExcel(){
-	$("#searchForm").prop("action","/admin/users/export");
+	$("#searchForm").prop("action","/admin/user/export");
 	$("#searchForm").submit();
-	$("#searchForm").prop("action","/admin/users/getuserList");
+	$("#searchForm").prop("action","/admin/user/getuserList");
 }

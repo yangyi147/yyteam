@@ -7,10 +7,9 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>学员管理</title>
+		<title>邮件管理</title>
 
-		<meta charset="UTF-8">
-		<title>个人信息</title>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -28,11 +27,12 @@
 		<script src="/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/js/bootstrap-table.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/js/bootstrap-table-zh-CN.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
      
      	
      </head>
 	<script type="text/javascript">
+  
 	</script>
 
 	<body>
@@ -43,10 +43,10 @@
 					<form action="/admin/email/list" method="post">
 						<table  class="layui-table table-hover" lay-even="" lay-skin="nob" >
 							<tr>
-								<td><input type="text" id="email" name="email"  class="form-control" placeholder="邮箱" style="width: 160px"/></td>
+								<td><input type="text" id="email" name="email"  class="form-control" value="${email}" placeholder="邮箱" style="width: 160px"/></td>
 									
 								<td>
-									<select class="form-control"style="width: 150px; " id="type" name="type">
+									<select class="form-control"style="width: 150px; " id="type" name="type" >
 										<option value="0">选择类型</option>
 										<option value="1">普通</option>
 										<option value="2">定时</option>
@@ -64,13 +64,13 @@
 									</select>
 								</td>
 								<td>发送时间:</td>
-								<td><input type="text" name="start" id="start"  class="form-control" style="width: 160px"
+								<td><input type="text" name="start" id="start" value="${start}"  class="form-control" style="width: 160px"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" /> </td>	
 								<td>结束时间:</td>
-								   <td><input type="text"  name="end" id="end"  class="form-control" style="width: 160px"
+								   <td><input type="text"  name="end" id="end" value="${end}" class="form-control" style="width: 160px"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />   </td>
 								<td><button type="submit" class="btn btn-info">查询</button></td>
-								<td><button type="button" class="btn btn-info" onclick="">清空</button></td>
+								<td><button type="button" id="qk" class="btn btn-info" >清空</button></td>
 							</tr>
 
 						</table></form>
@@ -158,8 +158,17 @@
 		<script type="text/javascript " src="/comm/layui/layui.js "></script>
 		
 		<script type="text/javascript ">
-			var tid = document.getElementById("tid ");
-			tid.value = '${tid}';
+//			var tid = document.getElementById("tid ");
+//			tid.value = '${tid}';
+		$(function () {
+			$("#qk").click(function () {
+				$("#email").val("");
+				$("#type").val("0");
+                $("#status").val("0");
+				$("#end").val("");
+				$("#start").val("");
+			})
+		})
 		</script>
 	</body>
 

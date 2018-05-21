@@ -36,7 +36,7 @@
 	charset="utf-8"></script>
 <script src="/js/bootstrap-table-zh-CN.min.js" type="text/javascript"
 	charset="utf-8"></script>
-<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
 
 </head>
 <script type="text/javascript">
@@ -86,7 +86,9 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							<shiro:hasPermission name="/admin/users/update">
 						<button type="button" class="btn btn-primary" onclick="yangfan()">确定</button>
+					</shiro:hasPermission>
 					</div>
 				</div>
 			</div>
@@ -100,35 +102,35 @@
 				<form action="/admin/users/list" method="post">
 					<table class="layui-table table-hover" lay-even="" lay-skin="nob">
 						<tr>
-							<td><input type="text" id="pname" name="pname"
+							<td><input type="text" id="pname" name="pname"   value="${pname} "
 								class="form-control" value="" placeholder="邮箱/手机/姓名"
 								style="width: 130px" /></td>
-							<td><select class="form-control" style="width: 130px;"
+							<!--<td><select class="form-control" style="width: 130px;"
 								name="class_id" id="class_id">
 									<option value="-1">请选择班级</option>
 									<c:forEach items="${listc}" var="c" varStatus="stea">
 										<option value="${c.id}">${c.cname}</option>
 									</c:forEach>
-							</select></td>
+							</select></td>-->
 							<td><select class="form-control" style="width: 130px;"
 								name="is_avalible" id="is_avalible">
-									<option value="-1">请选择状态</option>
-									<option value="1">正常</option>
+									<option value="-1" >请选择状态</option>
+									<option value="1" >正常</option>
 									<option value="0">冻结</option>
 
 							</select></td>
 							<td>注册时间:</td>
-							<td><input type="text" name="start" id="start"
+							<td><input type="text" name="start" id="start" value="${map.start} "
 								class="form-control" style="width: 150px"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 								placeholder="开始注册时间" /></td>
-							<td><input type="text" name="end" id="end"
+							<td><input type="text" name="end" id="end" value="${map.end} "
 								class="form-control" style="width: 150px"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 								placeholder="结束注册时间" /></td>
 							<td><button type="submit" class="btn btn-info">查找学员</button></td>
-							<td><button type="reset" class="btn btn-info">清空</button></td>
-							<td><a href="/admin/users/getAction" class="btn btn-info">导出Excel</a></td>
+							<td><button type="button" id="qk" class="btn btn-info">清空</button></td>
+							<td><a href="/admin/users/getAction"  class="btn btn-info">导出Excel</a></td>
 						</tr>
 
 					</table>
@@ -180,6 +182,7 @@
 											<button type="button" class="layui-btn" data-toggle="modal"
 												onclick="xiugai(${p.user_id})" data-target="#myModal">
 												修改密码</button> <c:if test="${p.is_avalible==1}">
+												<shiro:hasPermission name="/admin/users/updateid/">
 												<a
 													href="/admin/users/updateid/${p.user_id}/${p.is_avalible}"
 													class="layui-btn layui-btn-primary">冻结</a>
@@ -188,6 +191,7 @@
 													href="/admin/users/updateid/${p.user_id}/${p.is_avalible}"
 													class="layui-btn layui-btn-primary">解冻</a>
 											</c:if>
+											    </shiro:hasPermission>
 										</th>
 									</tr>
 								</c:forEach>
@@ -225,9 +229,7 @@
 							</tr>
 						</table>
 					</form>
-					<!-- <div class="larry-table-page clearfix ">
-						<div id="page" class="page"></div>
-					</div> -->
+	
 				</div>
 
 				<!-- 登录日志 -->
@@ -268,36 +270,6 @@
 	</section>
 	<script type="text/javascript" src="/comm/layui/layui.js "></script>
 
-	<!-- 		<script type="text/javascript "> 
-			var tid = document.getElementById("tid ");
-			tid.value = '${tid}';
-		</script>  
-		
-		<script type="text/javascript">
-		 layui.use(['jquery','layer','element','laypage'],function(){
-		      window.jQuery = window.$ = layui.jquery;
-		      window.layer = layui.layer;
-	       var element = layui.element();
-	           laypage = layui.laypage;
-	        laypage({
-						cont:'page',
-						pages:'${page.pages}', //总页数
-						curr:'${page.pageNum}',
-                         GROUPS: 5, //连续显示分页数
-						jump: function(obj, first) {
-							//得到了当前页，用于向服务端请求对应数据
-							var curr = obj.curr;
-							
-							if(!first) {
-								document.forms[0].action="/admin/users/list?page="+curr;
-								document.forms[0].submit();
-							}
-						}
-					});
-	 });
-		</script>
-		
-		-->
 </body>
 
 <script type="text/javascript">
@@ -316,6 +288,14 @@
 			}
 		}
 
+		$(function () {
+			$("#qk").click(function () {
+				$("#pname").val("");
+				$("#is_avalible").val("-1");
+				$("#end").val("");
+				$("#start").val("");
+			})
+		})
 	
 	</script>
 

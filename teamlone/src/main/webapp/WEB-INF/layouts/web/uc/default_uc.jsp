@@ -24,7 +24,8 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/static/inxweb/css/web.css">
 <link href="${ctx}/static/inxweb/css/mw_320_768.css" rel="stylesheet" type="text/css" media="screen and (min-width: 320px) and (max-width: 768px)">
 <script type="text/javascript" src="${ctx}/static/common/webutils.js"></script>
-<script type="text/javascript" src="${ctx}/static/common/jquery-1.7.2.min.js"></script>
+<script src="/js/jquery-3.0.0.min.js" type="text/javascript"
+	charset="utf-8"></script>
 <script type="text/javascript" src="${ctx}/static/inxweb/user/ucTop.js"></script>
 <script type="text/javascript" src="${ctx}/static/inxweb/header/header.js"></script>
 <script type="text/javascript" src="${ctx }/static/inxweb/js/common.js"></script>
