@@ -23,8 +23,8 @@
 		<result column="MSG_NUM" property="msg_num" />
 		<result column="SYS_MSG_NUM" property="sys_msg_num" />
 		<result column="LAST_SYSTEM_TIME" property="last_system_time" />
-		<association property="id" column="class_id"
-			select="com.mapper.Edu_ClassDao.getById"></association>
+	<!-- 	<association property="id" column="class_id"
+			select="com.mapper.Edu_ClassDao.getById"></association>-->
 	</resultMap>
 	<select id="getlistAll" resultMap="UsersMap" parameterType="java.util.Map">
 		select * from edu_user 
@@ -34,9 +34,7 @@
 			and email like '%${pname}%' or mobile like '%${pname}%' or show_name
 			like '%${pname}%' or user_name like '%${pname}%'
 		</if>
-		<if test="class_id>=0">
-			and class_id like '%${class_id}%'
-		</if>
+
 		<if test="is_avalible>=0">
 			and is_avalible like '%${is_avalible}%'
 		</if>
@@ -50,6 +48,9 @@
 	</where>
 
 	</select>
+		<!-- 	<if test="class_id>=0">
+			and class_id like '%${class_id}%'
+		</if> -->
    <select id="getListAlls" resultMap="UsersMap">
    select * from edu_user 
    </select>
@@ -88,7 +89,7 @@
 		select * from edu_user WHERE email =#{value}
 	</select>
 <insert id="addUser" parameterType="Users">
-		insert into edu_user (mobile,email,password,user_name,pic_img,last_system_time,is_avalible)
-		 values (#{mobile},#{email},#{password},#{user_name},#{pic_img},#{last_system_time},#{is_avalible}) 
+		insert into edu_user (mobile,email,password,user_name,pic_img,last_system_time,is_avalible,create_time)
+		 values (#{mobile},#{email},#{password},#{user_name},#{pic_img},#{last_system_time},#{is_avalible},#{create_time}) 
 	</insert>
 </mapper>

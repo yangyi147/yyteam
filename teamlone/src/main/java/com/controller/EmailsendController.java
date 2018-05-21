@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -52,6 +53,7 @@ public class EmailsendController {
 		map=initMap(map, request);
 		List<Emailsend> list = emailsendServiceImpl.getlistAll(new HashMap<>(map));
 		mv.addObject("list", list);
+		mv.addObject("map", map);
 		mv.setViewName("/common/emailsend");
 		return mv;	
 	}

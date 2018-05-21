@@ -23,7 +23,6 @@ public class LoginController {
 	@Autowired
 	private UserServiceImpl userServiceImpl;
 
-
 	private static final String getKopintHtml = "/web/course/videocode";
 	// 前台登录
 	@RequestMapping("/front/login")
@@ -34,12 +33,11 @@ public class LoginController {
 		String pwd = request.getParameter("password");
 		Result result = new Result();
 		if (pwd == null && "".equals(pwd)) {
-			result.setMessage("");
+			result.setMessage("密码输入错误");
 			result.setSuccess(false);
 			return result;
 		}
 		pwd = MD5Utils.md5(pwd);
-		System.out.println(pwd);
 		String ipForget = request.getParameter("ipForget");
 		Users edu_User = userServiceImpl.getPwd(userName);
 		//		判断用户是否冻结状态   判断密码是否正确
@@ -47,7 +45,7 @@ public class LoginController {
 			if (edu_User.getIs_avalible()==0) {
 				return new Result(false, "此账号已被冻结", null);
 			}else {
-			result.setMessage("");
+			result.setMessage("登陆成功！");
 			result.setSuccess(true);
 			session.setAttribute("login_success", edu_User);
 		
@@ -70,11 +68,12 @@ public class LoginController {
 			user.setUser_name("yangfan");
 			user.setIs_avalible(1);
 			user.setLast_system_time(new Date());
+			user.setCreate_time(new Date());
 			user.setEmail(email);
 			user.setPassword(MD5Utils.md5(request.getParameter("user.password")));
 			user.setMobile(request.getParameter("user.mobile"));
 			userServiceImpl.addUser(user);
-			return new Result(true, null, null);
+			return new Result(true,null, null);
 		}else {
 			return new Result(false, null, null);
 		}

@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -56,32 +57,32 @@ public class UserController {
      EclassServiceImpl eclassServiceImpl;
 	@Autowired
 	UserService userService;
-//	·ÖÒ³¼°±í¸ñÏÔÊ¾
+//	é”Ÿæ–¤æ‹·é¡µé”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿç»ï¿½
 	@RequestMapping("/list")
 	public ModelAndView getlistAll(@RequestParam(required=true,defaultValue="1")Integer page,HttpServletRequest request) throws Exception{
 
 		ModelAndView mv = new ModelAndView();
 		Map map = new HashMap<>();
-		PageHelper.startPage(page,10); //·ÖÒ³ÉèÖÃÃ¿Ò³ÏÔÊ¾Êı
+		PageHelper.startPage(page,10); //é”Ÿæ–¤æ‹·é¡µé”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ¯é¡µé”Ÿæ–¤æ‹·ç¤ºé”Ÿæ–¤æ‹·
 		map=initMap(request, map);
 		List<Users> listAllUser = userService.getlistAll(map);
-		PageInfo<Users> pageInfo=new PageInfo<>(listAllUser); //·ÖÒ³°ÑÊı¾İ´æ·Åpageinfo
+		PageInfo<Users> pageInfo=new PageInfo<>(listAllUser); //é”Ÿæ–¤æ‹·é¡µé”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ·è¾¾æ‹·é”Ÿçµ§ageinfo
 		mv.addObject("list", listAllUser);
-		mv.addObject("page", pageInfo);  //·ÖÒ³½çÃæ´«²Î
-		List<EClass> listc=eclassServiceImpl.getlistAll();
-		mv.addObject("listc", listc);
+		mv.addObject("page", pageInfo);  //é”Ÿæ–¤æ‹·é¡µé”Ÿæ–¤æ‹·é”ŸèŠ¥ä¼ é”Ÿæ–¤æ‹·
+		mv.addObject("map",map);
+//		List<EClass> listc=eclassServiceImpl.getlistAll();
+//		mv.addObject("listc", listc);
 		mv.setViewName("/common/student");
-
 		return mv;	
 	}
-//   ĞŞ¸ÄÃÜÂë
+//   é”Ÿç«é©æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
 	@RequestMapping("/update")
 	public String update(Users users) {
 		userServiceImpl.update(users);
 		return "redirect:/admin/users/list";
 
 	}
-//  ¶³½á  Õı³£
+//  é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·  é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
 	@RequestMapping("/updateid/{id}/{is_avalible}")
 	public String updateid(@PathVariable("id")int id,@PathVariable("is_avalible")int is_avalible) {
 		Users users = new Users();
@@ -96,11 +97,11 @@ public class UserController {
 		userServiceImpl.updateid(users);
 		return "redirect:/admin/users/list";
 	}
-//  Ä£ºı²éÑ°
+//  æ¨¡é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å¯»
 	private Map initMap(HttpServletRequest request,Map map) throws Exception {
 		String pname = request.getParameter("pname");
 		String is_avalible = request.getParameter("is_avalible");
-		String class_id = request.getParameter("class_id");
+//		String class_id = request.getParameter("class_id");
 		String start =request.getParameter("start");
 		String end =request.getParameter("end");
 		if (pname!=null&&pname.length()>0) {
@@ -110,10 +111,12 @@ public class UserController {
 		if (is_avalible!=null&&is_avalible.length()>0) {
 			map.put("is_avalible", Integer.valueOf(is_avalible));
 			request.setAttribute("is_avalible", is_avalible);
-		}if (class_id!=null&&class_id.length()>0) {
-			map.put("class_id", Integer.valueOf(class_id));
-			request.setAttribute("class_id", class_id);
-		}if (start!=null&&start.length()>0) {
+		}
+//		if (class_id!=null&&class_id.length()>0) {
+//			map.put("class_id", Integer.valueOf(class_id));
+//			request.setAttribute("class_id", class_id);
+//		}
+		if (start!=null&&start.length()>0) {
 			map.put("start", start);
 			request.setAttribute("start", start);
 		}
@@ -121,6 +124,7 @@ public class UserController {
 			map.put("end", end);
 			request.setAttribute("end", end);
 		}
+		
 		return map;
 	}
 	  
@@ -130,24 +134,24 @@ public class UserController {
     }
    
    @RequestMapping("/parseExcel")
-//	µ¼Èëexcil±í   Ğ´Èëµ½Êı¾İ¿â
+//	é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·excilé”Ÿæ–¤æ‹·   å†™é”Ÿè¯«åˆ°é”Ÿæ–¤æ‹·é”Ÿæ·åŒ¡æ‹·
 	 private String readExcel(@RequestParam("file")MultipartFile file,HttpServletRequest request) throws Exception{  
-	      //´´½¨ÊäÈëÁ÷  
+	      //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·  
 	        InputStream stream = file.getInputStream(); 
-	        //»ñÈ¡ExcelÎÄ¼ş¶ÔÏó  
+	        //é”Ÿæ–¤æ‹·å–Excelé”Ÿä¾¥ç¡·æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·  
 	        Workbook  rwb = Workbook.getWorkbook(stream);  
-	      //»ñÈ¡ÎÄ¼şµÄÖ¸¶¨¹¤×÷±í Ä¬ÈÏµÄµÚÒ»¸ö  
+	      //é”Ÿæ–¤æ‹·å–é”Ÿä¾¥ç¡·æ‹·é”Ÿæ–¤æ‹·æŒ‡é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹· é»˜é”Ÿè¾ƒçš„ç¢‰æ‹·ä¸€é”Ÿæ–¤æ‹·  
 	       Sheet sheet = rwb.getSheet(0);    
-	       //ĞĞÊı(±íÍ·µÄÄ¿Â¼²»ĞèÒª£¬´Ó1¿ªÊ¼)  
+	       //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·(é”Ÿæ–¤æ‹·å¤´é”Ÿæ–¤æ‹·ç›®å½•é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·è¦é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·1é”Ÿæ–¤æ‹·å§‹)  
 	       List<Users> list  = new ArrayList<Users>();
 	        for(int i=2; i<sheet.getRows(); i++){   
-	             //´´½¨Ò»¸öÊı×é ÓÃÀ´´æ´¢Ã¿Ò»ÁĞµÄÖµ  
+	             //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·ä¸€é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹· é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”ŸèŠ¥å‚¨æ¯ä¸€é”Ÿå«ç¢‰æ‹·å€¼  
 	           String[] str = new String[sheet.getColumns()];  
 	             Cell cell = null;  
-	            //ÁĞÊı  
+	            //é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·  
 	         	Users users = new Users();
 	           for(int j=0; j<sheet.getColumns(); j++){  
-	              //»ñÈ¡µÚiĞĞ£¬µÚjÁĞµÄÖµ  
+	              //é”Ÿæ–¤æ‹·å–é”Ÿæ–¤æ‹·ié”Ÿå«ï½æ‹·é”Ÿæ–¤æ‹·jé”Ÿå«ç¢‰æ‹·å€¼  
 	              cell = sheet.getCell(j,i);      
 	              str[j] = cell.getContents(); 
 	              if (j==0) {
@@ -198,7 +202,7 @@ public class UserController {
 	       	return "redirect:/admin/users/list";
   	
 	     }
-//   ÏÂÔØÄ£°å
+//   é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ¨¡é”Ÿæ–¤æ‹·
    @RequestMapping("/down")
 	public String downAction(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		java.io.OutputStream o = response.getOutputStream();
@@ -222,74 +226,64 @@ public class UserController {
 		return null;
 	}
    
-// µ¼³öExcel
+// é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·Excel
    @RequestMapping("/getAction")
-public String getAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    // µÚÒ»²½£¬´´½¨Ò»¸öwebbook£¬¶ÔÓ¦Ò»¸öExcelÎÄ¼ş    
-    HSSFWorkbook wb = new HSSFWorkbook();    
-    // µÚ¶ş²½£¬ÔÚwebbookÖĞÌí¼ÓÒ»¸ösheet,¶ÔÓ¦ExcelÎÄ¼şÖĞµÄsheet    
-    HSSFSheet sheet = wb.createSheet("Ñ§Éú±íÒ»");    
-    // µÚÈı²½£¬ÔÚsheetÖĞÌí¼Ó±íÍ·µÚ0ĞĞ,×¢ÒâÀÏ°æ±¾poi¶ÔExcelµÄĞĞÊıÁĞÊıÓĞÏŞÖÆshort    
-    HSSFRow row = sheet.createRow((int) 0);    
-    // µÚËÄ²½£¬´´½¨µ¥Ôª¸ñ£¬²¢ÉèÖÃÖµ±íÍ· ÉèÖÃ±íÍ·¾ÓÖĞ    
-    HSSFCellStyle style = wb.createCellStyle();    
-    style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // ´´½¨Ò»¸ö¾ÓÖĞ¸ñÊ½    
-
-    HSSFCell cell = row.createCell(0);  
-	cell.setCellValue("ÓÃ»§Id");  
-	cell = row.createCell(1);  
-	cell.setCellValue("ÊÖ»úºÅ");  
-	cell=row.createCell(2);  
-	cell.setCellValue("ÓÊÏäºÅ");  
-	cell=row.createCell(3);  
-	cell.setCellValue("ÓÃ»§Ãû"); 
-	cell=row.createCell(4);  
-	cell.setCellValue("êÇ³Æ"); 
-	cell=row.createCell(5);  
-//	cell.setCellValue("ĞÔ±ğ"); 
-//	cell=row.createCell(6);  
-//	cell.setCellValue("ÄêÁä"); 
-//	cell=row.createCell(7);  
-//	cell.setCellValue("×´Ì¬"); 
-    
-    
-    // µÚÎå²½£¬Ğ´ÈëÊµÌåÊı¾İ Êµ¼ÊÓ¦ÓÃÖĞÕâĞ©Êı¾İ´ÓÊı¾İ¿âµÃµ½£¬    
-    Map map = new HashMap<>();
-
-	map=initMap(request, map);
-	List<Users> list = userService.getlistAll(map);   
-    for (int i = 0; i < list.size(); i++)    
-    {    
-        row = sheet.createRow((int) i + 1);    
-        Users stu = (Users) list.get(i);    
-        // µÚËÄ²½£¬´´½¨µ¥Ôª¸ñ£¬²¢ÉèÖÃÖµ    
-        row.createCell(0).setCellValue((double) stu.getUser_id());    
-        row.createCell(1).setCellValue(stu.getMobile());    
-        row.createCell(2).setCellValue(stu.getEmail());  
-        row.createCell(3).setCellValue(stu.getUser_name()); 
-        row.createCell(4).setCellValue(stu.getShow_name()); 
-    }    
-    // µÚÁù²½£¬½«ÎÄ¼ş´æµ½Ö¸¶¨Î»ÖÃ    
-
-    OutputStream out = null;    
-    try {        
-        out = response.getOutputStream();    
-        String fileName = "enroll.xls";// ÎÄ¼şÃû    
-        response.setContentType("application/x-msdownload");    
-        response.setHeader("Content-Disposition", "attachment; filename="    
-                                                + URLEncoder.encode(fileName, "UTF-8"));    
-        wb.write(out);    
-    } catch (Exception e) {    
-        e.printStackTrace();    
-    } finally {      
-        try {       
-            out.close();      
-        } catch (IOException e) {      
-            e.printStackTrace();    
-        }      
-    }
-  System.out.println("³É¹¦"); 
-	return "redirect:/admin/users/list";
-}    
+   public void excel(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		Map map=new HashMap<>();
+		map=initMap(request, map);
+		List<Users> list= userService.getlistAll(map);
+		////////////////////å°†ArrayListä¸­çš„æ•°æ®å†™å…¥åˆ°æœ¬åœ°excelä¸­///////////////////////////          
+		//ç¬¬ä¸€æ­¥ï¼Œåˆ›å»ºä¸€ä¸ªworkbookå¯¹åº”ä¸€ä¸ªexcelæ–‡ä»¶  
+		HSSFWorkbook workbook = new HSSFWorkbook();  
+		//ç¬¬äºŒæ­¥ï¼Œåœ¨workbookä¸­åˆ›å»ºä¸€ä¸ªsheetå¯¹åº”excelä¸­çš„sheet  
+		HSSFSheet sheet = workbook.createSheet("ç”¨æˆ·è¡¨ä¸€");  
+		//ç¬¬ä¸‰æ­¥ï¼Œåœ¨sheetè¡¨ä¸­æ·»åŠ è¡¨å¤´ç¬¬0è¡Œï¼Œè€ç‰ˆæœ¬çš„poiå¯¹sheetçš„è¡Œåˆ—æœ‰é™åˆ¶  
+		HSSFRow row = sheet.createRow(0);  
+		//ç¬¬å››æ­¥ï¼Œåˆ›å»ºå•å…ƒæ ¼ï¼Œè®¾ç½®è¡¨å¤´  
+		HSSFCell cell = row.createCell(0);  
+		cell.setCellValue("æ‰‹æœºå·");  
+		cell = row.createCell(1);  
+		cell.setCellValue("é‚®ç®±å·");  
+		cell=row.createCell(2);  
+		cell.setCellValue("ç”¨æˆ·å"); 
+		cell=row.createCell(3);  
+		cell.setCellValue("æ˜µç§°"); 
+		cell=row.createCell(4);  
+		cell.setCellValue("æ€§åˆ«");
+		cell=row.createCell(5);  
+		cell.setCellValue("å¹´é¾„");
+		cell=row.createCell(6);  
+		cell.setCellValue("çŠ¶æ€");
+		//ç¬¬äº”æ­¥ï¼Œå†™å…¥å®ä½“æ•°æ®ï¼Œå®é™…åº”ç”¨ä¸­è¿™äº›æ•°æ®ä»æ•°æ®åº“å¾—åˆ°,å¯¹è±¡å°è£…æ•°æ®ï¼Œé›†åˆåŒ…å¯¹è±¡ã€‚å¯¹è±¡çš„å±æ€§å€¼å¯¹åº”è¡¨çš„æ¯è¡Œçš„å€¼  
+		for (int i = 0; i <list.size(); i++)   
+		{  
+			HSSFRow row1 = sheet.createRow(i+1);  
+			Users user=list.get(i);  
+			//åˆ›å»ºå•å…ƒæ ¼è®¾å€¼  
+			row1.createCell(0).setCellValue(user.getMobile());  
+			row1.createCell(1).setCellValue(user.getEmail()); 
+			row1.createCell(2).setCellValue(user.getUser_name()); 
+			row1.createCell(3).setCellValue(user.getShow_name()); 
+			if (user.getSex()==0) {
+				row1.createCell(4).setCellValue("ç”·"); 
+			}else {
+				row1.createCell(4).setCellValue("å¥³"); 
+			}
+			row1.createCell(5).setCellValue(user.getAge()); 
+			if (user.getIs_avalible()==1) {
+				row1.createCell(6).setCellValue("æ­£å¸¸"); 
+			}else {
+				row1.createCell(6).setCellValue("å†»ç»“"); 
+			}
+			
+			
+		}  
+		OutputStream output = response.getOutputStream();
+		response.reset();
+		response.setHeader("Content-disposition", "attachment; filename=user.xls" );
+		response.setContentType("Content-Type:application/vnd.ms-excel ");
+		workbook.write(output);
+		output.close();
+	}
 
 		    }

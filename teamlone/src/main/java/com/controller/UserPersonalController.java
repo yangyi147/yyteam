@@ -37,7 +37,6 @@ public class UserPersonalController {
 	@RequestMapping("/uc/updatePwd")
 	@ResponseBody
 	public Result updatePwd(HttpServletRequest request,HttpSession session) {
-		System.out.println("=========================");
 		Result result = new Result();
 //		拿到数据库的密码
 		Users users1=(Users) session.getAttribute("login_success");
