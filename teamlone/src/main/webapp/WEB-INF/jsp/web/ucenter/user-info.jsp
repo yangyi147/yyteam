@@ -8,10 +8,11 @@
 <script type="text/javascript" src="${ctx}/static/common/jcrop/jquery.Jcrop.min.js"></script>
 <script type="text/javascript" src="${ctx}/static/inxweb/user/user.js"></script>
 <script type="text/javascript" src="${ctx}/kindeditor/kindeditor-all.js"></script>
+<script type="text/javascript" src="/js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	showTab('${index}');//选项控制显示
-	uploadImg('fileupload','uploadfile');
+	//uploadImg('fileupload','uploadfile');
 });
 </script>
 <style type="text/css">
@@ -101,7 +102,7 @@ $(function(){
 									<section class="clearfix">
 										<!--个人头像上传控件-->
 										<section>
-											<input id="fileupload" type="button" width="133" value="选择头像" height="45" class="pa" />
+											<input id="fileupload" type="file" width="133" value="选择头像" height="45" class="pa" />
 										</section>
 										<!--个人头像上传控件-->
 										<!--个人头像裁切控件-->
@@ -167,7 +168,7 @@ $(function(){
 												</span>
 											</div>
 											<div class="ml50 mt20 pl50">
-												<a href="javascript:void(0)" title="" class="comm-btn c-btn-7" onclick="updateImg(${user.userId})">保 存</a>
+												<a href="javascript:void(0)" title="" class="comm-btn c-btn-7" onclick="updateImg(${login_success.user_id})">保 存</a>
 											</div>
 										</div>
 									</section>
@@ -230,5 +231,22 @@ $(function(){
 		</div>
 	</article>
 	<!-- /右侧内容区 结束 -->
+	
+	
+	<script type="text/javascript">
+	
+    document.getElementById('fileupload').onchange = function() {
+        var imgFile = this.files[0];
+        var fr = new FileReader(); 
+        fr.onload = function() {
+        document.getElementsByTagName('img')[4].src = fr.result;
+        document.getElementsByTagName('img')[5].src = fr.result;
+        document.getElementsByTagName('img')[6].src = fr.result;
+        document.getElementsByTagName('img')[7].src = fr.result;
+        document.getElementsByTagName('img')[8].src = fr.result;
+        };
+        fr.readAsDataURL(imgFile);
+    };
+    </script>
 </body>
 </html>

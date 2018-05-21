@@ -47,9 +47,9 @@
 									
 								<td>
 									<select class="form-control"style="width: 150px; " id="type" name="type" >
-										<option value="0">选择类型</option>
-										<option value="1">普通</option>
-										<option value="2">定时</option>
+										<option value="0"<c:if test="${type==0}">selected</c:if>>选择类型</option>
+										<option value="1"<c:if test="${type==1}">selected</c:if>>普通</option>
+										<option value="2"<c:if test="${type==2}">selected</c:if>>定时</option>
 									
 									</select>
 								</td>
@@ -57,9 +57,9 @@
 									<td>
 								
 									<select class="form-control"style="width: 150px;"id="status" name="status" >
-										<option value="0">选择是否发送</option>
-										<option value="1">已发送</option>
-										<option value="2">未发送</option>
+										<option value="0"<c:if test="${status==0}">selected</c:if>>选择是否发送</option>
+										<option value="1"<c:if test="${status==1}">selected</c:if>>已发送</option>
+										<option value="2"<c:if test="${status==2}">selected</c:if>>未发送</option>
 							               
 									</select>
 								</td>

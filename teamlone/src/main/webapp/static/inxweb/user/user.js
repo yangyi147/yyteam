@@ -172,37 +172,34 @@ function uploadImg(btnid,fieldName){
  * @param userId 用户ID
  */
 function updateImg(userId) {
-	var path = $("#photoPath").val();
-	if (path==null || path=='') {
-		$("#save_message").html('<em class="icon16 u-a-cw">&nbsp;</em><q class="c-orange vam">请上传您要修改的图片</q>');
-		return;
-	}
-	var params = "photoPath=" + path + "&txt_width=" + $("#picture_width").val()
-			+ "&txt_height=" + $("#picture_height").val() + "&txt_top="
-			+ $("#txt_top").val() + "&txt_left=" + $("#txt_left").val()
-			+ "&txt_DropWidth=" + $("#txt_DropWidth").val()
-			+ "&txt_DropHeight=" + $("#txt_DropHeight").val() + "&cusid="
-			+ userId;
-	$.getJSON(uploadServerUrl + "/image/saveface?" + params,function(json) {
-			var photoUrl = json.src;
+	  var formData = new FormData($("#form1")[0]);
+	  formData.append('file', $("#fileupload")[0].files[0]);  
 			$.ajax({
-				type : "post",
 				url : baselocation+"/uc/updateImg",
-				data : {'user.userId':userId,'user.picImg':photoUrl},
+				type: 'POST',
+				   data: formData,  
+			          async: false,  
+			          cache: false,  
+			          contentType: false,  
+			          processData: false,
 				success : function(result) {
 					if(result.success==true){
-						document.location='/uc/initUpdateUser/1'
+						document.location='/uc/initUpdateUser/1';
 					}else{
-						dialog('提示信息',result.message,1);
+						if(result.massage=='1'){
+							dialog('提示信息','图片格式有误',1);
+						}
+						if(result.massage=='2'){
+							dialog('提示信息','请选择图片',1);
+						}
 					}
 				},
 				error : function(ex) {
 					dialog('提示信息','系统繁忙，请稍后再操作！',1);
 				}
 			});
-		}
-	);
 }
+
 
 /**
  * 编辑图片

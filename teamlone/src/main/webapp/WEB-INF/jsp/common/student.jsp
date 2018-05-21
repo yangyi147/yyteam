@@ -102,8 +102,8 @@
 				<form action="/admin/users/list" method="post">
 					<table class="layui-table table-hover" lay-even="" lay-skin="nob">
 						<tr>
-							<td><input type="text" id="pname" name="pname"   value="${pname} "
-								class="form-control" value="" placeholder="邮箱/手机/姓名"
+							<td><input type="text" id="pname" name="pname"   value="${pname}"
+								class="form-control"  placeholder="邮箱/手机/姓名"
 								style="width: 130px" /></td>
 							<!--<td><select class="form-control" style="width: 130px;"
 								name="class_id" id="class_id">
@@ -114,17 +114,19 @@
 							</select></td>-->
 							<td><select class="form-control" style="width: 130px;"
 								name="is_avalible" id="is_avalible">
-									<option value="-1" >请选择状态</option>
-									<option value="1" >正常</option>
-									<option value="0">冻结</option>
+									<option value="-1"
+									<c:if test="${is_avalible==-1 }">selected</c:if> >
+									请选择状态</option>
+									<option value="1" <c:if test="${is_avalible==1 }">selected</c:if> >正常</option>
+									<option value="0"<c:if test="${is_avalible==0 }">selected</c:if> >冻结</option>
 
 							</select></td>
 							<td>注册时间:</td>
-							<td><input type="text" name="start" id="start" value="${map.start} "
+							<td><input type="text" name="start" id="start" value="${start}"
 								class="form-control" style="width: 150px"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 								placeholder="开始注册时间" /></td>
-							<td><input type="text" name="end" id="end" value="${map.end} "
+							<td><input type="text" name="end" id="end" value="${end}"
 								class="form-control" style="width: 150px"
 								onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 								placeholder="结束注册时间" /></td>
@@ -206,10 +208,10 @@
 								<td><c:if test="${page.isFirstPage==true }">
 										<a>首页</a>
 									</c:if> <c:if test="${page.isFirstPage==false }">
-										<a href="/admin/users/list?page=${page.firstPage }">首页</a>
+										<a href="/admin/users/list?page=${page.firstPage }&is_avalible=${is_avalible}">首页</a>
 									</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 										test="${page.hasPreviousPage==true }">
-										<a href="/admin/users/list?page=${page.prePage }">上一页</a>
+										<a href="/admin/users/list?page=${page.prePage }&is_avalible=${is_avalible}">上一页</a>
 									</c:if> <c:if test="${page.hasPreviousPage==false }">
 										<a>上一页</a>
 									</c:if> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -217,12 +219,12 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${page.pageNum }/${page.pages }
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 										test="${page.hasNextPage==true }">
-										<a href="/admin/users/list?page=${page.nextPage }">下一页</a>
+										<a href="/admin/users/list?page=${page.nextPage }&is_avalible=${is_avalible}">下一页</a>
 									</c:if> <c:if test="${page.hasNextPage==false }">
 										<a>下一页</a>
 									</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 										test="${page.isLastPage==false }">
-										<a href="/admin/users/list?page=${page.lastPage }">末页</a>
+										<a href="/admin/users/list?page=${page.lastPage }&is_avalible=${is_avalible}">末页</a>
 									</c:if> <c:if test="${page.isLastPage==true }">
 										<a>末页</a>
 									</c:if></td>
@@ -295,7 +297,7 @@
 				$("#end").val("");
 				$("#start").val("");
 			})
-		})
+		}) 
 	
 	</script>
 
