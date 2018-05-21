@@ -33,4 +33,13 @@ SELECT *  FROM sys_user WHERE user_id=#{id}
 	</selectKey>
 INSERT INTO sys_user VALUES(null,#{login_name},#{login_pwd},#{user_name},0,NULL,null,#{create_time},#{email},#{tel},#{roel.role_id})
 </insert>
+<select id="checkRepeat" resultType="java.lang.String" parameterType="com.bean.Sys_User">
+SELECT login_name FROM sys_user WHERE login_name=#{login_name}
+</select>
+<update id="updateStateByID" parameterType="com.bean.Sys_User">
+UPDATE sys_user set status=#{status} WHERE user_id=#{user_id}
+</update>
+<update id="deleteUser">
+UPDATE sys_user set status=2 WHERE user_id=#{id}
+</update>
 </mapper>

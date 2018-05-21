@@ -16,5 +16,11 @@ public interface Sys_SubjectDao {
 	void insertSubject(Sys_Subject subject);
 	
 	List<Sys_Subject>getAllSubjectByChild(Map map);
+	
+	String getNameByName(String name);
+
+	void updateSubject(Sys_Subject subject);
+	
+	void deleteSubject(int id);
 
 }

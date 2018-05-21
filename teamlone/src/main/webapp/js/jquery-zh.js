@@ -36,14 +36,14 @@
 		var name=/^[a-zA-Z0-9\u4e00-\u9fa5]{4,16}$/;	
 		  var names= str.match(name)
 		if( names == null){
-			 $("#cname").text("课程名称只能有英文汉字数字且大于四位字符小于十六位字符!");	
+			 $("#cname").text("课程名称只能有英文汉字数字且大于四位字符-十六位字符!");	
 				$("#cname").css({"color":"red"});
 		}else{
 			$.ajax({
 		   		type:"post",
 		   		url:"/admin/course/getCourseNameRepeat",
 		   		async:true,
-		   		data:{"course_name":str},
+		   		data:{"name":str},
 		   		dataType:"json",
 		   		success: function(data){
 		   			if(data==1){
@@ -291,5 +291,158 @@
     	})
 	})
 	
+	// 校验添加 修改用户
 	
+	function loginName(str) {
+    	if(lgiName!=null&&lgiName.trim().length>0&&lgiName==str){
+    		$("#login_nameSpan").text("√");
+   			$("#login_nameSpan").hide();
+    	}else{
+        	if(str.trim().length==0){
+        		$("#login_nameSpan").text("用户名不能为空!");	
+    			$("#login_nameSpan").css({"color":"red"});
+        	}else{
+        	var name=/^[a-zA-Z0-9]{6,16}$/;	
+    		  var names= str.match(name)
+    		if( names == null){
+    			 $("#login_nameSpan").text("只能有字母数字且大于六位字符小于十六位字符!");	
+    				$("#login_nameSpan").css({"color":"red"});
+    		}else{
+    			$("#login_nameSpan").hide();
+    			$.ajax({
+    		   		type:"post",
+    		   		url:"/admin/user/checkRepeat",
+    		   		async:true,
+    		   		data:{"login_name":str},
+    		   		dataType:"json",
+    		   		success: function(data){
+    		   			if(data==true){
+    		   			$("#login_nameSpan").text("√");
+    		   			$("#login_nameSpan").hide();
+    		   			}else{
+    		   			$("#login_nameSpan").text("已存在用户名!");	
+    		   			$("#login_nameSpan").css({"color":"red"});
+    		   			$("#login_nameSpan").show();
+    		   			}
+    		   		}
+    		   	});
+    		}
+    	}
+    	}
+
+    }
+	
+    function loginPwd(str) {
+    	if(str.trim().length==0){
+    		  $("#loginPwdSpan").text("密码不能为空!");
+    		  $("#loginPwdSpan").css({"color":"red"});
+    		  $("#loginPwdSpan").show() 
+    	}else{
+    	var name=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+    	  var names= str.match(name);
+    	  if(names==null){
+    		  $("#loginPwdSpan").text("密码长度位6-16且不能全为字母或者全为数字");
+    		  $("#loginPwdSpan").css({"color":"red"});
+    		  $("#loginPwdSpan").show() 
+    	  }else{
+    		  $("#loginPwdSpan").text("√"); 
+    		  $("#loginPwdSpan").hide() 
+    	  }
+    	}
+	}
+    function userName(str) {
+   	if(str.trim().length==0){
+    		  $("#user_nameSpan").text("用户名不能为空!");
+    		  $("#user_nameSpan").css({"color":"red"});
+    		  $("#user_nameSpan").show() 
+    	}else{
+    	var hz=/^[\u4e00-\u9fa5]{2,4}$/;
+    	var yw=/^[ a-zA-Z]{4,10}$/;
+    	  var names= str.match(hz);
+    	  if(names==null){
+    		  var namef= str.match(yw);
+    		  if(namef==null){
+    			  alert(123)
+    			  $("#user_nameSpan").text("中文2-4位,英文4-10位");
+        		  $("#user_nameSpan").css({"color":"red"});
+        		  $("#user_nameSpan").show()   
+    		  }else{
+    			  $("#user_nameSpan").text("√"); 
+        		  $("#user_nameSpan").hide() 
+    		  }
+    		  
+    	  }else{
+    		  $("#user_nameSpan").text("√"); 
+    		  $("#user_nameSpan").hide() 
+    	  }
+    	}
+	}
     
+    function emailValidation(str){
+    	var name= /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+    	if(str.trim().length==0){
+    		 $("#emailSpan").text("Email不能为空")
+    		 $("#emailSpan").css({"color":"red"});
+   		     $("#emailSpan").show()   
+    	}else{
+    		var names= str.match(name);
+    		if(names==null){
+    			$("#emailSpan").text("请使用正确的Email格式")
+    			$("#emailSpan").css({"color":"red"});
+    			$("#emailSpan").show() 
+    		}else{
+    			$("#emailSpan").text("√")
+    			$("#emailSpan").hide()  
+    		}
+    	}
+    }
+    
+    function phoneValidation(str){
+    	if(str==null &&str.trim().length==0){
+    		$("#telSpan").text("电话不能为空!");
+    		$("#telSpan").css({"color":"red"});
+			$("#telSpan").show() 
+    	}else{
+    		var  regex = /^((0\d{2,3}-\d{5,8})|(1[3584]\d{9}))$/;
+            var name= str.match(regex);	
+            if(name==null){        
+            		$("#telSpan").text("请输入正确的电话格式!");
+            		$("#telSpan").css({"color":"red"});	
+            		$("#telSpan").show();
+            }else{
+            	$("#telSpan").text("√");
+    			$("#telSpan").hide() 
+            }
+    	}
+    }
+    
+    function subject(){
+    	if($("#login_nameSpan").text()!="√"&&$("#login_nameSpan").text()!=""){
+    		$("#login_nameSpan").text("格式不正确!");	
+   			$("#login_nameSpan").css({"color":"red"});
+   			$("#login_nameSpan").show();
+    	}
+    	if( $("#loginPwdSpan").text()!="√"&&$("#loginPwdSpan").text()!=""){
+    		$("#loginPwdSpan").text("格式不正确");
+  		  $("#loginPwdSpan").css({"color":"red"});
+  		  $("#loginPwdSpan").show() 
+    	}
+    	if( $("#user_nameSpan").text()!="√"&&$("#user_nameSpan").text()!=""){
+    		$("#user_nameSpan").text("格式不正确");
+    		$("#user_nameSpan").css({"color":"red"});
+    		$("#user_nameSpan").show() 
+    	}
+    	if( $("#emailSpan").text()!="√"&&$("#emailSpan").text()!=""){
+    		$("#emailSpan").text("格式不正确");
+    		$("#emailSpan").css({"color":"red"});
+    		$("#emailSpan").show() 
+    	}
+    	if( $("#telSpan").text()!="√"&&$("#telSpan").text()!=""){
+    		$("#telSpan").text("格式不正确");
+    		$("#telSpan").css({"color":"red"});
+    		$("#telSpan").show() 
+    	}
+    	if($("#telSpan").text()=="√"||$("#telSpan").text()==""&&$("#emailSpan").text()=="√"||$("#emailSpan").text()==""&&$("#user_nameSpan").text()=="√"||$("#user_nameSpan").text()==""&&$("#loginPwdSpan").text()=="√"||$("#loginPwdSpan").text()==""&&$("#login_nameSpan").text()=="√"||$("#login_nameSpan").text()==""){
+    		$("#updateSubmit").submit();
+    	}
+    }

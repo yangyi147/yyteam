@@ -26,4 +26,14 @@ and  PARENT_ID=#{sid}
 </where>
 </select>
 
+<select id="getNameByName" parameterType="java.lang.String" resultType="java.lang.String">
+SELECT subject_name from sys_subject WHERE subject_name=#{name}
+</select>
+<update id="updateSubject" parameterType="com.bean.Sys_Subject">
+UPDATE sys_subject  SET subject_name=#{name} where subject_id=#{id}
+</update>
+<delete id="deleteSubject">
+DELETE from sys_subject WHERE subject_id=#{id}
+</delete>
+
 </mapper>

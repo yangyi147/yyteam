@@ -27,7 +27,9 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 	Sys_UserDao userDao;
 	@Autowired
 	Sys_UserService userService;
-	private int pagesize=2;
+	@Autowired
+	Sys_User user;
+	private int pagesize=1;
 	/* (zh)
 	 * 按照name查询用户
 	 */
@@ -87,6 +89,32 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 		user.setRoel(role);
 		user.setCreate_time(new Date());
 		 userDao.insertUser(user);
+	}
+	@Override
+	public boolean checkRepeat(String name) {
+		user.setLogin_name(name);
+		String checkRepeat = userDao.checkRepeat(user);
+		System.out.println("checkRepeat:"+checkRepeat);
+		if (checkRepeat==null) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public void updateStateByID(int id, int status) {
+		user.setUser_id(id);
+		System.out.println("status:"+status);
+		if (status==0) {
+			user.setStatus(1);
+		}else if(status==1){
+			user.setStatus(0);
+		}
+		userDao.updateStateByID(user);
+		
+	}
+	@Override
+	public void deleteUser(int id) {
+		userDao.deleteUser(id);
 	}
 
 }

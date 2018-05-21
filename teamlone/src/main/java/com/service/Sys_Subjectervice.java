@@ -29,5 +29,11 @@ public interface Sys_Subjectervice {
 	void insertSubject(Sys_Subject subject);
 	
 	List<Sys_Subject>getAllSubjectByChild(Map map);
+	
+	int getNameByName(String name);
+	
+	void updateSubject(Sys_Subject subject);
+	
+	void deleteSubject(int id);
 
 }

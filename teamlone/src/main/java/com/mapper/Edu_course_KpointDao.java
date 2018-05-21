@@ -28,4 +28,6 @@ public interface Edu_course_KpointDao {
 	
 	int getCourseKpointMinIDByCourseID(int id);
 	
+	Edu_course_Kpoint getVideoByID(int id);
+	
 }

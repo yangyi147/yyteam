@@ -12,36 +12,40 @@
 		<link rel="stylesheet" type="text/css" href="/css/personal.css" media="all">
 		<script src="/js/jquery-3.0.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/comm/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/jquery-zh.js"></script>
 </head>
 <body>
 
 
 <div style="position: absolute; left: 20%;top: 20%; width: 450px;">
 
-<form class="form-horizontal" action="/admin/user/updateUser" method="post">
+<form class="form-horizontal" action="/admin/user/updateUser" method="post" id="updateSubject">
    <input type="hidden" name="user_id" value="${userByID.user_id }"/>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">登陆账号</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="login_name" id="login_name" value="${userByID.login_name }">
+      <input type="text" class="form-control" onblur="loginName(this.value)" name="login_name" id="login_name" value="${userByID.login_name }">
+      <span id="login_nameSpan"></span>
     </div>
   </div>
   <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">登陆密码</label>
+    <label for="inputPassword3"  class="col-sm-2 control-label">登陆密码</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="login_pwd" name="login_pwd"  value="${userByID.login_pwd }">
+      <input type="password" class="form-control" onblur="loginPwd(this.value)" id="login_pwd" name="login_pwd"  value="${userByID.login_pwd }">
+      <span id="loginPwdSpan"></span>
     </div>
   </div>
   <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">真实姓名</label>
+    <label for="inputPassword3"  class="col-sm-2 control-label">真实姓名</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="user_name" name="user_name"  value="${userByID.user_name }">
+      <input type="text" class="form-control" onblur="userName(this.value)" id="user_name" name="user_name"  value="${userByID.user_name }">
+      <span id="user_nameSpan"></span>
     </div>
   </div>
-  <div class="form-group" id="zt">
+  <div class="form-group" id="zt"  style="display: none">
     <label for="inputPassword3" class="col-sm-2 control-label">状态</label>
     <div class="col-sm-10">
-      <select class="form-control" id="status" name="status">
+      <select class="form-control" id="status" name="status" >
   <option value="1">正常</option>
   <option value="2">冻结</option>
   <option value="3">删除</option>
@@ -51,13 +55,15 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="email" name="email" value="${userByID.email }">
+      <input type="text" class="form-control" onblur="emailValidation(this.value)" id="email" name="email" value="${userByID.email }">
+      <span id="emailSpan"></span>
     </div>
   </div>
     <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">电话</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="tel" name="tel" value="${userByID.tel }">
+      <input type="text" class="form-control" onblur="phoneValidation(this.value)" id="tel" name="tel" value="${userByID.tel }">
+      <span id="telSpan"></span>
     </div>
   </div>
     <div class="form-group" id="js">
@@ -73,7 +79,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">提交</button>
+      <button type="button" onclick="subject()" class="btn btn-default">提交</button>
       <button type="button" id="close"  class="btn btn-default">取消</button>
     </div>
   </div>
@@ -91,6 +97,8 @@ $(function () {
 		$("#zt").hide();
 	}
 })
+
+var lgiName='${userByID.login_name }'
 
 </script>
 

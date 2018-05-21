@@ -175,11 +175,16 @@ public class Edu_course_kpointController {
 		return insertCourseNote;
 	}
 	@ResponseBody
+	@RequestMapping("/getVideoById")
+	public Edu_course_Kpoint getVideoById(HttpServletRequest request) {
+		
+		Edu_course_Kpoint videoByID = courseKpointService.getVideoByID(Integer.parseInt(request.getParameter("id")));
+		return videoByID;
+	}
+	@ResponseBody
 	@RequestMapping("/updatenote")
 	public int updatenote(HttpServletRequest request) {
-		System.out.println("=================ds=============================");
 		int insertCourseNote = courseNoteService.updateCourseKpoint(request);
-		System.out.println(insertCourseNote);
 		return insertCourseNote;
 	}
 	

@@ -55,5 +55,23 @@ public class Sys_SubjecterviceImpl implements Sys_Subjectervice {
 		 
 		 return SubjectDAO.getAllSubjectByChild(map);
 	}
+	@Override
+	public int getNameByName(String name) {
+		String nameByName = SubjectDAO.getNameByName(name);
+		if (nameByName==null) {
+			return 1;
+		}
+		return 2;
+	}
+	@Override
+	public void updateSubject(Sys_Subject subject) {
+		// TODO Auto-generated method stub
+		SubjectDAO.updateSubject(subject);
+	}
+	@Override
+	public void deleteSubject(int id) {
+		// TODO Auto-generated method stub
+		SubjectDAO.deleteSubject(id);
+	}
 
 }

@@ -11,7 +11,7 @@ INSERT INTO edu_course_kpoint VALUES(NULL,#{id},#{name},#{pId},#{add_time},#{sor
 SELECT * from edu_course_kpoint where course_id=#{id} and name=#{name} and PARENT_ID=#{pId}
 </select>
 <update id="updateCourseKpoint" parameterType="com.bean.Edu_course_Kpoint">
-UPDATE edu_course_kpoint SET video_url=#{video_url} WHERE kpoint_id=#{id} 
+UPDATE edu_course_kpoint SET video_url=#{video_url},name=#{name},play_time=#{play_time} WHERE kpoint_id=#{id} 
 </update>
 <select id="getCourseKpoint" resultType="com.bean.Edu_course_Kpoint">
 SELECT kpoint_id id,name,parent_id pId, add_time,sort,play_count,is_free,video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content from edu_course_kpoint where course_id=#{id}
@@ -34,5 +34,8 @@ SELECT * from edu_course_kpoint WHERE kpoint_id=( SELECT min(kpoint_id) from edu
 </select>
 <select id="getCourseKpointMinIDByCourseID" resultType="int">
 SELECT min(KPOINT_ID) from edu_course_kpoint  WHERE PARENT_ID!=0 and COURSE_ID =#{id}
+</select>
+<select id="getVideoByID" resultType="com.bean.Edu_course_Kpoint">
+select KPOINT_ID id,`NAME` name,VIDEO_URL from edu_course_kpoint WHERE KPOINT_ID=#{id}
 </select>
 </mapper>

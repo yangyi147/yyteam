@@ -34,5 +34,7 @@ public interface Edu_course_KpointService {
 	Edu_course_Kpoint getCourseKpointByCourseId(int id);
 	
 	int getCourseKpointMinIDByCourseID(int id);
+	
+	Edu_course_Kpoint getVideoByID(int id);
 
 }

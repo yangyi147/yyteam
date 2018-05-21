@@ -26,5 +26,12 @@ public interface Sys_UserService {
 	Sys_User getUserByID(int id);
 	
 	void insertUser(Sys_User user,Sys_Role role);
+	
+	boolean checkRepeat(String name);
+	
+	void updateStateByID(int id,int status);
+	
+	void deleteUser(int id);
+
 
 }

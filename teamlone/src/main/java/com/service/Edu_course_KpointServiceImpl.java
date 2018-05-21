@@ -1,29 +1,21 @@
 package com.service;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bean.Edu_Course;
 import com.bean.Edu_Teacher;
 import com.bean.Edu_course_Kpoint;
 import com.mapper.Edu_course_KpointDao;
-import com.util.JsonUtils;
+
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.MultimediaInfo;
 @Service
 public class Edu_course_KpointServiceImpl implements Edu_course_KpointService {
 
@@ -33,7 +25,7 @@ public class Edu_course_KpointServiceImpl implements Edu_course_KpointService {
 	@Autowired
 	Edu_Teacher teacher;
 	/* (zh)
-	 * °´ÕÕ¿Î³Ìid²éÑ¯¿Î³Ì½Úµã
+	 * ï¿½ï¿½ï¿½Õ¿Î³ï¿½idï¿½ï¿½Ñ¯ï¿½Î³Ì½Úµï¿½
 	 */
 	@Override
 	public List<Edu_course_Kpoint> getAllEdu_course_KpointByCourseID(int id) {
@@ -54,12 +46,45 @@ public class Edu_course_KpointServiceImpl implements Edu_course_KpointService {
 	}
 	@Override
 	public void storageUrl(HttpServletRequest request,Edu_course_Kpoint courseKpoint) {
-		courseKpoint.setVideo_url("/video/"+courseKpoint.getVideo_url());
+		Edu_course_Kpoint videoByID = course_KpintDao.getVideoByID(courseKpoint.getId());
+		String path=request.getRealPath("/");
+		File file=new File(path+videoByID.getVideo_url());
+		file.delete();
+		
+		courseKpoint.setVideo_url("video/"+courseKpoint.getVideo_url());
+		String readVideoTime = ReadVideoTime(new File(path+courseKpoint.getVideo_url()));
+		courseKpoint.setPlay_time(readVideoTime);
 		course_KpintDao.updateCourseKpoint(courseKpoint);
 		
 		
 		         // course_KpintDao.updateCourseKpoint(courseKpoint);;
 	}
+	private String ReadVideoTime(File source) {
+		Encoder encoder = new Encoder();
+		String length = "";
+		try {
+		MultimediaInfo m = encoder.getInfo(source);
+		long ls = m.getDuration()/1000;
+		System.out.println("ls:"+ls);
+		int hour = (int) (ls/3600);
+		int minute = (int) (ls%3600)/60;
+		int second = (int) (ls-hour*3600-minute*60);
+	    if (hour!=0) {
+	    	length = hour+"."+minute+"."+second;
+		}
+	    if (hour==0&&minute!=0) {
+	    	length = minute+"."+second;
+		}
+	    if (hour==0&&minute==0&&second!=0) {
+	    	length = second+"";
+			
+		}
+
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		return length;
+		}
 	@Override
 	public String storeVideo(MultipartFile file,HttpServletRequest request) {
 		
@@ -99,6 +124,11 @@ public class Edu_course_KpointServiceImpl implements Edu_course_KpointService {
 	public int getCourseKpointMinIDByCourseID(int id) {
 		// TODO Auto-generated method stub
 		return course_KpintDao.getCourseKpointMinIDByCourseID(id);
+	}
+	@Override
+	public Edu_course_Kpoint getVideoByID(int id) {
+		// TODO Auto-generated method stub
+		return course_KpintDao.getVideoByID(id);
 	}
 
 

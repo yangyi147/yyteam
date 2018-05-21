@@ -21,6 +21,9 @@
 margin-top: 100px;
 margin-left: 50px;
 }
+.xs{
+margin-top: 10px
+}
 </style>
 <SCRIPT type="text/javascript">
 
@@ -54,22 +57,37 @@ margin-left: 50px;
 				$("#idone").val(id);
 			
 				$(".cj").hide();
+				$("#name").val(name)
 				initUpdateKpoint();
 				$("#edit").css({"display":"block"});
 				$("#filename").show();
-				
+				$("#video").hide();
+				$.ajax({
+					type:"post",
+			   		url:"/front/courseKpoint/getVideoById",
+			   		async:true,
+			   		data:{"id":id},
+			   		dataType:"json",
+			   		success: function(data){
+			   			alert(data.video_url)
+			   			if(data.video_url==''){
+			   				$("#span").text("请上传视频");
+			   			}else{
+			   				$("#span").text("已存在视频");
+			   				$("#videoURl").attr("src",data.video_url);
+			   			}
+			   		}
+				})
 			}else{
 				$(".cj").show();
-				
+				$("#video").hide();
 				$("#edit").css({"display":"none"});
 			}
 		};
 		function qx() {
 			id=0;
 		}
-		function add() {
-			
-		}
+	
 		
 		 
 		 $(function () {
@@ -99,26 +117,44 @@ margin-left: 50px;
 				document.forms[0].submit();
 			});
 		})
+		function videoDemo() {
+			$("#edit").hide();
+			$("#video").show();
+		}
+		 function closevideo(){
+			 alert(123)
+			 $(".cj").hide();
+				$("#video").hide();
+				$("#edit").show();
+		 }
 	</SCRIPT>
-<body>
-<div class="zTreeDemoBackground left" id="ztree" style="width: 50%;">
-		<ul id="treeDemo" class="ztree"></ul>
-	</div>
-	
-	<shiro:hasPermission name="/admin/kpoint/addkpoint" >
-		<input type="button" id="addVideo" class="top btn btn-default cj"   value="创建视频节点" /><input type="button" class="top btn btn-default cj" onclick="qx()" value="取消选中" />
-	</shiro:hasPermission>
-	<div style="width: 50%;position: absolute;left: 35%; top: 0px; height: 100%;display: none " id="edit" >
-	   <form action="" method="post">
-	   <input type="hidden" id="idone" name="id"/>
-	    <input type="hidden" value="${id }" name="courseid"/>
-	        <input type="file" id="fileupload" class="vam" id="filename"  name="mp4" style="display: block !important;" /> 
-	        <div id="fileQueue" class="mt10">
+	<body>
+	<div class="zTreeDemoBackground left" id="ztree" style="width: 50%;">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+		
+		<shiro:hasPermission name="/admin/kpoint/addkpoint" >
+			<input type="button" id="addVideo" class="top btn btn-default cj"   value="创建视频节点" /><input type="button" class="top btn btn-default cj" onclick="qx()" value="取消选中" />
+		</shiro:hasPermission>
+		<div style="width: 50%;position: absolute;left: 35%; top: 10%; height: 100%;display: none " id="edit" >
+		   <form action="" method="post">
+		   <input type="hidden" id="idone" name="id"/>
+		    <input type="hidden" value="${id }" name="courseid"/>
+		        <input type="file" id="fileupload" class="vam" id="filename"  name="mp4" style="display: block !important;" /> 
+		        <div id="fileQueue" class="mt10">
 											</div>
-											<input type="hidden" name="video_url" id="videourl" value="" style="width: 360px;"/>
-											<input type="button" id="btn"  value="上传"/>
+										 课程名称:&nbsp;&nbsp;&nbsp;<input type="text" id="name" class="form-control xs" style="width: 50%;display: inline;" name="name" /><br/>
+											<span id="span"></span>
+											<input type="hidden" name="video_url" class="xs" id="videourl" value="" style="width: 360px; position: absolute; top: 40%;"/>
+											<input type="button" class="btn btn-default xs" onclick="videoDemo()" value="视频演示"/><br/>
+											<input type="button" id="btn"  class="btn btn-default xs" value="保存"/>
 											</form>
 	</div>
+			<div style="width: 50%;position: absolute;left: 35%; top: 0px; height: 100%;display: none " id="video" >
+              <video  id="videoURl" controls="controls"></video>
+              <br/>
+              <input type="button" value="关闭" class="btn btn-default " onclick="closevideo()" />
+	        </div>
 	
 	
 	

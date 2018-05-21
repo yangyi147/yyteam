@@ -23,7 +23,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/personal.css" media="all">
 		<script src="/js/jquery-3.0.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/comm/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/JavaScript" src="/static/My97DatePicker/WdatePicker.js"></script> 
+		<script type="text/javascript" src="/js/jquery-zh.js"></script>
 	</head>
 
 <style>
@@ -42,7 +42,7 @@
 			<div class="larry-personal">
 				<div class="layui-tab">
 					<blockquote class="layui-elem-quote news_search">
-						<form action="/admin/course/list" method="post">
+						<form action="/admin/user/list" method="post">
 							<table class="layui-table table-hover" lay-even="" lay-skin="nob">
 								<tr>
 									<td><input type="text" id="nameid" name="name" value="${map.name }" class="form-control" placeholder="请输入搜索名称" /></td>
@@ -81,7 +81,6 @@
 										<tr>
 										<th>编号</th>
 										<th>登陆名</th>
-										<th>密码</th>
 										<th>姓名</th>
 										<th>状态</th>
 										<th>最后登陆时间</th>
@@ -98,7 +97,6 @@
 										<tr>
 										<th>${stat.index+1 }</th>
 										<th>${user.login_name }</th>
-										<th>${user.login_pwd }</th>
 										<th>${user.user_name }</th>
 											<th>
 										<c:if test="${user.status==0 }">
@@ -110,7 +108,7 @@
 										</th>
 										<th> <fmt:formatDate value="${user.last_login_time }" type="date" pattern="yyyy-MM-dd" /></th>
 										<th>${user.last_login_ip }</th>
-										<th>${user.create_time }</th>
+										<th> <fmt:formatDate value="${user.create_time }" type="date" pattern="yyyy-MM-dd" /></th>
 										<th>${user.email }</th>
 										<th>${user.tel }</th>
 										<th>${user.roel.role_name }</th>
@@ -119,12 +117,16 @@
 										  <shiro:hasPermission name="/admin/sysuser/updateuser">
                   						  <input type="button" class="btn btn-default in"   onclick="updateUser(${user.user_id})"  value="修改用户" style="background: black; color: white;" />
 	                                      </shiro:hasPermission>
+	                                      <c:if test="${user.login_name!=principal }">  
 										  <shiro:hasPermission name="/admin/sysuser/disableOrstart/">
-										  <input type="button" class="btn btn-default in" <c:if test="${user.status==0 }"> value="冻结"</c:if><c:if test="${user.status==1 }"> value="启用"</c:if>  style="background: black; color: white;" /><!-- value 冻结/启用 -->
+										  <input type="button"  class="btn btn-default in" id="state"   onclick="updateStatus(${user.user_id},${user.status})"  <c:if test="${user.status==0 }"> value="冻结"</c:if><c:if test="${user.status==1 }"> value="启用"</c:if>  style="background: black; color: white;" /><!-- value 冻结/启用 -->
 	                                      </shiro:hasPermission>
+	                                      </c:if>
+	                                      <c:if test="${user.login_name!=principal }">
 										  <shiro:hasPermission name="/admin/user/deleteuser">
-										  <input type="button" class="btn btn-default in" value="删除" style="background: black; color: white;" /></th>
+										  <input type="button"  class="btn btn-default in" onclick="deleteUser(${user.user_id})" value="删除" style="background: black; color: white;" /></th>
 	                                      </shiro:hasPermission>
+	                                      </c:if>
 										</tr>
 											</c:forEach>
 										</tbody>
@@ -141,6 +143,7 @@
 		</section>
 		<script type="text/javascript " src="/comm/layui/layui.js "></script>
 	<script type="text/javascript">
+	var currentPage;
 	   layui.use(['jquery','layer','element','laypage'],function(){
 		      window.jQuery = window.$ = layui.jquery;
 		      window.layer = layui.layer;
@@ -148,14 +151,15 @@
 	           laypage = layui.laypage;
 	        laypage({
 						cont: 'page',
-						pages: '${allEnd_Course.pages}', //总页数
-						curr:'${allEnd_Course.pageNum}',
+						pages: '${allUser.pages}', //总页数
+						curr:'${allUser.pageNum}',
 						groups: 5, //连续显示分页数
 						jump: function(obj, first) {
 							//得到了当前页，用于向服务端请求对应数据
 							var curr = obj.curr;
+							currentPage=curr;
 							if(!first) {
-								document.forms[0].action="/admin/course/list?page="+curr;
+								document.forms[0].action="/admin/user/list?page="+curr;
 								document.forms[0].submit();
 							}
 						}
@@ -167,7 +171,15 @@
 		window.location.href="/admin/user/getUserByID/"+id;
 		
 	}
-
+     
+		function updateStatus(id,state){
+			window.location.href="/admin/user/updateState/"+id+"/"+state+"/"+currentPage;
+	
+	}
+    
+		function deleteUser(id){
+			window.location.href="/admin/user/deleteUser/"+id+"/"+currentPage;
+		}
 
 	   
 </script>

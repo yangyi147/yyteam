@@ -10,6 +10,7 @@
         <script type="text/javascript" src="/js/bootstrap.js"></script>
         <script type="text/javascript"src="/inc/js/ztree/js/jquery.ztree.core.min.js"></script>
         <script type="text/javascript"src="/inc/js/ztree/js/jquery.ztree.excheck.js"></script>
+        <script type="text/javascript" src="/js/subject.js"></script>
 <title>Insert title here</title>
 </head>
 <style>
@@ -49,10 +50,9 @@
 			$("#pid").val(id)
 			$("#myModal").modal("show");
 		}
-		function insert() {
-			document.forms[0].action = "/admin/professional/insertSubject";
-			document.forms[0].submit();
-		}
+
+		
+		
 	</SCRIPT>
 <body>
 	<div class="zTreeDemoBackground left">
@@ -60,7 +60,13 @@
 	</div> 
 	
 		<shiro:hasPermission name="/admin/subj/createSubject">
-		<input type="button" class="btn btn-default add" value="增加专业" onclick="add()" />
+		<input type="button" class="btn btn-default " value="增加专业" onclick="add()" />
+	</shiro:hasPermission>
+		<shiro:hasPermission name="/admin/subj/updatesubjectName">
+		<input type="button" class="btn btn-default " value="修改专业名" onclick="updateSubject()" />
+	</shiro:hasPermission>
+		<shiro:hasPermission name="/admin/subj/deleteSubject/">
+		<input type="button" class="btn btn-default " value="删除专业" onclick="deleteSubject()" />
 	</shiro:hasPermission>
 	
 	
@@ -86,13 +92,15 @@
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">专业名称</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control"  name="name" >
+      <input type="text" class="form-control" onblur="querySubjectRepeat(this.value,1)"  name="name" >
+      <span id="nameSpan"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label" name="">排序</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" id="inputEmail3" name="sort" >
+      <input type="number" class="form-control" onclick="paixu(this.value)" onblur="paixu(this.value)" id="inputEmail3" name="sort" value="0" >
+      <span id="paixuSpan"></span>
     </div>
   </div>
 
@@ -102,13 +110,42 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭e</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         <button type="button" class="btn btn-primary" onclick="insert()">添加</button>
       </div>
     </div>
   </div>
 </div>
 	
+		<!-- Modal -->
+<div class="modal fade" id="myModalupdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+       
+       
+<form class="form-horizontal" method="post">
+<input type="hidden" value="" name="id" id="id" />
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">专业名称</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" onblur="querySubjectRepeat(this.value,2)" id="nameTow" name="name" >
+      <span id="nameSpanTow"></span>
+    </div>
+  </div>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="updateSubjectSubmit()">添加</button>
+      </div>
+    </div>
+  </div>
+</div>
 	
 	
 	

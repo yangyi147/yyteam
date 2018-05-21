@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bean.Sys_Subject;
 import com.service.Sys_Subjectervice;
@@ -40,5 +42,20 @@ public class ProfessionalController {
 		subjectService.insertSubject(subject);
 		return "redirect:/admin/professional/list";
 	}
-
+	@ResponseBody
+	@RequestMapping("/querySubjectRepeat")
+	public int querySubjectRepeat(HttpServletRequest request) {
+		int nameByName = subjectService.getNameByName(request.getParameter("name"));
+		return nameByName;
+	}
+    @RequestMapping("/updateSubject")
+	public String updateSubject(Sys_Subject subject,HttpServletRequest request) {
+		subjectService.updateSubject(subject);
+    	return "redirect:/admin/professional/list";
+	}
+    @RequestMapping("/daleteSubject/{id}")
+    public String daleteSubject(@PathVariable("id")int id) {
+		subjectService.deleteSubject(id);
+    	return "redirect:/admin/professional/list";
+	}
 }

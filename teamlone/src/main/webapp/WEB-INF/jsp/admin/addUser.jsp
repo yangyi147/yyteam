@@ -12,7 +12,13 @@
 		<link rel="stylesheet" type="text/css" href="/css/personal.css" media="all">
 		<script src="/js/jquery-3.0.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/comm/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/js/jquery-zh.js"></script>
 </head>
+<style>
+       .bz{
+        display:inline-block
+        }
+</style>
 <body>
 
 
@@ -22,19 +28,22 @@
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">登陆账号</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="login_name" id="login_name" value="">
+      <input type="text" class="form-control bz" onkeyup="loginName(this.value)" name="login_name" id="login_name" value="" >
+      <span id="login_nameSpan"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">登陆密码</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="login_pwd" name="login_pwd"  value="">
+      <input type="password" class="form-control" onkeyup="passWors(this.value)" name="passWors" value="">
+      <span id="loginPwdSpan"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">真实姓名</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="user_name" name="user_name"  value="">
+      <input type="text" class="form-control" onkeyup="userName(this.value)" id="userName" id="userName"  value="" >
+      <span id="user_nameSpan"></span>
     </div>
   </div>
 
@@ -64,7 +73,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-default">提交</button>
-      <button type="button" id="close"  class="btn btn-default">取消</button>
+      <button type="button"  id="close"  class="btn btn-default">取消</button>
     </div>
   </div>
 </form>
@@ -75,8 +84,10 @@
 $(function () {
 	$("#close").click(function () {
 		window.location.href="/admin/user/list";
-	})
-
+	});
+	$("#loginPwd").val('');
+	$("#userName").val('');
+});
 </script>
 
 </body>

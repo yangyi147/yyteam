@@ -8,4 +8,5 @@ select * from sys_subject  where id=#{id}
 <select id="getListAll"  resultType="Subjects">
 select * from sys_subject 
 </select>
+
 </mapper>
