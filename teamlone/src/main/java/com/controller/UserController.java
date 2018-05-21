@@ -104,27 +104,29 @@ public class UserController {
 //		String class_id = request.getParameter("class_id");
 		String start =request.getParameter("start");
 		String end =request.getParameter("end");
-		if (pname!=null&&pname.length()>0) {
+		System.out.println(is_avalible);
+		if (pname!=null&&pname.trim().length()>0) {
 			map.put("pname", pname);
 			request.setAttribute("pname", pname);
 		}
-		if (is_avalible!=null&&is_avalible.length()>0) {
-			map.put("is_avalible", Integer.valueOf(is_avalible));
-			request.setAttribute("is_avalible", is_avalible);
+		if (is_avalible==null) {
+			is_avalible="-1";
+			
 		}
 //		if (class_id!=null&&class_id.length()>0) {
 //			map.put("class_id", Integer.valueOf(class_id));
 //			request.setAttribute("class_id", class_id);
 //		}
-		if (start!=null&&start.length()>0) {
+		if (start!=null&&start.trim().length()>0) {
 			map.put("start", start);
 			request.setAttribute("start", start);
 		}
-		if (end!=null&&end.length()>0) {
+		if (end!=null&&end.trim().length()>0) {
 			map.put("end", end);
 			request.setAttribute("end", end);
 		}
-		
+		map.put("is_avalible", Integer.valueOf(is_avalible));
+		request.setAttribute("is_avalible", is_avalible);
 		return map;
 	}
 	  

@@ -31,12 +31,12 @@
 
       <where>
 		<if test="pname!=null">
-			and email like '%${pname}%' or mobile like '%${pname}%' or show_name
-			like '%${pname}%' or user_name like '%${pname}%'
+			and (email like '%${pname}%' or mobile like '%${pname}%' or show_name
+			like '%${pname}%' or user_name like '%${pname}%')
 		</if>
 
 		<if test="is_avalible>=0">
-			and is_avalible like '%${is_avalible}%'
+			and is_avalible=#{is_avalible}
 		</if>
 		<if test="start!=null">
 			and create_time &gt;#{start}
@@ -69,7 +69,7 @@
 	<update id="updateAll" parameterType="Users">
 		update edu_user
 		set
-		user_name=#{user_name},show_name=#{show_name},sex=#{sex},age=#{age}
+		user_name=#{user_name},show_name=#{show_name},sex=#{sex},age=#{age},pic_img=#{pic_img}
 		where user_id=#{user_id}
 	</update>
 	<select id="getById" resultMap="UsersMap" parameterType="int">
