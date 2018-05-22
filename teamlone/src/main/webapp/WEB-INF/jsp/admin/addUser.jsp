@@ -35,7 +35,7 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">登陆密码</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" onblur="loginPwds(this.value)" name="login_pwd" value="">
+      <input type="text" class="form-control" onblur="loginPwds(this.value)" name="sfasfas" value="">
       <span id="loginPwdSpan"></span>
     </div>
   </div>
@@ -66,7 +66,7 @@
     <div class="col-sm-10">
             <select class="form-control" id="role_id" name="role_id">
             <c:forEach items="${allSys_Role }" var="roles">
-             <option value="1"  >${roles.role_name } </option>
+             <option value="${roles.role_id }"  >${roles.role_name } </option>
              </c:forEach>
             </select>
     </div>

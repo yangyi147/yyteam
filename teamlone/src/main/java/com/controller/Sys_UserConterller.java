@@ -46,6 +46,7 @@ public class Sys_UserConterller {
 	@RequestMapping("/getUserByID/{id}")
 	public String getUserByID(@PathVariable("id")int id,HttpServletRequest request) {
 		Object principal = SecurityUtils.getSubject().getPrincipal();
+		System.out.println("principal:"+principal);
 		Sys_User userByID = userService.getUserByID(id);
 		List<Sys_Role> allSys_Role = roleService.getAllSys_Role();
 		if(userByID.getLogin_name().equals(principal)){
@@ -59,8 +60,13 @@ public class Sys_UserConterller {
 	}
 	@RequestMapping("/updateUser")
 	public String updateUser(Sys_User user,Sys_Role role,HttpServletRequest request) {
+		Object principal = SecurityUtils.getSubject().getPrincipal();
 		int updateUser = userService.updateUser(user,role);
-		return "redirect:/admin/user/list";
+		if (user.getLogin_name().equals(principal) && user.getLogin_name()!=null) {
+			return "redirect:/shiro/logout";
+		}else{
+			return "redirect:/admin/user/list";
+		}
 	}
 	@RequestMapping("/goToAddUser")
 	public String goToAddUser(HttpServletRequest request) {

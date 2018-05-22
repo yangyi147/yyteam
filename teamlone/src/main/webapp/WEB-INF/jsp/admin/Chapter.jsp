@@ -376,7 +376,9 @@
   <div class="form-group">
     <label for="inputPassword" class="col-sm-2 control-label">课程图片</label>
     <div class="col-sm-10">
-      <input type="image" src="${courseByID.logo }" id="images" style="width: 300px;height: 200px;display: none" >
+    <c:if test="${courseByID.logo!=null }">
+      <input type="image" src="${courseByID.logo }" id="images" style="width: 300px;height: 200px;" >
+    </c:if>
       <input type="file" value="上传图片" name="file" id="file" onchange="edits(this)" />
       <span id="fileSpans" style="padding-top: 5px"></span>
     </div>

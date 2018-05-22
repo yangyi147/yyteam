@@ -453,7 +453,6 @@
     		$("#telSpan").show() 
     	}
     	if($("#telSpan").text()=="√"||$("#telSpan").text()==""&&$("#emailSpan").text()=="√"||$("#emailSpan").text()==""&&$("#user_nameSpan").text()=="√"||$("#user_nameSpan").text()==""&&$("#loginPwdSpan").text()=="√"||$("#loginPwdSpan").text()==""&&$("#login_nameSpan").text()=="√"||$("#login_nameSpan").text()==""){
-    		alert(12456)
     		$("#updateSubject").submit();
     	}      
     }

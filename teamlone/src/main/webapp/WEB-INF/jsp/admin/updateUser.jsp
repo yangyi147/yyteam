@@ -73,7 +73,7 @@
     <div class="col-sm-10">
             <select class="form-control" id="role_id" name="role_id">
             <c:forEach items="${allSys_Role }" var="roles">
-             <option value="1" <c:if test="${roles.role_id==userByID.roel.role_id }">selected="selected"</c:if> >${roles.role_name } </option>
+             <option value="${roles.role_id }" <c:if test="${roles.role_id==userByID.roel.role_id }">selected="selected"</c:if> >${roles.role_name } </option>
              </c:forEach>
             </select>
     </div>
