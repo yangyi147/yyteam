@@ -41,5 +41,13 @@ public interface Edu_CourseDao {
 	List<Users>getCourseNextAllUser(int id);
 	
 	void deleteCourseByID(int id);
+	
+	List<Edu_Course>getUserCollectionAllVideo(int id);
+	
+	void deleteCollection(@Param("uid")int uid,@Param("cid")int cid);
+	
+	void insertCourseCollection(Map map);
+	
+	List<String> getCourseStudyhistoryByUserIdCourseId(@Param("uid")int uid,@Param("cid")int cid);
 
 }

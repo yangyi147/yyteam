@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.web.util.SavedRequest;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,5 +44,14 @@ public interface Edu_CourseService {
 	List<Users>getCourseNextAllUser(int id);
 
 	void deleteCourseByID(int id);
+	
+	PageInfo<Edu_Course>getUserCollectionAllVideo(int id,int page);
+	
+	void deleteCollection(int id,HttpSession session);
+	
+	void insertCourseCollection(Map map,HttpSession session);
+	
+	List<String> getCourseStudyhistoryByUserIdCourseId(HttpSession session,int cid);
 
+	
 }

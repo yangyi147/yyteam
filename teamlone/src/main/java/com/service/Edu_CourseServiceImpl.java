@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bean.Edu_Course;
 import com.bean.Sys_Subject;
 import com.bean.Users;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mapper.Edu_CourseDao;
@@ -32,13 +34,14 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 	Sys_Subject subject;
 	//	@Value("${zh.pagesize}")
 	private int pagesize=4;
+	private int pageSizeTow=20;
 	@Override
 
 	/**
 	 * @param map
 	 * @param page
 	 * @return
-	 * °´Ìõ¼þ·ÖÒ³·ÖÒ³
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ò³
 	 */public PageInfo<Edu_Course> getAllEnd_Course(Map map,int page) {
 		 PageHelper.startPage(page,pagesize);
 		 List<Edu_Course> allEnd_Course = courseDao.getAllEnd_Course(map);
@@ -47,7 +50,7 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 	 }
 	 @Override
 	 /**
-	  *°´ÕÕid²éÑ¯¿Î³Ì
+	  *ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯ï¿½Î³ï¿½
 	  */
 	 public Edu_Course getCourseByID(int id) {
 		 return courseDao.getCourseByID(id);
@@ -58,11 +61,11 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 		 String pathRoot = request.getSession().getServletContext().getRealPath("images"); 
 		 String path="";  
 		 if(!file.isEmpty()){  
-			 //Éú³Éuuid×÷ÎªÎÄ¼þÃû³Æ  
+			 //ï¿½ï¿½ï¿½ï¿½uuidï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½  
 			 String uuid = UUID.randomUUID().toString().replaceAll("-","");  
-			 //»ñµÃÎÄ¼þÀàÐÍ£¨¿ÉÒÔÅÐ¶ÏÈç¹û²»ÊÇÍ¼Æ¬£¬½ûÖ¹ÉÏ´«£©  
+			 //ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½Ï´ï¿½ï¿½ï¿½  
 			 String contentType=file.getContentType();  
-			 //»ñµÃÎÄ¼þºó×ºÃû³Æ  
+			 //ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½  
 			 String imageName=contentType.substring(contentType.indexOf("/")+1);  
 			 path="/upload/article/zhanghao/"+uuid+"."+imageName;  
 			 try {
@@ -99,11 +102,11 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 		 String pathRoot = request.getSession().getServletContext().getRealPath("images"); 
 		 String path="";  
 		 if(!file.isEmpty()){  
-			 //Éú³Éuuid×÷ÎªÎÄ¼þÃû³Æ  
+			 //ï¿½ï¿½ï¿½ï¿½uuidï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½  
 			 String uuid = UUID.randomUUID().toString().replaceAll("-","");  
-			 //»ñµÃÎÄ¼þÀàÐÍ£¨¿ÉÒÔÅÐ¶ÏÈç¹û²»ÊÇÍ¼Æ¬£¬½ûÖ¹ÉÏ´«£©  
+			 //ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½Ï´ï¿½ï¿½ï¿½  
 			 String contentType=file.getContentType();  
-			 //»ñµÃÎÄ¼þºó×ºÃû³Æ  
+			 //ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½  
 			 String imageName=contentType.substring(contentType.indexOf("/")+1);  
 			 path="/upload/article/zhanghao/"+uuid+"."+imageName;  
 			 try {
@@ -176,6 +179,31 @@ public class Edu_CourseServiceImpl implements Edu_CourseService {
 	public void deleteCourseByID(int id) {
 		// TODO Auto-generated method stub
 		courseDao.deleteCourseByID(id);
+	}
+	@Override
+	public PageInfo<Edu_Course> getUserCollectionAllVideo(int id,int page) {
+		 PageHelper.startPage(page,pageSizeTow);
+		List<Edu_Course> userCollectionAllVideo = courseDao.getUserCollectionAllVideo(id);
+		PageInfo<Edu_Course>pp=new PageInfo<>(userCollectionAllVideo);
+		return pp;
+	}
+	@Override
+	public void deleteCollection(int id,HttpSession session) {
+		Users loginUser = (Users) session.getAttribute("login_success");
+		System.out.println("id"+id);
+		courseDao.deleteCollection(loginUser.getUser_id(),id);
+	}
+	@Override
+	public void insertCourseCollection(Map map,HttpSession session) {
+		Users loginUser = (Users) session.getAttribute("login_success");
+		map.put("time", new Date());
+		map.put("uid",loginUser.getUser_id());
+		courseDao.insertCourseCollection(map);
+	}
+	@Override
+	public List<String> getCourseStudyhistoryByUserIdCourseId(HttpSession session, int cid) {
+		Users loginUser = (Users) session.getAttribute("login_success");
+		return courseDao.getCourseStudyhistoryByUserIdCourseId(loginUser.getUser_id(), cid);
 	}
 
 

@@ -22,6 +22,18 @@
 <result column="sequence" property="course_gross_income"/>
 <association property="subject" column="subject_id" select="com.mapper.Sys_SubjectDao.getSubjectById"></association>
 </resultMap>
+<select id="getCourseStudyhistoryByUserIdCourseId" resultType="java.lang.String">
+SELECT course_name from edu_course_studyhistory  WHERE user_id=#{uid} and course_id=#{cid}
+</select>
+<insert id="insertCourseCollection"  parameterType="java.util.Map">
+INSERT INTO edu_course_studyhistory(user_id,COURSE_ID,update_time) values(#{uid},#{cid},#{time})
+</insert>
+<delete id="deleteCollection" >
+delete from edu_course_studyhistory WHERE user_id =#{uid} and COURSE_ID=#{cid}  
+</delete>
+<select id="getUserCollectionAllVideo" resultMap="functionMap">
+SELECT * FROM edu_course WHERE COURSE_ID in(SELECT DISTINCT COURSE_ID FROM edu_course_studyhistory WHERE user_id= #{id})
+</select>
 <select id="getCourseNextAllUser" resultType="com.bean.Users">
 select * from edu_user WHERE user_id in (select DISTINCT user_id from edu_course_studyhistory WHERE course_id=#{id})
 </select>

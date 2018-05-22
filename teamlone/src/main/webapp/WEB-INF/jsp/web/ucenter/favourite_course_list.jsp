@@ -24,11 +24,13 @@
 		var favouriteIdStr = "";
 		$('input[name="favouriteId"]:checked').each(function() {
 			favouriteIdStr = favouriteIdStr + $(this).val() + ",";
+			alert(favouriteIdStr)
 		});
 		favouriteIdStr = favouriteIdStr.substring(0, favouriteIdStr.length - 1);
-		dialog("删除提示", "确认要删除选择的收藏课程？", 2, "${ctx}/uc/deleteFaveorite/"
+		dialog("删除提示", "确认要删除选择的收藏课程？", 2, "${ctx}/front/courseKpoint/deleteAllCollection/"
 				+ favouriteIdStr);
 	}
+
 </script>
 </head>
 <body>
@@ -46,25 +48,25 @@
 					<a href="javascript:void(0)" onclick="batchDelFav()" title="" class="vam ml10 c-blue">取消全部</a>
 				</section>
 				<div class="mt40">
-					<c:if test="${empty favoriteList}">
+					<c:if test="${empty userCollectionAllVideo}">
 						<!-- /无数据提示 开始-->
 						<section class="no-data-wrap">
 							<em class="icon30 no-data-ico">&nbsp;</em> <span class="c-666 fsize14 ml10 vam">您还没有收藏任何课程哦！</span>
 						</section>
 						<!-- /无数据提示 结束-->
 					</c:if>
-					<c:if test="${not empty favoriteList}">
+					<c:if test="${not empty userCollectionAllVideo}">
 						<div class="u-sys-news u-collection-list">
 							<form action="">
-								<c:forEach items="${favoriteList}" var="favorite" varStatus="index">
+								<c:forEach items="${userCollectionAllVideo.list}" var="favorite" varStatus="index">
 									<dl>
 										<dt>
 											<section class="tar">
 												<p class="hLh30">
-													<b class="fsize14 f-fA c-red"><fmt:formatDate type="both" value="${favorite.addTime }" pattern="yyyy年" /></b>
+													<b class="fsize14 f-fA c-red"><fmt:formatDate type="both" value="${favorite.add_time }" pattern="yyyy年" /></b>
 												</p>
 												<p class="hLh20">
-													<span class="f-fA c-666"><fmt:formatDate type="both" value="${favorite.addTime }" pattern="MM月dd日 HH:mm" /></span>
+													<span class="f-fA c-666"><fmt:formatDate type="both" value="${favorite.add_time }" pattern="MM月dd日 HH:mm" /></span>
 												</p>
 												<p class="hLh20">
 													<span class="f-fA c-999">收藏</span>
@@ -75,10 +77,10 @@
 											<section class="mt10">
 												<div class="of cancel-colle">
 													<div class="fr tac">
-														<label class="hand"><input type="checkbox" style="vertical-align: -2px;" name="favouriteId" value="${favorite.favouriteId}"></label> <br>
-														<a href="${ctx}/uc/deleteFaveorite/${favorite.favouriteId}" title="" class="c-blue">取消收藏</a>
+														<label class="hand"><input type="checkbox" style="vertical-align: -2px;" name="favouriteId" value="${favorite.course_id }"></label> <br>
+														<a href="${ctx}/front/courseKpoint/deleteCollection/${favorite.course_id}" title="" class="c-blue">取消收藏</a>
 													</div>
-													<a href="${ctx }/front/couinfo/${favorite.courseId }" title="">
+													<a href="${ctx }/front/courseKpoint/deleteCollection/${favorite.course_id }" title="">
 														<c:choose>
 															<c:when test="${not empty favorite.logo }">
 																<img src="<%=staticImage %>${favorite.logo}" width="120" alt="">
@@ -90,7 +92,7 @@
 													</a>
 												</div>
 												<div class="hLh30 txtOf">
-													<a href="${ctx }/front/couinfo/${favorite.courseId }" class="c-666 fsize14">${favorite.courseName }</a>
+													<a href="${ctx }/front/couinfo/${favorite.course_id }" class="c-666 fsize14">${favorite.course_name }</a>
 												</div>
 											</section>
 										</dd>

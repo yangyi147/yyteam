@@ -91,7 +91,7 @@
 										<span class="ml10 vam sc-end"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="" href="javascript:void(0)">已收藏</a></span>
 									</c:if>
 									<c:if test="${isFavorites!=true }">
-										<span class="ml10 vam"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="favorites(${course.courseId},this)" href="javascript:void(0)">收藏</a></span>
+										<span class="ml10 vam"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="collection(${courseByID.course_id})" href="javascript:void(0)">收藏</a></span>
 									</c:if>
 						</section>
 					</section>
@@ -378,7 +378,10 @@
 	<script type="text/javascript">
 	$(function () {
 		getCourseLearnedUser(others_id);
-	})
+
+	function collection(id){
+		window.location.href="/front/courseKpoint/insertCourseCollection/"+id
+	}
 	</script>
 </body>
 </html>

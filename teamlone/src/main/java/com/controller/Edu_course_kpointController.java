@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bean.Edu_Course;
@@ -20,6 +21,7 @@ import com.bean.Edu_Teacher;
 import com.bean.Edu_course_Kpoint;
 import com.bean.Sys_Subject;
 import com.bean.Users;
+import com.github.pagehelper.PageInfo;
 import com.service.Edu_CourseService;
 import com.service.Edu_Course_NoteService;
 import com.service.Edu_TeacherService;
@@ -59,7 +61,7 @@ public class Edu_course_kpointController {
 		return "/web/course/courses-list";
 	}
 	@RequestMapping("/videoDetails/{course_id}")
-	public String videoDetails(@PathVariable("course_id")int id,HttpServletRequest request) {
+	public String videoDetails(@PathVariable("course_id")int id,HttpServletRequest request,HttpSession session) {
 		 List<Edu_course_Kpoint> courseKpoint = courseKpointService.getCourseKpoint(id);
 		Edu_Course courseByID = courseService.getCourseByID(id);
 		List<Edu_Teacher> teacherById = teacherSevice.getTeacherById(id);
@@ -68,6 +70,13 @@ public class Edu_course_kpointController {
 		for (Edu_Course edu_Course : sunjectNextAllCourse) {
 			edu_Course.setTeacher(subjectNextAllTeacher);
 		}
+		List<String> courseStudyhistoryByUserIdCourseId = courseService.getCourseStudyhistoryByUserIdCourseId(session, id);
+		if (courseStudyhistoryByUserIdCourseId==null) {
+			request.setAttribute("isFavorites", false);
+		}else{
+			request.setAttribute("isFavorites", true);
+		}
+		
 		List<Edu_course_Kpoint> courseKpointAllVideo = courseKpointService.getCourseKpointAllVideo(id);
 		request.setAttribute("sunjectNextAllCourse", sunjectNextAllCourse);
 		request.setAttribute("courseKpointAllVideo", courseKpointAllVideo);
@@ -82,6 +91,35 @@ public class Edu_course_kpointController {
 		Map map=init(request);
 		List<Edu_Course> allCourse = courseService.getAllCourse(map);
 		return allCourse;
+	}
+	@RequestMapping("/getUserCollectionAllVideo")
+	public String getUserCollectionAllVideo(@RequestParam(name="page",defaultValue="0")int page,HttpServletRequest request,HttpSession session) {
+		Users loginUser = (Users) session.getAttribute("login_success");
+		
+		PageInfo<Edu_Course> userCollectionAllVideo = courseService.getUserCollectionAllVideo(loginUser.getUser_id(), page);
+		request.setAttribute("userCollectionAllVideo", userCollectionAllVideo);
+		return "/web/ucenter/favourite_course_list";
+	}
+	@RequestMapping("/deleteCollection/{id}")
+	public String deleteCollection(@PathVariable("id")int id,HttpServletRequest request,HttpSession session) {
+		courseService.deleteCollection(id, session);
+		return "redirect:/front/courseKpoint/getUserCollectionAllVideo";
+	}
+	@RequestMapping("/insertCourseCollection/{id}")
+	public String insertCourseCollection(HttpServletRequest request,HttpSession session,@PathVariable("id")int id) {
+		Map map=new HashMap<>();
+		map.put("cid", id);
+		courseService.insertCourseCollection(map, session);
+		return "redirect:/front/courseKpoint/videoDetails/"+id;
+	}
+	@RequestMapping("/deleteAllCollection/{str}")
+	public String deleteAllCollection(@PathVariable("str")String str,HttpServletRequest request,HttpSession session) {
+		String[] strs=str.split(",");
+		for(int i=0,len=strs.length;i<len;i++){
+		  System.out.println(strs[i].toString());
+		  courseService.deleteCollection(Integer.parseInt(strs[i]), session);
+		}
+	   return "redirect:/front/courseKpoint/getUserCollectionAllVideo";
 	}
 	@RequestMapping("/chapterTranslation/{id}")
 	public String chapterTranslation(@PathVariable("id")int id,HttpServletRequest request,HttpSession session) {

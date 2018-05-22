@@ -31,7 +31,7 @@
 					<ol>
 						<li><a href="${ctx}/uc/index" title="">免费课程</a></li>
 						<li><a href="${ctx}/front/showcoulist" title="" target="view_window">选课中心</a></li>
-						<li><a href="${ctx}/uc/myFavorites" title="">Wo的收藏</a></li>
+						<li><a href="${ctx}/front/courseKpoint/getUserCollectionAllVideo" title="">Wo的收藏</a></li>
 					</ol>
 				</li>
 			</ul>

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bean.EClass;
 import com.bean.Edu_Course;
 import com.bean.Edu_Teacher;
 import com.bean.Edu_course_Kpoint;
 import com.bean.Sys_Subject;
+import com.bean.Users;
 import com.github.pagehelper.PageInfo;
 import com.mapper.Edu_TeacherDao;
 import com.service.Edu_CourseService;
@@ -124,12 +127,13 @@ public class CourseController {
 		
 		return "redirect:/admin/course/chapte/"+courseid;
 	}
-	
+
+
 	/**
 	 * @param file
 	 * @param request
 	 * @return
-	 * ÉÏ´«ÊÓÆµ
+	 * ï¿½Ï´ï¿½ï¿½ï¿½Æµ
 	 */
 	@ResponseBody
 	@RequestMapping("/storeVideo")
@@ -137,7 +141,7 @@ public class CourseController {
 		String pathRoot = request.getSession().getServletContext().getRealPath("video"); 
 		 String filename=file.getOriginalFilename();  
 		 if(!file.isEmpty()){  
-			 //Éú³Éuuid×÷ÎªÎÄ¼þÃû³Æ  
+			 //ï¿½ï¿½ï¿½ï¿½uuidï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½  
 			 String uuid = UUID.randomUUID().toString().replaceAll("-","");  
 			 filename=uuid+filename.substring(filename.lastIndexOf("."));
 			 System.out.println("filename:"+filename);
