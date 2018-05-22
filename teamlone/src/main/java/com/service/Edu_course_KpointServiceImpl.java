@@ -51,7 +51,7 @@ public class Edu_course_KpointServiceImpl implements Edu_course_KpointService {
 		File file=new File(path+videoByID.getVideo_url());
 		file.delete();
 		
-		courseKpoint.setVideo_url("video/"+courseKpoint.getVideo_url());
+		courseKpoint.setVideo_url("/video/"+courseKpoint.getVideo_url());
 		String readVideoTime = ReadVideoTime(new File(path+courseKpoint.getVideo_url()));
 		courseKpoint.setPlay_time(readVideoTime);
 		course_KpintDao.updateCourseKpoint(courseKpoint);

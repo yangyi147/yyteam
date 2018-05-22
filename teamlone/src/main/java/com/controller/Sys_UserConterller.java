@@ -36,6 +36,7 @@ public class Sys_UserConterller {
 	public String list(@RequestParam(name="page",defaultValue="0")int page,HttpServletRequest request) {
 		Object principal = SecurityUtils.getSubject().getPrincipal();
 		Map map=init(request);
+		System.out.println("name:"+map.get("name")+",ztid:"+map.get("ztid"));
 		PageInfo<Sys_User> allUser = userService.getAllUser(map,page);
 			request.setAttribute("allUser", allUser);
 			request.setAttribute("principal", principal+"");
@@ -59,7 +60,6 @@ public class Sys_UserConterller {
 	@RequestMapping("/updateUser")
 	public String updateUser(Sys_User user,Sys_Role role,HttpServletRequest request) {
 		int updateUser = userService.updateUser(user,role);
-		System.out.println("updateUser:"+updateUser);
 		return "redirect:/admin/user/list";
 	}
 	@RequestMapping("/goToAddUser")
@@ -84,6 +84,20 @@ public class Sys_UserConterller {
 	}
 	private Map init (HttpServletRequest request){
 		Map map=new HashMap<>();
+		String attribute = request.getParameter("name");
+		if (attribute!=null&& attribute.trim().length()>0) {
+			request.setAttribute("names",attribute);
+			map.put("name", attribute);
+		}
+		String parameter = request.getParameter("ztid");
+		if (parameter!=null) {
+			int parseInt = Integer.parseInt(parameter);
+			if (parseInt>=0) {
+				map.put("ztid", parseInt);
+				request.setAttribute("ztid", parseInt);
+			}
+		}
+		
 		return map;
 	}
 	@RequestMapping("/updateState/{id}/{state}/{page}")

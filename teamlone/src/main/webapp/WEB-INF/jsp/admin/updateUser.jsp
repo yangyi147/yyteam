@@ -21,17 +21,19 @@
 
 <form class="form-horizontal" action="/admin/user/updateUser" method="post" id="updateSubject">
    <input type="hidden" name="user_id" value="${userByID.user_id }"/>
+   <input type="hidden" class="form-control"   name="login_name" id="login_name" value="${userByID.login_name }">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">登陆账号</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" onblur="loginName(this.value)" name="login_name" id="login_name" value="${userByID.login_name }">
+      
+      <input type="text" class="form-control"  disabled="disabled" name="" id="" value="${userByID.login_name }">
       <span id="login_nameSpan"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3"  class="col-sm-2 control-label">登陆密码</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" onblur="loginPwd(this.value)" id="login_pwd" name="login_pwd"  value="${userByID.login_pwd }">
+      <input type="password" class="form-control" onblur="loginPwds(this.value)" id="login_pwd" name=""  value="${userByID.login_pwd }">
       <span id="loginPwdSpan"></span>
     </div>
   </div>
@@ -99,7 +101,7 @@ $(function () {
 })
 
 var lgiName='${userByID.login_name }'
-
+var loginPwd='${userByID.login_pwd }';
 </script>
 
 </body>

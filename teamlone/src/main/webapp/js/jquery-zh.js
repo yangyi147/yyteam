@@ -307,6 +307,7 @@
     		if( names == null){
     			 $("#login_nameSpan").text("只能有字母数字且大于六位字符小于十六位字符!");	
     				$("#login_nameSpan").css({"color":"red"});
+    				$("#login_nameSpan").show();
     		}else{
     			$("#login_nameSpan").hide();
     			$.ajax({
@@ -332,7 +333,9 @@
 
     }
 	
-    function loginPwd(str) {
+    function loginPwds(str) {
+    	if(str!=loginPwd){
+    		$("#login_pwd").attr("name","login_pwd")
     	if(str.trim().length==0){
     		  $("#loginPwdSpan").text("密码不能为空!");
     		  $("#loginPwdSpan").css({"color":"red"});
@@ -349,6 +352,7 @@
     		  $("#loginPwdSpan").hide() 
     	  }
     	}
+    	}
 	}
     function userName(str) {
    	if(str.trim().length==0){
@@ -362,7 +366,6 @@
     	  if(names==null){
     		  var namef= str.match(yw);
     		  if(namef==null){
-    			  alert(123)
     			  $("#user_nameSpan").text("中文2-4位,英文4-10位");
         		  $("#user_nameSpan").css({"color":"red"});
         		  $("#user_nameSpan").show()   
@@ -403,7 +406,7 @@
     		$("#telSpan").css({"color":"red"});
 			$("#telSpan").show() 
     	}else{
-    		var  regex = /^((0\d{2,3}-\d{5,8})|(1[3584]\d{9}))$/;
+    		var  regex = /^((0\d{2,3}-\d{5,8})|(1[35784]\d{9}))$/;
             var name= str.match(regex);	
             if(name==null){        
             		$("#telSpan").text("请输入正确的电话格式!");
@@ -422,10 +425,17 @@
    			$("#login_nameSpan").css({"color":"red"});
    			$("#login_nameSpan").show();
     	}
-    	if( $("#loginPwdSpan").text()!="√"&&$("#loginPwdSpan").text()!=""){
-    		$("#loginPwdSpan").text("格式不正确");
-  		  $("#loginPwdSpan").css({"color":"red"});
-  		  $("#loginPwdSpan").show() 
+    	
+    	if($("#login_pwd").val()!=loginPwd){
+    
+    		if( $("#loginPwdSpan").text()!="√"&&$("#loginPwdSpan").text()!=""){
+    			$("#loginPwdSpan").text("格式不正确");
+    			$("#loginPwdSpan").css({"color":"red"});
+    			$("#loginPwdSpan").show() 
+    			$("#login_pwd").attr("name","")
+    		}else{
+    			$("#login_pwd").attr("name","login_pwd")
+    		}
     	}
     	if( $("#user_nameSpan").text()!="√"&&$("#user_nameSpan").text()!=""){
     		$("#user_nameSpan").text("格式不正确");
@@ -443,6 +453,7 @@
     		$("#telSpan").show() 
     	}
     	if($("#telSpan").text()=="√"||$("#telSpan").text()==""&&$("#emailSpan").text()=="√"||$("#emailSpan").text()==""&&$("#user_nameSpan").text()=="√"||$("#user_nameSpan").text()==""&&$("#loginPwdSpan").text()=="√"||$("#loginPwdSpan").text()==""&&$("#login_nameSpan").text()=="√"||$("#login_nameSpan").text()==""){
-    		$("#updateSubmit").submit();
-    	}
+    		alert(12456)
+    		$("#updateSubject").submit();
+    	}      
     }

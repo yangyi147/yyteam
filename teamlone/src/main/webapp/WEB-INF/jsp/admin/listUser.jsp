@@ -45,26 +45,17 @@
 						<form action="/admin/user/list" method="post">
 							<table class="layui-table table-hover" lay-even="" lay-skin="nob">
 								<tr>
-									<td><input type="text" id="nameid" name="name" value="${map.name }" class="form-control" placeholder="请输入搜索名称" /></td>
+									<td><input type="text" id="nameid" name="name" value="${names }" style="width: 200px; padding-left: 20px;" class="form-control" placeholder="请输入搜索名称" /></td>
 									<td>
-										<select class="form-control " id="ztid" name="ztid" style="width: 120px; ">
+										<select class="form-control "   id="ztid" name="ztid" style="width: 120px; ">
 											<option value="-1">请选择状态</option>
-											<option value="1">上架</option>
-											<option value="2">下架</option>
+											<option value="0">正常</option>
+											<option value="1">冻结</option>
 										</select>
 									</td>
-									<td>
-										<select class="form-control " id="zyid" name="zyid" style="width: 120px;">
-											<option value="-1">请选择专业</option>
-											<c:forEach items="${allSubjict }" var="subjiect">
-											<option value="${subjiect.id }" >${subjiect.name }</option>
-											</c:forEach>
-										</select>
-									</td>
+							
 									<td >
-									创建时间: <input type="date" name="stattime" id="stattime" value="${map.stattim }"/> - <input type="date" id="endtime" name="endtime" value="${map.endtime}" /> </td>
 									<td><button type="submit" class="btn btn-info no">查找</button></td>
-									<td><button type="button" class="btn btn-info no" onclick="addCourse()">添加课程</button></td>
 									<td><button type="button" class="btn btn-info no" onclick="qk()">清空</button></td>
 								</tr>
 
@@ -180,8 +171,14 @@
 		function deleteUser(id){
 			window.location.href="/admin/user/deleteUser/"+id+"/"+currentPage;
 		}
-
-	   
+    $(function(){
+    	$("#ztid").val(${ztid})
+    })
+	function qk(){
+    	$("#ztid").val(-1);
+    	$("#nameid").val("")
+    }   
+    
 </script>
 
 	</body>

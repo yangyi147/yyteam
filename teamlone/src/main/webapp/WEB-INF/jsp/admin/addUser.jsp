@@ -24,25 +24,25 @@
 
 <div style="position: absolute; left: 20%;top: 20%; width: 450px;">
 
-<form class="form-horizontal" action="/admin/user/addUser" method="post">
+<form class="form-horizontal" action="/admin/user/addUser" method="post" id="updateSubject">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">登陆账号</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control bz" onkeyup="loginName(this.value)" name="login_name" id="login_name" value="" >
+      <input type="text" class="form-control bz" onblur="loginName(this.value)" name="login_name" id="login_name" value="" >
       <span id="login_nameSpan"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">登陆密码</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" onkeyup="passWors(this.value)" name="passWors" value="">
+      <input type="password" class="form-control" onblur="loginPwds(this.value)" name="login_pwd" value="">
       <span id="loginPwdSpan"></span>
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">真实姓名</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" onkeyup="userName(this.value)" id="userName" id="userName"  value="" >
+      <input type="text" class="form-control" onblur="userName(this.value)" id="user_name" id="user_name"  value="" >
       <span id="user_nameSpan"></span>
     </div>
   </div>
@@ -50,13 +50,15 @@
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="email" name="email" value="">
+      <input type="text" class="form-control" onblur="emailValidation(this.value)" id="email" name="email" value="">
+      <span id="emailSpan"></span>
     </div>
   </div>
     <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">电话</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="tel" name="tel" value="">
+      <input type="text" class="form-control" onblur="phoneValidation(this.value)" id="tel" name="tel" value="">
+      <span id="telSpan"></span>
     </div>
   </div>
     <div class="form-group" id="js">
@@ -72,7 +74,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">提交</button>
+      <button type="button" class="btn btn-default" onclick="subject()">提交</button>
       <button type="button"  id="close"  class="btn btn-default">取消</button>
     </div>
   </div>
@@ -85,9 +87,10 @@ $(function () {
 	$("#close").click(function () {
 		window.location.href="/admin/user/list";
 	});
-	$("#loginPwd").val('');
-	$("#userName").val('');
+
 });
+var lgiName;
+var loginPwd;
 </script>
 
 </body>

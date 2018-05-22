@@ -29,9 +29,9 @@ public class UserRealm extends AuthorizingRealm{
 		String name=(String)principals.getPrimaryPrincipal();
 		Sys_User users=userService.getUserByName(name);
 		SimpleAuthorizationInfo authorizationInfo=new SimpleAuthorizationInfo();
-		//·â×°½ÇÉ«¼¯ºÏ
+		//ï¿½ï¿½×°ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
 		authorizationInfo.setRoles(userService.getUserByUserName(name));
-		//·â×°½ÇÉ«¶ÔÓ¦µÄÈ¨ÏÞ¼¯ºÏ
+		//ï¿½ï¿½×°ï¿½ï¿½É«ï¿½ï¿½Ó¦ï¿½ï¿½È¨ï¿½Þ¼ï¿½ï¿½ï¿½
 		System.out.println("doGetAuthorizationInfo:"+fuctionService.getAllFuctionByRoleId(users.getUser_id()));
 		authorizationInfo.setStringPermissions(fuctionService.getAllFuctionByRoleId(users.getUser_id()));
 		return authorizationInfo;
@@ -52,6 +52,8 @@ public class UserRealm extends AuthorizingRealm{
 		System.out.println(1246454);
 		ByteSource slat=new ByteSource.Util().bytes(uname);
 		SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(uname,uSerById.getLogin_pwd(),slat,getName());
+		System.out.println("===============================================");
+		System.out.println("info:"+info);
 		return info;
 	}
 

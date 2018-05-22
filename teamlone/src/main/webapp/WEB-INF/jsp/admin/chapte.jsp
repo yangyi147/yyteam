@@ -151,7 +151,7 @@ margin-top: 10px
 											</form>
 	</div>
 			<div style="width: 50%;position: absolute;left: 35%; top: 0px; height: 100%;display: none " id="video" >
-              <video  id="videoURl" controls="controls"></video>
+              <video  id="videoURl" src="" controls="controls"></video>
               <br/>
               <input type="button" value="关闭" class="btn btn-default " onclick="closevideo()" />
 	        </div>

@@ -32,6 +32,8 @@ public interface Sys_UserService {
 	void updateStateByID(int id,int status);
 	
 	void deleteUser(int id);
+	
+	void updateUserIpTime(Sys_User user);
 
 
 }

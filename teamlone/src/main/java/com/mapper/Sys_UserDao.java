@@ -1,6 +1,7 @@
 package com.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bean.Sys_Subject;
 import com.bean.Sys_User;
@@ -9,7 +10,7 @@ public interface Sys_UserDao {
 	
 	Sys_User getUserByName(String name);
 	
-	List<Sys_User>getAllUser();
+	List<Sys_User>getAllUser(Map map);
 	
 	int updateUser(Sys_User user);
 	
@@ -24,5 +25,7 @@ public interface Sys_UserDao {
 	void deleteUser(int id);
 	
 	void updateSubject(Sys_Subject subject);
+	
+	void updateUserIpTime(Sys_User user);
 
 }

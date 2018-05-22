@@ -29,9 +29,9 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 	Sys_UserService userService;
 	@Autowired
 	Sys_User user;
-	private int pagesize=1;
+	private int pagesize=5;
 	/* (zh)
-	 * °´ÕÕname²éÑ¯ÓÃ»§
+	 * ï¿½ï¿½ï¿½ï¿½nameï¿½ï¿½Ñ¯ï¿½Ã»ï¿½
 	 */
 	@Override
 	public Sys_User getUserByName(String name) {
@@ -39,7 +39,7 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 		return userDao.getUserByName(name);
 	}
 	/* (zh)
-	 *°´ÕÕname²éÑ¯ÓÃ»§
+	 *ï¿½ï¿½ï¿½ï¿½nameï¿½ï¿½Ñ¯ï¿½Ã»ï¿½
 	 */
 	@Override
 	public Set<String> getUserByUserName(String name) {
@@ -52,7 +52,7 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 	public PageInfo<Sys_User> getAllUser(Map map,int page) {
 		
 		PageHelper.startPage(page,pagesize);
-		List<Sys_User> allUser = userDao.getAllUser();
+		List<Sys_User> allUser = userDao.getAllUser(map);
 	
 		PageInfo<Sys_User>user=new PageInfo<Sys_User>(allUser);
 		return  user;
@@ -60,8 +60,10 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 	@Override
 	public int updateUser(Sys_User user,Sys_Role role) {
 		user.setRoel(role);
-		String md5 = getMD5(user);
-		user.setLogin_pwd(md5);
+		if(user.getLogin_pwd()!=null){
+			String md5 = getMD5(user);
+			user.setLogin_pwd(md5);
+		}
 		System.out.println("user:"+user);
 		return userDao.updateUser(user);
 	}
@@ -71,7 +73,7 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 		String pass=user.getLogin_pwd();
 		Object salt=ByteSource.Util.bytes(user.getLogin_name());
 		int count=1024;
-		ByteSource slat=new ByteSource.Util().bytes(user.getLogin_name());
+		//ByteSource slat=new ByteSource.Util().bytes(user.getLogin_name());
 		Object result=new SimpleHash(hashAlgorithName, pass,salt,count);
 		String pwd=result+"";
 		System.out.println("result:"+pwd);
@@ -115,6 +117,11 @@ public class Sys_UserServiceImpl implements Sys_UserService {
 	@Override
 	public void deleteUser(int id) {
 		userDao.deleteUser(id);
+	}
+	@Override
+	public void updateUserIpTime(Sys_User user) {
+		// TODO Auto-generated method stub
+		userDao.updateUserIpTime(user);
 	}
 
 }

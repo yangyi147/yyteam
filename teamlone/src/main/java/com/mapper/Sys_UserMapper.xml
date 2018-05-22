@@ -18,11 +18,28 @@
 <select id="getUserByName" parameterType="java.lang.String" resultType="com.bean.Sys_User">
 SELECT * from sys_user WHERE LOGIN_NAME=#{LOGIN_NAME} and status=0
 </select>
-<select id="getAllUser" resultMap="userMap" >
-SELECT * from sys_user where status!=2
+<select id="getAllUser" resultMap="userMap" parameterType="java.util.Map" >
+SELECT * from sys_user <where>
+<if test="name!=null">
+login_name like '%${name}%' or user_name like '%${name}%'
+</if>
+<if test="ztid!=null ">
+and  status=#{ztid} 
+</if>
+<if test="1==1">
+and  status!=2 
+</if>
+</where> 
 </select>
 <update id="updateUser" parameterType="com.bean.Sys_User" >
-UPDATE sys_user SET login_name=#{login_name} , login_pwd=#{login_pwd},user_name=#{user_name}, STATUS=#{status},EMAIL=#{email}, tel=#{tel} , role_id=#{roel.role_id} WHERE user_id=#{user_id}
+UPDATE sys_user <set>
+<if test="login_pwd!=null and login_pwd.trim().length>0">
+login_pwd=#{login_pwd},
+</if>
+<if test="login_name!=null">
+login_name=#{login_name} ,</if>
+
+</set> , user_name=#{user_name}, STATUS=#{status},EMAIL=#{email}, tel=#{tel} , role_id=#{roel.role_id} WHERE user_id=#{user_id}
 </update>
 <select id="getUserByID" resultMap="userMap" >
 SELECT *  FROM sys_user WHERE user_id=#{id}
@@ -41,5 +58,8 @@ UPDATE sys_user set status=#{status} WHERE user_id=#{user_id}
 </update>
 <update id="deleteUser">
 UPDATE sys_user set status=2 WHERE user_id=#{id}
+</update>
+<update id="updateUserIpTime" parameterType="com.bean.Sys_User">
+UPDATE sys_user SET last_login_time=#{last_login_time},last_login_ip=#{last_login_ip} WHERE user_id=#{user_id}
 </update>
 </mapper>

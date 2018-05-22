@@ -28,7 +28,7 @@
 		 <input type="text" placeholder="账号" name="login_name" value="admin" class="login_txtbx"/>
 	</div>
 	<div class="layui-pwd-icon larry-login">
-		 <input type="password" placeholder="密码" name="login_pwd" value="123456" class="login_txtbx"/>
+		 <input type="password" placeholder="密码" name="login_pwd" value="hao123" class="login_txtbx"/>
 	</div>
     <div class="layui-val-icon larry-login">
     	<div class="layui-code-box">
